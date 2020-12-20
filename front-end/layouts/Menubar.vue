@@ -13,7 +13,7 @@
 
                         <b-collapse class="collapse navbar-collapse" id="navbarSupportedContent" is-nav>
                             <ul class="navbar-nav">
-                                
+
                                 <li class="nav-item p-relative"><a href="#" class="nav-link">Home <i class="fas fa-chevron-down"></i></a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
@@ -111,6 +111,7 @@
 import SidebarPanel from '../layouts/SidebarPanel';
 import { mutations } from '../utils/sidebar-util';
 export default {
+  name:'Menubar',
     components: {
         SidebarPanel
     },

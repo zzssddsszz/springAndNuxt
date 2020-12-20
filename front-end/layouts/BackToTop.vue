@@ -5,3 +5,8 @@
         </back-to-top>
     </client-only>
 </template>
+<script>
+export default {
+  name:'BackToTop',
+}
+</script>

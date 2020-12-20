@@ -23,3 +23,8 @@
     }
 }
 </style>
+<script>
+export default {
+  name:'SiteLoder',
+}
+</script>
