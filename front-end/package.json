@@ -16,9 +16,11 @@
     "core-js": "^3.6.5",
     "firebase": "^8.2.1",
     "nuxt": "^2.14.6",
-    "vue-backtotop": "^1.6.1",
+    "nuxt-i18n": "^6.16.0",
+    "vue": "^2.6.12",
     "vue-carousel": "^0.18.0",
     "vue-toastification": "^1.7.8",
+    "vuelidate": "^0.7.6",
     "vueperslides": "^2.12.1"
   },
   "devDependencies": {

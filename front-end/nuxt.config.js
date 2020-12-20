@@ -27,14 +27,16 @@ export default {
     './assets/scss/styles/style.scss',
     './assets/scss/styles/admin.scss',
     './assets/scss/styles/responsive.scss',
+    './assets/scss/styles/custom.scss',
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     { src: '~/plugins/vue-carousel', ssr: false },
-    { src: '~/plugins/vue-backtotop', ssr: false },
     { src: '~/plugins/vue-toastification', ssr: false },
     { src: '~/plugins/vueperslides', ssr: false },
+    { src: '~/plugins/vuelidate', ssr: false},
+    { src: '~/plugins/event-bus', ssr: false},
     // { src: '~/plugins/firebase' },
   ],
 

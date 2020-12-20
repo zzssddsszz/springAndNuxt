@@ -23,8 +23,9 @@
     </div>
     <!-- End Top Header Area -->
 </template>
+
 <script>
 export default {
-  name:'TopHeader',
+  name:'TopHeader'
 }
 </script>

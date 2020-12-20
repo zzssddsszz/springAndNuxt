@@ -6,7 +6,6 @@
     <nuxt />
     <Footer></Footer>
     <SiteLoader  v-if="loading" />
-    <BackToTop></BackToTop>
   </div>
 </template>
 
@@ -15,11 +14,10 @@ import TopPanel from './TopPanel';
 import TopHeader from './TopHeader';
 import Menubar from './Menubar';
 import Footer from './Footer';
-import BackToTop from './BackToTop';
 import SiteLoader from './SiteLoder';
 export default {
   components: {
-    TopPanel, TopHeader, Menubar, Footer, BackToTop, SiteLoader
+    TopPanel, TopHeader, Menubar, Footer, SiteLoader
   },
   data() {
     return {
