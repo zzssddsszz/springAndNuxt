@@ -53,6 +53,7 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    // ['@nuxtjs/proxy',{pathRewrite: { '^/api' : }}]
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)

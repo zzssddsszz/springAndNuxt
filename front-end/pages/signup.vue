@@ -31,7 +31,7 @@
                   최소한 4자이상 입력하셔야 합니다.
                 </div>
                 <div class="error" v-if="!$v.form.username.maxLength">
-                  최대한 15자 이내로 입력하셔야 합니다.
+                  최대한 20자 이내로 입력하셔야 합니다.
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@ export default {
       username: {
         required,
         minLength: minLength(4),
-        maxLength: maxLength(15),
+        maxLength: maxLength(20),
         alphaNum
       },
       emailAddress: {
