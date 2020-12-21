@@ -15,7 +15,7 @@
             <h2>회원가입</h2>
           </div>
 
-          <form @submit.prevent="submitForm" class="signup-form">
+          <form @submit.prevent="submitForm" class="signup-form" novalidate>
             <div class="form-group">
               <label>아이디</label>
               <input type="text" class="form-control" placeholder="아이디를 입력해 주세요" v-model="form.username" id="username"
@@ -38,7 +38,8 @@
 
             <div class="form-group">
               <label>이메일</label>
-              <input type="email" class="form-control" placeholder="이메일을 입력해주세요" v-model="form.emailAddress" id="emailAddress" name="emailAddress">
+              <input type="email" class="form-control" placeholder="이메일을 입력해주세요" v-model="form.emailAddress"
+                     id="emailAddress" name="emailAddress">
               <div class="field-error" v-if="$v.form.emailAddress.$dirty">
                 <div class="error" v-if="!$v.form.emailAddress.required">필수로 입력하셔야 합니다.</div>
                 <div class="error" v-if="!$v.form.emailAddress.email">이메일 형식이 올바르지 않습니다.</div>
@@ -50,7 +51,16 @@
 
             <div class="form-group">
               <label>비밀번호</label>
-              <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" id="password" name="password">
+              <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요" v-model="form.password"
+                     id="password" name="password">
+              <div class="field-error" v-if="$v.form.password.$dirty">
+                <div class="error" v-if="!$v.form.password.required">필수로 입력하셔야 합니다.</div>
+                <div class="error" v-if="!$v.form.password.minLength">최소한 6자 이상 입력하셔야 합니다.</div>
+                <div class="error" v-if="!$v.form.password.maxLength">
+                  최대한 30자 이내로 입력하셔야 합니다.
+                </div>
+              </div>
+
             </div>
 
 
