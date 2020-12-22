@@ -33,4 +33,8 @@ public class User extends abstractBaseEntity {
     @Column(name = "created_date", nullable = false)
     @Builder.Default private Date createdDate = new Date();
 
+    public UserId getId(){
+        return new UserId(id);
+    }
+
 }
