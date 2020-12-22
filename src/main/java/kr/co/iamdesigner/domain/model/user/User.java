@@ -8,9 +8,9 @@ import java.util.Date;
 
 @Entity
 @Getter
-@EqualsAndHashCode(of = "id")
 @AllArgsConstructor @NoArgsConstructor
 @ToString(exclude = {"password"})
+@Builder
 @Table(name = "user")
 public class User extends abstractBaseEntity {
 
@@ -31,14 +31,6 @@ public class User extends abstractBaseEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date", nullable = false)
-    private Date createdDate;
+    @Builder.Default private Date createdDate = new Date();
 
-    public static User create(String username, String emailAddress, String password) {
-        User user = new User();
-        user.username = username;
-        user.emailAddress = emailAddress;
-        user.password = password;
-        user.createdDate = new Date();
-        return user;
-    }
 }

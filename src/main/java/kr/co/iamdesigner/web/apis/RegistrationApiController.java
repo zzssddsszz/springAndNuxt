@@ -15,5 +15,6 @@ public class RegistrationApiController extends AbstractBaseController{
     @PostMapping("/api/registrations")
     public ResponseEntity<ApiResult> register() {
 
+        return null;
     }
 }
