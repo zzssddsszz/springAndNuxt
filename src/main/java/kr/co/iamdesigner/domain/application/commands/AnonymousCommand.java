@@ -6,8 +6,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.util.Assert;
 
-@EqualsAndHashCode
+
 @Getter
+@EqualsAndHashCode
 public class AnonymousCommand implements TriggeredFrom {
 
     private IpAddress ipAddress;

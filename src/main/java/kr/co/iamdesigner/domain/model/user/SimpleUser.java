@@ -2,6 +2,7 @@ package kr.co.iamdesigner.domain.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 
-@AllArgsConstructor
+@Getter
 @EqualsAndHashCode
 @ToString
 public class SimpleUser implements UserDetails, Serializable {
@@ -20,6 +21,12 @@ public class SimpleUser implements UserDetails, Serializable {
     private UserId userId;
     private String username;
     private String password;
+
+    public SimpleUser(User user) {
+        this.userId = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+    }
 
     public UserId getUserId() {
         return userId;

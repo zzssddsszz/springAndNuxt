@@ -3,18 +3,22 @@ package kr.co.iamdesigner.config;
 import kr.co.iamdesigner.domain.common.security.AccessDeniedHandlerImpl;
 import kr.co.iamdesigner.domain.common.security.ApiRequestAccessDeniedExceptionTranslationFilter;
 import kr.co.iamdesigner.web.apis.authenticate.AuthenticationFilter;
+import kr.co.iamdesigner.web.apis.authenticate.SimpleAuthenticationFailureHandler;
+import kr.co.iamdesigner.web.apis.authenticate.SimpleAuthenticationSuccessHandler;
 import kr.co.iamdesigner.web.apis.authenticate.SimpleLogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
 import org.springframework.security.web.authentication.*;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 
+@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     public static final String[] PUBLIC = new String[]{
@@ -22,22 +26,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-            http
+        http
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
-              .and()
+                .and()
                 .authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
                 .anyRequest().authenticated()
-              .and()
+                .and()
                 .addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilterAfter(apiRequestExceptionTranslationFilter())
+                .addFilterAfter(apiRequestExceptionTranslationFilter(), ExceptionTranslationFilter.class)
                 .formLogin()
                 .loginPage("/login")
-              .and()
+                .and()
                 .logout()
                 .logoutUrl("/api/me/logout")
                 .logoutSuccessHandler(logoutSuccessHandler())
-
+                .and()
                 .csrf().disable();
     }
 
@@ -52,31 +56,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    private AuthenticationFilter authenticationFilter() {
+    public AuthenticationFilter authenticationFilter() throws Exception {
         AuthenticationFilter authenticationFilter = new AuthenticationFilter();
         authenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
-        authenticationFilter.setAuthenticationFailureHandler(authenticationFailurHandler());
+        authenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
+        authenticationFilter.setAuthenticationManager(authenticationManagerBean());
+        return authenticationFilter;
     }
 
     @Bean
-    private AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new SimpleUrlAuthenticationSuccessHandler();
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new SimpleAuthenticationSuccessHandler();
     }
 
     @Bean
-    private AuthenticationFailureHandler authenticationFailurHandler() {
-        return new SimpleUrlAuthenticationFailureHandler();
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new SimpleAuthenticationFailureHandler();
     }
 
     @Bean
-    private LogoutSuccessHandler logoutSuccessHandler() {
+    public LogoutSuccessHandler logoutSuccessHandler() {
         return new SimpleLogoutSuccessHandler();
     }
 
-    private AccessDeniedHandler accessDeniedHandler() {
+    public AccessDeniedHandler accessDeniedHandler() {
         return new AccessDeniedHandlerImpl();
     }
 
-    private ApiRequestAccessDeniedExceptionTranslationFilter apiRequestExceptionTranslationFilter() {
+    public ApiRequestAccessDeniedExceptionTranslationFilter apiRequestExceptionTranslationFilter() {
+        return new ApiRequestAccessDeniedExceptionTranslationFilter();
     }
 }

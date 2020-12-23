@@ -8,10 +8,12 @@ import kr.co.iamdesigner.domain.common.mail.MessageVariable;
 import kr.co.iamdesigner.domain.model.user.*;
 import kr.co.iamdesigner.domain.model.user.events.UserRegisteredEvent;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 @Service
 @Transactional
@@ -23,8 +25,25 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if (StringUtils.isEmpty(username)) {
+            throw new UsernameNotFoundException("유저를 찾을수 없습니다.");
+        }
+        User user;
+        if (username.contains("@")) {
+            user = userRepository.findByEmailAddress(username);
+        } else {
+            user = userRepository.findByUsername(username);
+        }
+        if (user == null) {
+            throw new UsernameNotFoundException(username + "의 유저를 찾을 수 없습니다.");
+        }
+        return new SimpleUser(user);
+    }
+
+    @Override
     public User findById(UserId userId) {
-        return null;
+        return userRepository.findById(userId.value()).orElseThrow(() -> new UsernameNotFoundException("유저를 찾을 수 없습니다."));
     }
 
     @Override
@@ -46,10 +65,5 @@ public class UserServiceImpl implements UserService {
                 "welcome.ftl",
                 MessageVariable.from("user", user)
         );
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
     }
 }
