@@ -48,7 +48,6 @@ class RegistrationApiControllerTest {
         doThrow(UsernameExistsException.class)
                 .when(serviceMock)
                 .register(payload.toCommand());
-        //TODO any()가 아닌 payload.toCommand()로 동작 가능하게 해야함
 
         mvc.perform(
                 post("/api/registrations")
