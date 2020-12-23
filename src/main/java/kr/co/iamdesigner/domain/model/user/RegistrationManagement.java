@@ -15,14 +15,14 @@ public class RegistrationManagement {
         if (repository.existsByUsername(username)) {
             throw new UsernameExistsException();
         }
-        if (repository.existsByEmailAddress(emailAddress)) {
+        if (repository.existsByEmailAddress(emailAddress.toLowerCase())) {
             throw new EmailAddressExistsException();
         }
 
         String encryptedPassword = passwordEncryptor.encrypt(password);
         User newUser = User.builder()
                 .username(username)
-                .emailAddress(emailAddress)
+                .emailAddress(emailAddress.toLowerCase())
                 .password(encryptedPassword)
                 .build();
         repository.save(newUser);

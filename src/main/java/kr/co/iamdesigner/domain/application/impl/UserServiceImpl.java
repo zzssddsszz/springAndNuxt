@@ -3,6 +3,8 @@ package kr.co.iamdesigner.domain.application.impl;
 import kr.co.iamdesigner.domain.application.UserService;
 import kr.co.iamdesigner.domain.application.commands.RegisterCommand;
 import kr.co.iamdesigner.domain.common.event.DomainEventPublisher;
+import kr.co.iamdesigner.domain.common.mail.MailManager;
+import kr.co.iamdesigner.domain.common.mail.MessageVariable;
 import kr.co.iamdesigner.domain.model.user.*;
 import kr.co.iamdesigner.domain.model.user.events.UserRegisteredEvent;
 import lombok.RequiredArgsConstructor;

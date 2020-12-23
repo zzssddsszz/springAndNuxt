@@ -1,6 +1,5 @@
 package kr.co.iamdesigner.web.payload;
-
-import kr.co.iamdesigner.domain.application.commands.RegistrationCommand;
+import kr.co.iamdesigner.domain.application.commands.RegisterCommand;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,8 +23,8 @@ public class RegistrationPayload {
     @Size(min = 6, max = 30, message = "비밀번호는 6자 이상 30자 이하여야합니다.")
     private String password;
 
-    public RegistrationCommand toCommand() {
-        return new RegistrationCommand(this.username, this.emailAddress, this.password);
+    public RegisterCommand toCommand() {
+        return new RegisterCommand(this.username, this.emailAddress, this.password);
     }
 
 
