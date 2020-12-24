@@ -21,7 +21,7 @@ import org.springframework.util.Assert;
 public class UserServiceImpl implements UserService {
     private final RegistrationManagement registrationManagement;
     private final DomainEventPublisher domainEventPublisher;
-    private final MailManager mailManager;
+    //private final MailManager mailManager;
     private final UserRepository userRepository;
 
     @Override
@@ -59,11 +59,11 @@ public class UserServiceImpl implements UserService {
     }
 
     private void sendWelcomeMessage(User user) {
-        mailManager.send(
+        /*mailManager.send(
                 user.getEmailAddress(),
                 "나는디자이너에 가입해주셔서 감사합니다.",
                 "welcome.ftl",
                 MessageVariable.from("user", user)
-        );
+        );*/
     }
 }

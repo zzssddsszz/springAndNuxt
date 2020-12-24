@@ -58,5 +58,22 @@ class RegistrationApiControllerTest {
 
     }
 
+    @Test
+    void register_validPayload_shouldSucceedAndReturn201() throws Exception {
+        RegistrationPayload payload = new RegistrationPayload();
+        payload.setUsername("testName");
+        payload.setEmailAddress("test@test.com");
+        payload.setPassword("MyPassword!@");
+
+        doNothing().when(serviceMock)
+                .register(payload.toCommand());
+
+        mvc.perform(
+                post("/api/registrations")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(JsonUtils.toJson(payload)))
+                .andExpect(status().is(201));
+    }
+
 
 }

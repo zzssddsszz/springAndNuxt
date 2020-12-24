@@ -28,7 +28,7 @@ public final class JsonUtils {
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.readValue(json, clazz);
         } catch (IOException e) {
-            log.error("JSON : " + json + "을 class : " + clazz.getName() + " 객체로 변환이 실패하였습니다.", e);
+            log.error("JSON : [" + json + "] 을 class : [" + clazz.getName() + "] 객체로 변환이 실패하였습니다.", e);
             return null;
         }
     }

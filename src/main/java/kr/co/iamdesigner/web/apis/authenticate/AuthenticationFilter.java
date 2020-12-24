@@ -26,7 +26,7 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException {
 
         log.debug("로그인 응답처리중");
 

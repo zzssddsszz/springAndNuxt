@@ -23,9 +23,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    //implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'com.h2database:h2'
 
     implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation 'org.freemarker:freemarker:2.3.30'
