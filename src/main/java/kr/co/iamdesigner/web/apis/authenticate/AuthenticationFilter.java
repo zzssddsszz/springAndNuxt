@@ -41,7 +41,7 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
     }
 
     @Getter @Setter
-    private class LoginRequest {
+    static class LoginRequest {
         private String username;
         private String password;
 
