@@ -52,20 +52,14 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/proxy',
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     proxy: true,
   },
-  env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
-  },
   proxy: {
-    '/api/': {
-      target: 'http://localhost:8080/',
-    }
+    '/api/': 'http://localhost:8080',
   },
 
   router: {
