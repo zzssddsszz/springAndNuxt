@@ -6,7 +6,7 @@ import kr.co.iamdesigner.domain.model.user.User;
 
 public class UserRegisteredEvent extends DomainEvent {
     public UserRegisteredEvent(User user, TriggeredFrom triggeredFrom) {
-        super(user.getId(), triggeredFrom);
+        super(user.getUserId(), triggeredFrom);
     }
 
     @Override

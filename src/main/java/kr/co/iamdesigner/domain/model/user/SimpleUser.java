@@ -1,6 +1,5 @@
 package kr.co.iamdesigner.domain.model.user;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -23,7 +22,7 @@ public class SimpleUser implements UserDetails, Serializable {
     private String password;
 
     public SimpleUser(User user) {
-        this.userId = user.getId();
+        this.userId = user.getUserId();
         this.username = user.getUsername();
         this.password = user.getPassword();
     }

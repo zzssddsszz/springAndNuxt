@@ -9,6 +9,7 @@ import java.util.Date;
 @Entity
 @Getter
 @AllArgsConstructor @NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
 @ToString(exclude = {"password"})
 @Builder
 @Table(name = "user")
@@ -33,7 +34,7 @@ public class User extends abstractBaseEntity {
     @Column(name = "created_date", nullable = false)
     @Builder.Default private Date createdDate = new Date();
 
-    public UserId getId(){
+    public UserId getUserId(){
         return new UserId(id);
     }
 
