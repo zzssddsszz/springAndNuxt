@@ -28,10 +28,12 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation 'com.h2database:h2'
 
-    implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation 'org.freemarker:freemarker:2.3.30'
     implementation 'org.apache.commons:commons-lang3:3.11'
     implementation 'commons-io:commons-io:2.8.0'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'org.hibernate.validator:hibernate-validator:6.1.7.Final'
+
 
 
 
@@ -41,7 +43,9 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
-//    testImplementation 'org.mockito:mockito-all:1.10.19'
+
+    testImplementation 'javax.validation:validation-api:2.0.1.Final'
+    testImplementation 'org.hibernate.validator:hibernate-validator:6.1.7.Final'
 
 }
 

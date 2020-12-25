@@ -21,6 +21,7 @@ public class RegistrationPayload {
     private String emailAddress;
 
     @Size(min = 6, max = 30, message = "비밀번호는 6자 이상 30자 이하여야합니다.")
+    @NotNull
     private String password;
 
     public RegisterCommand toCommand() {
