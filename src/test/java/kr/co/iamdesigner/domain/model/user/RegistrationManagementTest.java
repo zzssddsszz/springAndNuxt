@@ -63,6 +63,7 @@ class RegistrationManagementTest {
         String emailAddress = "test@test.com";
         String password = "MyPassword!@";
         String encryptedPassword = "EncryptedPassword";
+
         User newUser = User.builder()
                 .username(username)
                 .emailAddress(emailAddress.toLowerCase())
@@ -73,18 +74,13 @@ class RegistrationManagementTest {
         when(repositoryMock.existsByEmailAddress(emailAddress)).thenReturn(false);
         when(passwordEncryptor.encrypt(password)).thenReturn("EncryptedPassword");
 
-
         User savedUser = instance.register(username, emailAddress, password);
         InOrder inOrder = inOrder(repositoryMock);
         inOrder.verify(repositoryMock).existsByUsername(username);
-        inOrder.verify(repositoryMock).existsByEmailAddress(emailAddress.toLowerCase());
+        inOrder.verify(repositoryMock).existsByEmailAddress(emailAddress);
+//        검증실패함
 //        inOrder.verify(repositoryMock).save(newUser);
-        //TODO 검증실패됨
         verify(passwordEncryptor).encrypt(password);
         assertEquals(encryptedPassword,savedUser.getPassword());
-
-
     }
-
-
 }
