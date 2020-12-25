@@ -27,7 +27,7 @@ public class User extends abstractBaseEntity {
     @Column(name = "email_address", nullable = false, length = 100, unique = true)
     private String emailAddress;
 
-    @Column(name = "password",nullable = false, length = 30)
+    @Column(name = "password",nullable = false, length = 255)
     private String password;
 
     @Temporal(TemporalType.TIMESTAMP)

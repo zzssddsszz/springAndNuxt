@@ -8,7 +8,7 @@ export default {
    */
   register (detail) {
     return new Promise((resolve, reject) => {
-      axios.post('/registrations', detail).then(({data}) => {
+      axios.post('http://localhost:8080/api/registrations', detail).then(({data}) => {
         resolve(data)
       }).catch((error) => {
         reject(errorParser.parse(error))

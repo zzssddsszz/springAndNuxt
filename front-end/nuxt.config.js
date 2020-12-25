@@ -9,16 +9,16 @@ export default {
     },
     title: 'front-end',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: process.env.npm_package_description || ''}
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
     ]
   },
 
-  loading: { color: '#fff' },
+  loading: {color: '#fff'},
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
@@ -32,11 +32,11 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    { src: '~/plugins/vue-carousel', ssr: false },
-    { src: '~/plugins/vue-toastification', ssr: false },
-    { src: '~/plugins/vueperslides', ssr: false },
-    { src: '~/plugins/vuelidate', ssr: false},
-    { src: '~/plugins/event-bus', ssr: false},
+    {src: '~/plugins/vue-carousel', ssr: false},
+    {src: '~/plugins/vue-toastification', ssr: false},
+    {src: '~/plugins/vueperslides', ssr: false},
+    {src: '~/plugins/vuelidate', ssr: false},
+    {src: '~/plugins/event-bus', ssr: false},
     // { src: '~/plugins/firebase' },
   ],
 
@@ -44,8 +44,7 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
-  buildModules: [
-  ],
+  buildModules: [],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
@@ -53,12 +52,20 @@ export default {
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // ['@nuxtjs/proxy',{pathRewrite: { '^/api' : }}]
+    '@nuxtjs/proxy',
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    proxy: true
+    proxy: true,
+  },
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
+  proxy: {
+    '/api/': {
+      target: 'http://localhost:8080/',
+    }
   },
 
   router: {
@@ -70,7 +77,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }
