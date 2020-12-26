@@ -1,54 +1,100 @@
 <template>
-    <div>
-        <div class="page-title-area">
-            <div class="container">
-                <ul>
-                    <li><nuxt-link to="/">Home</nuxt-link></li>
-                    <li>Login</li>
-                </ul>
-            </div>
-        </div>
-
-        <section class="login-area ptb-60">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="login-content">
-                            <div class="section-title">
-                                <h2><span class="dot"></span> Login</h2>
-                            </div>
-
-                            <form class="login-form">
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" class="form-control" placeholder="Enter your name" id="name" name="name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" class="form-control" placeholder="Enter your password" id="password" name="password">
-                                </div>
-
-                                <button type="submit" class="btn btn-primary">Login</button>
-
-                                <nuxt-link to="/" class="forgot-password">Lost your password?</nuxt-link>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-md-12">
-                        <div class="new-customer-content">
-                            <div class="section-title">
-                                <h2><span class="dot"></span> New Customer</h2>
-                            </div>
-
-                            <span>Create a Account</span>
-                            <p>Sign up for a free account at our store. Registration is quick and easy. It allows you to be able to order from our shop. To start shopping click register.</p>
-                            <nuxt-link to="/signup" class="btn btn-light">Create A Account</nuxt-link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <div>
+    <div class="page-title-area">
+      <div class="container">
+        <ul>
+          <li>로그인</li>
+        </ul>
+      </div>
     </div>
+
+    <section class="login-area ptb-60">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+            <div class="login-content">
+              <div class="section-title">
+                <h2>로그인</h2>
+              </div>
+
+              <form @submit.prevent="submitForm" class="login-form" novalidate>
+                <div class="form-group">
+                  <label>이메일 또는 닉네임</label>
+                  <input class="form-control" placeholder="이메일 또는 닉네임을 입력해주세요." v-model="form.username" id="username" name="username">
+                  <div class="field-error" v-if="$v.form.username.$dirty">
+                    <div class="error" v-if="!$v.form.username.required">필수로 입력하셔야 합니다.</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>비밀번호</label>
+                  <input type="password" class="form-control" placeholder="비밀번호를 입력해주세요." v-model="form.password" id="password" name="password">
+                  <div class="field-error" v-if="$v.form.password.$dirty">
+                    <div class="error" v-if="!$v.form.password.required">필수로 입력하셔야 합니다.</div>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">로그인</button>
+
+                <nuxt-link to="/" class="forgot-password">비밀번호를 잊으셨나요??</nuxt-link>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-12">
+            <div class="new-customer-content">
+              <div class="section-title">
+                <h2>신규가입</h2>
+              </div>
+              <span>신규가입</span>
+              <p>빠르게 회원가입 할 수 있습니다. 쇼핑을 시작하려면 가입하기를 클릭하세요.</p>
+              <nuxt-link to="/signup" class="btn btn-light">가입하기</nuxt-link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
+<script>
+import {validationMixin} from 'vuelidate'
+import {required} from 'vuelidate/lib/validators'
+import authenticationService from "~/services/authentication";
+
+export default {
+  mixins: [validationMixin],
+
+  data() {
+    return {
+      form: {
+        username: '',
+        password: ''
+      },
+      errorMessage: ''
+    }
+  },
+  validations: {
+    form: {
+      username: {
+        required,
+      },
+      password: {
+        required,
+      }
+    }
+  },
+  methods: {
+    submitForm() {
+      this.$v.$touch();
+      if (this.$v.$invalid) {
+        return
+      }
+      authenticationService.login(this.form).then(() => {
+        this.$router.push({name: 'gallery-one'})
+      }).catch((error) => {
+        this.errorMessage = '로그인에 실패했습니다.' + error.message;
+      })
+    }
+  }
+}
+</script>
