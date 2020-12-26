@@ -1,8 +1,3 @@
-app:
-  mail-from: test@test.com
-
-
-
 spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
@@ -15,4 +10,12 @@ spring:
       ddl-auto: create
     database-platform: org.hibernate.dialect.H2Dialect
 
+
+  mail:
+    host: localhost
+    port: 1025
+    properties:
+      mail:
+        smtp:
+          auth: false
 
