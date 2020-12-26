@@ -1,8 +1,10 @@
 package kr.co.iamdesigner.domain.model.user;
 
 import kr.co.iamdesigner.domain.model.AbstractBaseId;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+@EqualsAndHashCode
 public class UserId extends AbstractBaseId {
     private static final long serialVersionUID = 2426889267803214263L;
 

@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 @Getter
 @AllArgsConstructor @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @Table(name = "user")
 public class User extends abstractBaseEntity {

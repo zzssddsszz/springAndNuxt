@@ -1,5 +1,7 @@
 package kr.co.iamdesigner.domain.common.model;
 
+import lombok.EqualsAndHashCode;
+
 import java.io.Serializable;
 
 public class abstractBaseEntity implements Serializable {

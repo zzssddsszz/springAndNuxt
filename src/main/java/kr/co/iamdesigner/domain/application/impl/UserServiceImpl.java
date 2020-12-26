@@ -7,6 +7,7 @@ import kr.co.iamdesigner.domain.common.mail.MailManager;
 import kr.co.iamdesigner.domain.common.mail.MessageVariable;
 import kr.co.iamdesigner.domain.model.user.*;
 import kr.co.iamdesigner.domain.model.user.events.UserRegisteredEvent;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,13 +16,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import javax.validation.constraints.NotNull;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final RegistrationManagement registrationManagement;
     private final DomainEventPublisher domainEventPublisher;
-    //private final MailManager mailManager;
+    private final MailManager mailManager;
     private final UserRepository userRepository;
 
     @Override
@@ -64,16 +67,16 @@ public class UserServiceImpl implements UserService {
                 command.getPassword());
 
         sendWelcomeMessage(newUser);
-//        domainEventPublisher.publish(new UserRegisteredEvent(newUser, command));
+        domainEventPublisher.publish(new UserRegisteredEvent(newUser, command));
 
     }
 
     private void sendWelcomeMessage(User user) {
-        /*mailManager.send(
+        mailManager.send(
                 user.getEmailAddress(),
                 "나는디자이너에 가입해주셔서 감사합니다.",
                 "welcome.ftl",
                 MessageVariable.from("user", user)
-        );*/
+        );
     }
 }

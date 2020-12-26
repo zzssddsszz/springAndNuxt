@@ -17,7 +17,7 @@ public class AmqpDomainEventPublisher implements DomainEventPublisher {
 
     private final RabbitTemplate rabbitTemplate;
     @Qualifier("domainEventsExchange")
-    private FanoutExchange exchange;
+    private final FanoutExchange exchange;
 
     @Override
     public void publish(DomainEvent event) {
