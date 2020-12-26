@@ -1,5 +1,6 @@
 package kr.co.iamdesigner.web.apis.authenticate;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +24,7 @@ class AuthenticationFilterTest {
     private AuthenticationManager authenticationManagerMock;
 
     @Test
-    void attemptAuthentication_emptyRequestBody_shouldFail() {
+    void attemptAuthentication_emptyRequestBody_shouldFail() throws JsonParseException {
         MockHttpServletRequest request = new MockHttpServletRequest("POST", "/api/authentications");
         AuthenticationFilter filter = new AuthenticationFilter();
         filter.setAuthenticationManager(authenticationManagerMock);
@@ -33,7 +34,7 @@ class AuthenticationFilterTest {
     }
 
     @Test
-    void attemptAuthentication_invalidJsonStringRequestBody_shouldFail() {
+    void attemptAuthentication_invalidJsonStringRequestBody_shouldFail() throws JsonParseException {
         MockHttpServletRequest request = new MockHttpServletRequest("POST", "/api/authentications");
         request.setContent("username=testusername&password=TestPassword!@".getBytes(StandardCharsets.UTF_8));
         AuthenticationFilter filter = new AuthenticationFilter();

@@ -1,7 +1,7 @@
 package kr.co.iamdesigner.domain.model.user;
 
-import kr.co.iamdesigner.domain.common.security.PasswordEncryptor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class RegistrationManagement {
 
     private final UserRepository repository;
-    private final PasswordEncryptor passwordEncryptor;
+    private final PasswordEncoder passwordEncoder;
 
     public User register(String username, String emailAddress, String password) throws RegistrationException {
         if (repository.existsByUsername(username)) {
@@ -19,12 +19,8 @@ public class RegistrationManagement {
             throw new EmailAddressExistsException();
         }
 
-        String encryptedPassword = passwordEncryptor.encrypt(password);
-        User newUser = User.builder()
-                .username(username)
-                .emailAddress(emailAddress.toLowerCase())
-                .password(encryptedPassword)
-                .build();
+        String encryptedPassword = passwordEncoder.encode(password);
+        User newUser = User.create(username,emailAddress,encryptedPassword);
         repository.save(newUser);
 
         return newUser;

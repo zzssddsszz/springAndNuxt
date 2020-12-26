@@ -10,6 +10,9 @@ public interface UserService extends UserDetailsService {
 
     User findById(UserId userId);
 
+    User findByUsername(String username);
+    User findByEmailAddress(String emailAddress);
+
     /**
      *
      * @param command RegisterCommand 의 인스턴스다.

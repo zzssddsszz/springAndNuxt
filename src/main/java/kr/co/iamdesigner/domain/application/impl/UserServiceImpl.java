@@ -47,6 +47,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User findByEmailAddress(String emailAddress) {
+        return userRepository.findByEmailAddress(emailAddress);
+    }
+
+    @Override
     public void register(RegisterCommand command) throws RegistrationException {
         User newUser = registrationManagement.register(
                 command.getUsername(),

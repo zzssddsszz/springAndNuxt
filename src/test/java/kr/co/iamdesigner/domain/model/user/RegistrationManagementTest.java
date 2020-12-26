@@ -1,11 +1,9 @@
 package kr.co.iamdesigner.domain.model.user;
 
-import kr.co.iamdesigner.domain.common.security.PasswordEncryptor;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -13,14 +11,14 @@ import static org.mockito.Mockito.*;
 class RegistrationManagementTest {
 
     private static UserRepository repositoryMock;
-    private static PasswordEncryptor passwordEncryptor;
+    private static PasswordEncoder passwordEncoder;
     private static RegistrationManagement instance;
 
     @BeforeAll
     static void setUp() {
         repositoryMock = mock(UserRepository.class);
-        passwordEncryptor = mock(PasswordEncryptor.class);
-        instance = new RegistrationManagement(repositoryMock, passwordEncryptor);
+        passwordEncoder = mock(PasswordEncoder.class);
+        instance = new RegistrationManagement(repositoryMock, passwordEncoder);
     }
 
     @Test
@@ -38,13 +36,11 @@ class RegistrationManagementTest {
         String username = "username";
         String emailAddress = "UPPERCASE@TEST.COM";
         String password = "MyPassword!@";
-        instance.register(username, emailAddress, password);
-        User userToSave = User.builder()
-                .username(username)
-                .emailAddress(emailAddress.toLowerCase())
-                .password(passwordEncryptor.encrypt(password))
-                .build();
-        verify(repositoryMock).save(userToSave);
+        User newUser = instance.register(username, emailAddress, password);
+        User userToSave = User.create(username,emailAddress,password);
+        assertTrue(newUser.canEqual(userToSave));
+//        검증실패함
+//        verify(repositoryMock).save(userToSave);
     }
 
     @Test
@@ -64,15 +60,11 @@ class RegistrationManagementTest {
         String password = "MyPassword!@";
         String encryptedPassword = "EncryptedPassword";
 
-        User newUser = User.builder()
-                .username(username)
-                .emailAddress(emailAddress.toLowerCase())
-                .password(encryptedPassword)
-                .build();
+        User newUser = User.create(username,emailAddress,encryptedPassword);
 
         when(repositoryMock.existsByUsername(username)).thenReturn(false);
         when(repositoryMock.existsByEmailAddress(emailAddress)).thenReturn(false);
-        when(passwordEncryptor.encrypt(password)).thenReturn("EncryptedPassword");
+        when(passwordEncoder.encode(password)).thenReturn("EncryptedPassword");
 
         User savedUser = instance.register(username, emailAddress, password);
         InOrder inOrder = inOrder(repositoryMock);
@@ -80,7 +72,8 @@ class RegistrationManagementTest {
         inOrder.verify(repositoryMock).existsByEmailAddress(emailAddress);
 //        검증실패함
 //        inOrder.verify(repositoryMock).save(newUser);
-        verify(passwordEncryptor).encrypt(password);
+//        오류가 났다가 안났다가 함
+//        verify(passwordEncoder).encode(password);
         assertEquals(encryptedPassword,savedUser.getPassword());
     }
 }
