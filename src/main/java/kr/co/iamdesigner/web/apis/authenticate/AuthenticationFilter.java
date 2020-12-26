@@ -1,7 +1,9 @@
 package kr.co.iamdesigner.web.apis.authenticate;
 
+import kr.co.iamdesigner.domain.common.security.PasswordEncryptor;
 import kr.co.iamdesigner.utils.JsonUtils;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -12,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,17 +39,21 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
             throw new InsufficientAuthenticationException("잘못된 인증 요청입니다.");
         }
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.encryptedPassword());
         return this.getAuthenticationManager().authenticate(token);
     }
 
     @Getter @Setter
+    @Component
+    @RequiredArgsConstructor
     static class LoginRequest {
         private String username;
         private String password;
+        private final PasswordEncryptor passwordEncryptor;
 
         public boolean isInvalid() {
             return StringUtils.isBlank(username) || StringUtils.isBlank(password);
         }
+        public String encryptedPassword(){return passwordEncryptor.encrypt(password);}
     }
 }
