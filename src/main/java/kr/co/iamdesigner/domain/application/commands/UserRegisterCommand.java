@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode(callSuper = false)
-public class RegisterCommand extends AnonymousCommand{
+public class UserRegisterCommand extends AnonymousCommand{
 
     private final String username;
     private final String emailAddress;

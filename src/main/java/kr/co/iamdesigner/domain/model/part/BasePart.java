@@ -3,6 +3,7 @@ package kr.co.iamdesigner.domain.model.part;
 import kr.co.iamdesigner.domain.model.part.PlatingColor;
 import kr.co.iamdesigner.domain.model.part.SuppliedPart;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn
+//@Inheritance(strategy = InheritanceType.JOINED)
+//@DiscriminatorColumn
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public abstract class BasePart implements Serializable {
+public class BasePart implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,5 +46,13 @@ public abstract class BasePart implements Serializable {
     @Enumerated(EnumType.STRING)
     private PlatingColor color;
 
-
+    @Builder
+    public BasePart(String name, int buyPrice, int sellPrice, int stock, PartType partType, PlatingColor color) {
+        this.name = name;
+        this.buyPrice = buyPrice;
+        this.sellPrice = sellPrice;
+        this.stock = stock;
+        this.partType = partType;
+        this.color = color;
+    }
 }

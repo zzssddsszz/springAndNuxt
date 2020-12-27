@@ -1,6 +1,6 @@
 package kr.co.iamdesigner.domain.application.impl;
 
-import kr.co.iamdesigner.domain.application.commands.RegisterCommand;
+import kr.co.iamdesigner.domain.application.commands.UserRegisterCommand;
 import kr.co.iamdesigner.domain.common.event.DomainEventPublisher;
 import kr.co.iamdesigner.domain.common.mail.MailManager;
 import kr.co.iamdesigner.domain.common.mail.MessageVariable;
@@ -26,7 +26,7 @@ class UserServiceImplTest {
     @BeforeAll
     static void setUp(){
         userRegistrationManagementMock = mock(UserRegistrationManagement.class);
-        domainEventPublisherMock = mock(DomainEventPublisher.class);
+//        domainEventPublisherMock = mock(DomainEventPublisher.class);
         mailManagerMock = mock(MailManager.class);
         userRepositoryMock = mock(UserRepository.class);
         instance = new UserServiceImpl(userRegistrationManagementMock, mailManagerMock, userRepositoryMock);
@@ -73,18 +73,18 @@ class UserServiceImplTest {
     }
 
     @Test
-    void register_existingUsername_shouldFail() throws RegistrationException {
+    void register_existingUsername_shouldFail() throws UserRegistrationException {
         String username = "existing";
         String emailAddress = "test@test.com";
         String password = "MyPassword!@";
         doThrow(UsernameExistsException.class).when(userRegistrationManagementMock)
                 .register(username, emailAddress, password);
-        RegisterCommand command = new RegisterCommand(username, emailAddress, password);
-        assertThrows(RegistrationException.class,()->instance.register(command));
+        UserRegisterCommand command = new UserRegisterCommand(username, emailAddress, password);
+        assertThrows(UserRegistrationException.class,()->instance.register(command));
     }
 
     @Test
-    void register_validCommand_shouldSucceed() throws RegistrationException {
+    void register_validCommand_shouldSucceed() throws UserRegistrationException {
         String username = "existing";
         String emailAddress = "test@test.com";
         String password = "MyPassword!@";
@@ -97,7 +97,7 @@ class UserServiceImplTest {
         when(userRegistrationManagementMock.register(username, emailAddress, password)).thenReturn(newUser);
 
         IpAddress ipAddress = new IpAddress("127.0.0.1");
-        RegisterCommand command = mock(RegisterCommand.class);
+        UserRegisterCommand command = mock(UserRegisterCommand.class);
         when(command.getUsername()).thenReturn(username);
         when(command.getEmailAddress()).thenReturn(emailAddress);
         when(command.getPassword()).thenReturn(password);

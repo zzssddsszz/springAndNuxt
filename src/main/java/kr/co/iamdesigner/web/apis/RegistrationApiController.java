@@ -1,9 +1,9 @@
 package kr.co.iamdesigner.web.apis;
 
 import kr.co.iamdesigner.domain.application.UserService;
-import kr.co.iamdesigner.domain.application.commands.RegisterCommand;
+import kr.co.iamdesigner.domain.application.commands.UserRegisterCommand;
 import kr.co.iamdesigner.domain.model.user.EmailAddressExistsException;
-import kr.co.iamdesigner.domain.model.user.RegistrationException;
+import kr.co.iamdesigner.domain.model.user.UserRegistrationException;
 import kr.co.iamdesigner.domain.model.user.UsernameExistsException;
 import kr.co.iamdesigner.web.payload.RegistrationPayload;
 import kr.co.iamdesigner.web.results.ApiResult;
@@ -29,11 +29,11 @@ public class RegistrationApiController extends AbstractBaseController{
     @CrossOrigin("http://localhost:3333")
     public ResponseEntity<ApiResult> register(@Valid @RequestBody RegistrationPayload payload, HttpServletRequest request) {
         try {
-            RegisterCommand command = payload.toCommand();
+            UserRegisterCommand command = payload.toCommand();
             addTriggeredBy(command, request);
             service.register(command);
             return Result.created();
-        } catch (RegistrationException e) {
+        } catch (UserRegistrationException e) {
             String errorMessage = "회원가입에 실패하였습니다.";
             if(e instanceof UsernameExistsException){
                 errorMessage = "유저이름이 이미 등록되어 있습니다.";

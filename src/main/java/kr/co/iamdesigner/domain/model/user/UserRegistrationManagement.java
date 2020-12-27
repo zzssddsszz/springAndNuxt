@@ -11,7 +11,7 @@ public class UserRegistrationManagement {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
-    public User register(String username, String emailAddress, String password) throws RegistrationException {
+    public User register(String username, String emailAddress, String password) throws UserRegistrationException {
         if (repository.existsByUsername(username)) {
             throw new UsernameExistsException();
         }

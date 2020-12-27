@@ -22,7 +22,7 @@ class UserRegistrationManagementTest {
     }
 
     @Test
-    void register_existedUsername_shouldFail() throws RegistrationException {
+    void register_existedUsername_shouldFail() throws UserRegistrationException {
         String username = "existUsername";
         String emailAddress = "test@test.com";
         String password = "MyPassword!@";
@@ -32,7 +32,7 @@ class UserRegistrationManagementTest {
     }
 
     @Test
-    public void register_uppercaseEmailAddress_shouldSucceedAndBecomeLowercase() throws RegistrationException {
+    public void register_uppercaseEmailAddress_shouldSucceedAndBecomeLowercase() throws UserRegistrationException {
         String username = "username";
         String emailAddress = "UPPERCASE@TEST.COM";
         String password = "MyPassword!@";
@@ -44,7 +44,7 @@ class UserRegistrationManagementTest {
     }
 
     @Test
-    void register_existedEmailAddress_shouldFail() throws RegistrationException {
+    void register_existedEmailAddress_shouldFail() throws UserRegistrationException {
         String username = "username";
         String emailAddress = "existEmail@test.com";
         String password = "MyPassword!@";
@@ -54,7 +54,7 @@ class UserRegistrationManagementTest {
     }
 
     @Test
-    public void register_newUser_shouldSucceed() throws RegistrationException {
+    public void register_newUser_shouldSucceed() throws UserRegistrationException {
         String username = "username";
         String emailAddress = "test@test.com";
         String password = "MyPassword!@";

@@ -1,5 +1,5 @@
 package kr.co.iamdesigner.web.payload;
-import kr.co.iamdesigner.domain.application.commands.RegisterCommand;
+import kr.co.iamdesigner.domain.application.commands.UserRegisterCommand;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,8 +24,8 @@ public class RegistrationPayload {
     @NotNull
     private String password;
 
-    public RegisterCommand toCommand() {
-        return new RegisterCommand(this.username, this.emailAddress, this.password);
+    public UserRegisterCommand toCommand() {
+        return new UserRegisterCommand(this.username, this.emailAddress, this.password);
     }
 
 

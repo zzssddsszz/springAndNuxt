@@ -1,7 +1,7 @@
 package kr.co.iamdesigner.domain.application.impl;
 
 import kr.co.iamdesigner.domain.application.UserService;
-import kr.co.iamdesigner.domain.application.commands.RegisterCommand;
+import kr.co.iamdesigner.domain.application.commands.UserRegisterCommand;
 import kr.co.iamdesigner.domain.common.mail.MailManager;
 import kr.co.iamdesigner.domain.common.mail.MessageVariable;
 import kr.co.iamdesigner.domain.model.user.*;
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(RegisterCommand command) throws RegistrationException {
+    public void register(UserRegisterCommand command) throws UserRegistrationException {
         User newUser = userRegistrationManagement.register(
                 command.getUsername(),
                 command.getEmailAddress(),
