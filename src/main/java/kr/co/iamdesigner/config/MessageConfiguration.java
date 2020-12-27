@@ -1,3 +1,4 @@
+/*
 package kr.co.iamdesigner.config;
 
 import org.springframework.amqp.core.Binding;
@@ -25,3 +26,4 @@ public class MessageConfiguration {
         return BindingBuilder.bind(activityTrackingQueue).to(exchange);
     }
 }
+*/

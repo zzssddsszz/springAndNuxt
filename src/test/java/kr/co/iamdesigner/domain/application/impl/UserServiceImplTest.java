@@ -31,7 +31,7 @@ class UserServiceImplTest {
         domainEventPublisherMock = mock(DomainEventPublisher.class);
         mailManagerMock = mock(MailManager.class);
         userRepositoryMock = mock(UserRepository.class);
-        instance = new UserServiceImpl(registrationManagementMock, domainEventPublisherMock, mailManagerMock, userRepositoryMock);
+        instance = new UserServiceImpl(registrationManagementMock, mailManagerMock, userRepositoryMock);
     }
 
     @Test
@@ -115,12 +115,12 @@ class UserServiceImplTest {
 
         );
 
-        ArgumentCaptor<UserRegisteredEvent> argumentCaptor = ArgumentCaptor.forClass(UserRegisteredEvent.class);
-        verify(domainEventPublisherMock).publish(argumentCaptor.capture());
-
-        UserRegisteredEvent event = argumentCaptor.getValue();
-        assertEquals(newUser.getUserId(),event.getUserId());
-        assertEquals(ipAddress,event.getIpAddress());
+//        ArgumentCaptor<UserRegisteredEvent> argumentCaptor = ArgumentCaptor.forClass(UserRegisteredEvent.class);
+//        verify(domainEventPublisherMock).publish(argumentCaptor.capture());
+//
+//        UserRegisteredEvent event = argumentCaptor.getValue();
+//        assertEquals(newUser.getUserId(),event.getUserId());
+//        assertEquals(ipAddress,event.getIpAddress());
     }
 
 

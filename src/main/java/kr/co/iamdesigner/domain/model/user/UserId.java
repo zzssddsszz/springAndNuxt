@@ -4,7 +4,7 @@ import kr.co.iamdesigner.domain.model.AbstractBaseId;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 public class UserId extends AbstractBaseId {
     private static final long serialVersionUID = 2426889267803214263L;
 

@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final RegistrationManagement registrationManagement;
-    private final DomainEventPublisher domainEventPublisher;
+//    private final DomainEventPublisher domainEventPublisher;
     private final MailManager mailManager;
     private final UserRepository userRepository;
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
                 command.getPassword());
 
         sendWelcomeMessage(newUser);
-        domainEventPublisher.publish(new UserRegisteredEvent(newUser, command));
+//        domainEventPublisher.publish(new UserRegisteredEvent(newUser, command));
 
     }
 
