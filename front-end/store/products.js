@@ -3,7 +3,7 @@ const state = () => ({
         {
             id: 1,
             name: 'Linen crochet trim t-shirt',
-            price: 191.00,
+            price: 181.00,
             offer: true,
             offerPrice: 3,
             latest: true,

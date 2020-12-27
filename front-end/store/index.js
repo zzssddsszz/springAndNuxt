@@ -49,7 +49,7 @@ const mutations = {
 
         state.totalAmount = totals(payload).amount
         state.totalQuantity = totals(payload).qty
-    }, 
+    },
     'CART_EMPTY'(state){
         state.cart = []
         state.totalAmount = 0
@@ -91,7 +91,7 @@ const actions = {
 
         const cartUpdate = [...currentCartToUpdate.slice(0, indexToUpdate), newCart, ...currentCartToUpdate.slice(indexToUpdate + 1)]
         commit('UPDATE_CART', cartUpdate)
-    }, 
+    },
     cartEmpty({commit}){
         commit('CART_EMPTY')
     }

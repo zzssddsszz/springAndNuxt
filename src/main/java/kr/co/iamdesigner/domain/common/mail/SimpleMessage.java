@@ -14,24 +14,4 @@ public class SimpleMessage implements Message {
     private final String subject;
     private final String body;
     private final String from;
-
-    @Override
-    public String getTo() {
-        return null;
-    }
-
-    @Override
-    public String getSubject() {
-        return null;
-    }
-
-    @Override
-    public String getBody() {
-        return null;
-    }
-
-    @Override
-    public String getFrom() {
-        return null;
-    }
 }
