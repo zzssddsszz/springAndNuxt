@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class RegistrationManagement {
+public class UserRegistrationManagement {
 
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;

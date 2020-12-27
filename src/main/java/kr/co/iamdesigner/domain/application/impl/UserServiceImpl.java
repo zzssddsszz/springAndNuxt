@@ -2,27 +2,21 @@ package kr.co.iamdesigner.domain.application.impl;
 
 import kr.co.iamdesigner.domain.application.UserService;
 import kr.co.iamdesigner.domain.application.commands.RegisterCommand;
-import kr.co.iamdesigner.domain.common.event.DomainEventPublisher;
 import kr.co.iamdesigner.domain.common.mail.MailManager;
 import kr.co.iamdesigner.domain.common.mail.MessageVariable;
 import kr.co.iamdesigner.domain.model.user.*;
-import kr.co.iamdesigner.domain.model.user.events.UserRegisteredEvent;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
-
-import javax.validation.constraints.NotNull;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final RegistrationManagement registrationManagement;
+    private final UserRegistrationManagement userRegistrationManagement;
 //    private final DomainEventPublisher domainEventPublisher;
     private final MailManager mailManager;
     private final UserRepository userRepository;
@@ -61,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(RegisterCommand command) throws RegistrationException {
-        User newUser = registrationManagement.register(
+        User newUser = userRegistrationManagement.register(
                 command.getUsername(),
                 command.getEmailAddress(),
                 command.getPassword());

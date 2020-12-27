@@ -5,12 +5,10 @@ import kr.co.iamdesigner.domain.common.event.DomainEventPublisher;
 import kr.co.iamdesigner.domain.common.mail.MailManager;
 import kr.co.iamdesigner.domain.common.mail.MessageVariable;
 import kr.co.iamdesigner.domain.model.user.*;
-import kr.co.iamdesigner.domain.model.user.events.UserRegisteredEvent;
 import kr.co.iamdesigner.utils.IpAddress;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -19,7 +17,7 @@ import static org.mockito.Mockito.*;
 
 class UserServiceImplTest {
 
-    private static RegistrationManagement registrationManagementMock;
+    private static UserRegistrationManagement userRegistrationManagementMock;
     private static DomainEventPublisher domainEventPublisherMock;
     private static MailManager mailManagerMock;
     private static UserRepository userRepositoryMock;
@@ -27,11 +25,11 @@ class UserServiceImplTest {
 
     @BeforeAll
     static void setUp(){
-        registrationManagementMock = mock(RegistrationManagement.class);
+        userRegistrationManagementMock = mock(UserRegistrationManagement.class);
         domainEventPublisherMock = mock(DomainEventPublisher.class);
         mailManagerMock = mock(MailManager.class);
         userRepositoryMock = mock(UserRepository.class);
-        instance = new UserServiceImpl(registrationManagementMock, mailManagerMock, userRepositoryMock);
+        instance = new UserServiceImpl(userRegistrationManagementMock, mailManagerMock, userRepositoryMock);
     }
 
     @Test
@@ -79,7 +77,7 @@ class UserServiceImplTest {
         String username = "existing";
         String emailAddress = "test@test.com";
         String password = "MyPassword!@";
-        doThrow(UsernameExistsException.class).when(registrationManagementMock)
+        doThrow(UsernameExistsException.class).when(userRegistrationManagementMock)
                 .register(username, emailAddress, password);
         RegisterCommand command = new RegisterCommand(username, emailAddress, password);
         assertThrows(RegistrationException.class,()->instance.register(command));
@@ -96,7 +94,7 @@ class UserServiceImplTest {
         when(newUser.getEmailAddress()).thenReturn(emailAddress);
         when(newUser.getPassword()).thenReturn(password);
 
-        when(registrationManagementMock.register(username, emailAddress, password)).thenReturn(newUser);
+        when(userRegistrationManagementMock.register(username, emailAddress, password)).thenReturn(newUser);
 
         IpAddress ipAddress = new IpAddress("127.0.0.1");
         RegisterCommand command = mock(RegisterCommand.class);

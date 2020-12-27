@@ -8,17 +8,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class RegistrationManagementTest {
+class UserRegistrationManagementTest {
 
     private static UserRepository repositoryMock;
     private static PasswordEncoder passwordEncoder;
-    private static RegistrationManagement instance;
+    private static UserRegistrationManagement instance;
 
     @BeforeAll
     static void setUp() {
         repositoryMock = mock(UserRepository.class);
         passwordEncoder = mock(PasswordEncoder.class);
-        instance = new RegistrationManagement(repositoryMock, passwordEncoder);
+        instance = new UserRegistrationManagement(repositoryMock, passwordEncoder);
     }
 
     @Test
