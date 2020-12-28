@@ -20,8 +20,8 @@ public class SuppliedPart {
     private BasePart part;
 
     @Column
-    private int amount;
+    private String name;
 
     @Column
-    private int price;
+    private int amount;
 }

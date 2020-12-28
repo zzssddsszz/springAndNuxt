@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@Inheritance(strategy = InheritanceType.JOINED)
-//@DiscriminatorColumn
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class BasePart implements Serializable {
@@ -40,19 +40,19 @@ public class BasePart implements Serializable {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private PartType partType;
+    private PlatingColor color;
 
     @Column
     @Enumerated(EnumType.STRING)
-    private PlatingColor color;
+    private Material material;
 
     @Builder
-    public BasePart(String name, int buyPrice, int sellPrice, int stock, PartType partType, PlatingColor color) {
+    public BasePart(String name, int buyPrice, int sellPrice, int stock, PartType partType, PlatingColor color,Material material) {
         this.name = name;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
         this.stock = stock;
-        this.partType = partType;
         this.color = color;
+        this.material = material;
     }
 }
