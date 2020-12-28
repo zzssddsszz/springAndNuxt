@@ -21,10 +21,13 @@ public class BasePart implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PART_ID")
     private Long id;
 
-    @OneToMany(mappedBy = "part")
-    private List<SuppliedPart> suppliedPartList = new ArrayList<>();
+    @Column
+    @OneToMany
+    @JoinColumn(name = "PART_ID")
+    private List<SuppliedPart> suppliedPart = new ArrayList<>();
 
     @Column
     private String name;

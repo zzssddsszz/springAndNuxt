@@ -1,6 +1,7 @@
 package kr.co.iamdesigner.domain.model.product;
 
 import kr.co.iamdesigner.domain.model.part.SuppliedPart;
+import kr.co.iamdesigner.domain.model.tag.Tag;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -16,12 +17,14 @@ import java.util.List;
 public class Product {
 
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PRODUCT_ID")
     private Long id;
 
     @Column
-    @OneToMany(mappedBy = "product")
-    private List<SuppliedPart> suppliedPartList = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "PRODUCT_ID")
+    private List<SuppliedPart> suppliedPart = new ArrayList<>();
 
     @Column
     private int price;
@@ -42,7 +45,8 @@ public class Product {
     private int flatDiscount;
 
     @Column
-    private String tagList;
+    @OneToMany(mappedBy = "TAG_ID")
+    private List<Tag> tagList = new ArrayList<>();
 
     @Column
     private String detailedHtml;
