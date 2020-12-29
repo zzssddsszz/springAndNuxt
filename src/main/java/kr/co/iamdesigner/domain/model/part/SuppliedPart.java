@@ -13,17 +13,15 @@ public class SuppliedPart {
     @Column(name = "SUPPLIED_PART_ID")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
+//    @ManyToOne
+//    @JoinColumn(name = "PRODUCT_ID")
+//    private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "PART_ID")
+    @JoinColumn(name = "BASE_PART_ID")
     private BasePart basePart;
 
-    @Column
     private String name;
 
-    @Column
     private int amount;
 }

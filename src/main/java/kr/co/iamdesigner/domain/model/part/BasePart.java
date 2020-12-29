@@ -12,45 +12,37 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn
+@Entity(name = "BASE_PART")
+//@Inheritance(strategy = InheritanceType.JOINED)
+//@DiscriminatorColumn
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class BasePart implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PART_ID")
+    @Column(name = "BASE_PART_ID")
     private Long id;
 
-    @Column
-    @OneToMany
-    @JoinColumn(name = "PART_ID")
+    @OneToMany(mappedBy = "basePart")
     private List<SuppliedPart> suppliedPart = new ArrayList<>();
 
-    @Column
     private String name;
 
-    @Column
     private int buyPrice;
 
-    @Column
     private int sellPrice;
 
-    @Column
     private int stock;
 
-    @Column
     @Enumerated(EnumType.STRING)
     private PlatingColor color;
 
-    @Column
     @Enumerated(EnumType.STRING)
     private Material material;
 
     @Builder
-    public BasePart(String name, int buyPrice, int sellPrice, int stock, PartType partType, PlatingColor color,Material material) {
+    public BasePart(String name, int buyPrice, int sellPrice, int stock, PartType partType, PlatingColor color, Material material) {
         this.name = name;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;

@@ -21,34 +21,26 @@ public class Product {
     @Column(name = "PRODUCT_ID")
     private Long id;
 
-    @Column
-    @OneToMany
-    @JoinColumn(name = "PRODUCT_ID")
-    private List<SuppliedPart> suppliedPart = new ArrayList<>();
+//    @OneToMany(mappedBy = "product")
+//    @JoinColumn(name = "SUPPLIED_PART_ID")
+//    private List<SuppliedPart> suppliedPart = new ArrayList<>();
 
-    @Column
     private int price;
 
-    @Column
     private String mainImageAddress;
 
-    @Column
     private String subImageAddressList;
 
-    @Column
     private String name;
 
-    @Column
     private double rateDiscount;
 
-    @Column
     private int flatDiscount;
 
-    @Column
-    @OneToMany(mappedBy = "TAG_ID")
-    private List<Tag> tagList = new ArrayList<>();
+//    @OneToMany(mappedBy = "TAG_ID")
+//    private List<Tag> tagList = new ArrayList<>();
 
-    @Column
+    @Lob
     private String detailedHtml;
 
 }
