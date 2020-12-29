@@ -6,5 +6,4 @@ import java.util.Optional;
 
 public interface PartRepository extends JpaRepository<BasePart,Long> {
     Optional<BasePart> findByName(String name);
-    boolean existsByNameAndColor(String name, PlatingColor color);
 }

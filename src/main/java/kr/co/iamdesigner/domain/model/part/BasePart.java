@@ -1,23 +1,21 @@
 package kr.co.iamdesigner.domain.model.part;
 
-import kr.co.iamdesigner.domain.model.part.PlatingColor;
-import kr.co.iamdesigner.domain.model.part.SuppliedPart;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "BASE_PART")
-//@Inheritance(strategy = InheritanceType.JOINED)
-//@DiscriminatorColumn
+@Entity
+@Table(name = "BASE_PART")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class BasePart implements Serializable {
+public class BasePart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

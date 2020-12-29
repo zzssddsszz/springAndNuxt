@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "PRODUCT")
 @Getter
 @EqualsAndHashCode
 @ToString
@@ -21,9 +22,8 @@ public class Product {
     @Column(name = "PRODUCT_ID")
     private Long id;
 
-//    @OneToMany(mappedBy = "product")
-//    @JoinColumn(name = "SUPPLIED_PART_ID")
-//    private List<SuppliedPart> suppliedPart = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<SuppliedPart> suppliedPart = new ArrayList<>();
 
     private int price;
 
@@ -37,8 +37,8 @@ public class Product {
 
     private int flatDiscount;
 
-//    @OneToMany(mappedBy = "TAG_ID")
-//    private List<Tag> tagList = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<Tag> tagList = new ArrayList<>();
 
     @Lob
     private String detailedHtml;

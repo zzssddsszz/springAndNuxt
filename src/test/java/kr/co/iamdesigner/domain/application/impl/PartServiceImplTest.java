@@ -1,12 +1,12 @@
 package kr.co.iamdesigner.domain.application.impl;
 
-import kr.co.iamdesigner.domain.model.part.PartRegistrationException;
-import kr.co.iamdesigner.domain.model.part.PartRegistrationManagement;
-import kr.co.iamdesigner.domain.model.part.PartRepository;
+import kr.co.iamdesigner.domain.application.commands.BasePartRegisterCommand;
+import kr.co.iamdesigner.domain.model.part.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
 class PartServiceImplTest {
@@ -27,7 +27,20 @@ class PartServiceImplTest {
     }
 
     @Test
-    void register_existName_shouldFail(){
+    void register_existName_shouldFail() throws PartRegistrationException {
+        BasePartRegisterCommand command = BasePartRegisterCommand.builder()
+                .name("existing")
+                .buyPrice(5000)
+                .stock(10)
+                .partType(PartType.PENDANT)
+                .color(PlatingColor.NONE)
+                .build();
+
+        doThrow(PartExistsException.class).when(partRegistrationManagementMock)
+                .register(command);
+
+
+
 
     }
 }
