@@ -1,6 +1,6 @@
 package kr.co.iamdesigner.domain.model.user;
 
-import kr.co.iamdesigner.domain.common.model.abstractBaseEntity;
+import kr.co.iamdesigner.domain.common.model.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,11 +8,8 @@ import java.util.Date;
 
 @Entity
 @Getter
-@AllArgsConstructor @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@ToString
 @Table(name = "user")
-public class User extends abstractBaseEntity {
+public class User extends BaseEntity {
 
     private static final long serialVersionUID = -5108186504017368674L;
 
@@ -29,16 +26,12 @@ public class User extends abstractBaseEntity {
     @Column(name = "password",nullable = false, length = 255)
     private String password;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_date", nullable = false)
-    private Date createdDate = new Date();
 
     public static User create(String username, String emailAddress, String password){
         User user = new User();
         user.username = username;
         user.emailAddress = emailAddress;
         user.password = password;
-        user.createdDate = new Date();
         return user;
     }
 

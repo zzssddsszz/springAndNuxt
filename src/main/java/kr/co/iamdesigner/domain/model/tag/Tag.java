@@ -1,5 +1,6 @@
 package kr.co.iamdesigner.domain.model.tag;
 
+import kr.co.iamdesigner.domain.common.model.BaseEntity;
 import kr.co.iamdesigner.domain.model.product.Product;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "TAG")
-public class Tag {
+public class Tag extends BaseEntity {
     @Id
     @Column(name = "TAG_ID")
     private Long id;

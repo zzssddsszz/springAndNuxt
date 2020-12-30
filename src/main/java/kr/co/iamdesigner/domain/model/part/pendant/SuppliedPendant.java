@@ -1,13 +1,13 @@
-package kr.co.iamdesigner.domain.model.part;
+package kr.co.iamdesigner.domain.model.part.pendant;
 
-import kr.co.iamdesigner.domain.model.part.BasePart;
+import kr.co.iamdesigner.domain.model.part.pendant.Pendant;
 import kr.co.iamdesigner.domain.model.product.Product;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "SUPPLIED_PART" )
-public class SuppliedPart {
+@Table(name = "SUPPLIED_PART")
+public class SuppliedPendant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,8 @@ public class SuppliedPart {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "BASE_PART_ID")
-    private BasePart basePart;
+    @JoinColumn(name = "PENDANT_ID")
+    private Pendant pendant;
 
     private String name;
 

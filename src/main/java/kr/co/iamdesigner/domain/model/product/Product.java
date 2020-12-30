@@ -1,6 +1,7 @@
 package kr.co.iamdesigner.domain.model.product;
 
-import kr.co.iamdesigner.domain.model.part.SuppliedPart;
+import kr.co.iamdesigner.domain.common.model.BaseEntity;
+import kr.co.iamdesigner.domain.model.part.pendant.SuppliedPendant;
 import kr.co.iamdesigner.domain.model.tag.Tag;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @EqualsAndHashCode
 @ToString
-public class Product {
+public class Product extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,7 @@ public class Product {
     private Long id;
 
     @OneToMany(mappedBy = "product")
-    private List<SuppliedPart> suppliedPart = new ArrayList<>();
+    private List<SuppliedPendant> suppliedPendant = new ArrayList<>();
 
     private int price;
 
