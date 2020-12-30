@@ -1,3 +1,4 @@
+/*
 package kr.co.iamdesigner.domain.application.impl;
 
 import kr.co.iamdesigner.domain.application.commands.PendantRegisterCommand;
@@ -46,4 +47,4 @@ class PendantServiceImplTest {
 
 
     }
-}
+}*/

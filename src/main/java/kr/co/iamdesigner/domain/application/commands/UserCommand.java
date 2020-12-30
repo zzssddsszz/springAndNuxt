@@ -3,15 +3,14 @@ package kr.co.iamdesigner.domain.application.commands;
 import kr.co.iamdesigner.domain.common.event.TriggeredBy;
 import kr.co.iamdesigner.domain.model.user.UserId;
 import kr.co.iamdesigner.utils.IpAddress;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.util.Assert;
 
 import java.util.Objects;
 
 @Getter
 @EqualsAndHashCode
+@AllArgsConstructor
 @ToString
 public abstract class UserCommand implements TriggeredBy {
 
