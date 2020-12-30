@@ -9,12 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "BASE_PART")
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+@MappedSuperclass
 public class BasePart {
 
     @Id
@@ -38,14 +33,4 @@ public class BasePart {
 
     @Enumerated(EnumType.STRING)
     private Material material;
-
-    @Builder
-    public BasePart(String name, int buyPrice, int sellPrice, int stock, PartType partType, PlatingColor color, Material material) {
-        this.name = name;
-        this.buyPrice = buyPrice;
-        this.sellPrice = sellPrice;
-        this.stock = stock;
-        this.color = color;
-        this.material = material;
-    }
 }

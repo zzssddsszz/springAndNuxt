@@ -15,6 +15,5 @@ public class BasePartRegisterCommand extends UserCommand{
     private String name;
     private int buyPrice;
     private int stock;
-    private PartType partType;
     private PlatingColor color;
 }
