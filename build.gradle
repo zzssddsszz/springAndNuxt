@@ -36,7 +36,6 @@ dependencies {
 
 
 
-
     compile("com.querydsl:querydsl-core")
     compile("com.querydsl:querydsl-jpa")
     annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa") // querydsl JPAAnnotationProcessor 사용 지정
