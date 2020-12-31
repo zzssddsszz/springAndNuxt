@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public abstract class AbstractBaseController {
 
-    void addTriggeredBy(UserCommand command, HttpServletRequest request) {
+    static void addTriggeredBy(UserCommand command, HttpServletRequest request) {
         Assert.notNull(request.getUserPrincipal(), "UserPrincipal이 요청에 있어야 합니다.");
         UsernamePasswordAuthenticationToken userPrincipal = (UsernamePasswordAuthenticationToken) request.getUserPrincipal();
         SimpleUser currentUser = (SimpleUser) userPrincipal.getPrincipal();

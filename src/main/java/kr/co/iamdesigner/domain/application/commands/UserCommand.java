@@ -4,6 +4,7 @@ import kr.co.iamdesigner.domain.common.event.TriggeredBy;
 import kr.co.iamdesigner.domain.model.user.UserId;
 import kr.co.iamdesigner.utils.IpAddress;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.util.Assert;
 
 import java.util.Objects;
@@ -12,6 +13,7 @@ import java.util.Objects;
 @EqualsAndHashCode
 @AllArgsConstructor
 @ToString
+@SuperBuilder
 public abstract class UserCommand implements TriggeredBy {
 
     private UserId userId;

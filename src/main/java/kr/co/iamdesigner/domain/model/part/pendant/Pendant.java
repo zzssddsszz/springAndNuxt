@@ -14,6 +14,7 @@ import java.util.List;
 public class Pendant extends BasePart {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PENDANT_ID")
     private Long id;
 

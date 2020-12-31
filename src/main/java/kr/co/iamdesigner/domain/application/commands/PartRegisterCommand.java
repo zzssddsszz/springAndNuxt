@@ -6,10 +6,12 @@ import kr.co.iamdesigner.domain.model.part.pendant.MountingType;
 import kr.co.iamdesigner.domain.model.user.UserId;
 import kr.co.iamdesigner.utils.IpAddress;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @EqualsAndHashCode
 @ToString
+@SuperBuilder
 public class PartRegisterCommand extends UserCommand {
     private String name;
     private int buyPrice;
@@ -17,14 +19,5 @@ public class PartRegisterCommand extends UserCommand {
     private PlatingColor color;
     private Material material;
 
-    @Builder
-    public PartRegisterCommand(String name, int buyPrice, int stock, PlatingColor color, Material material, UserId userId, IpAddress ipAddress) {
-        super(userId, ipAddress);
-        this.name = name;
-        this.buyPrice = buyPrice;
-        this.stock = stock;
-        this.color = color;
-        this.material = material;
-    }
 
 }

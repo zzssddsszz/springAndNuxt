@@ -14,15 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import static kr.co.iamdesigner.web.apis.AbstractBaseController.addTriggeredBy;
+
 @RestController
 @RequiredArgsConstructor
 public class PendantApiController {
     private final PendantService service;
 
-    @PostMapping("/api/")
+    @PostMapping("/api/pendant")
     public ResponseEntity<ApiResult> register(@Valid @RequestBody PendantRegistrationPayload payload, HttpServletRequest request){
         try {
             PendantRegisterCommand command = payload.toCommand();
+            addTriggeredBy(command,request);
+            service.register(command);
         }catch (Exception e){
 
         }

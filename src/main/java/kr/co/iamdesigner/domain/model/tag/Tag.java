@@ -11,6 +11,7 @@ import java.util.List;
 @Table(name = "TAG")
 public class Tag extends BaseEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TAG_ID")
     private Long id;
 

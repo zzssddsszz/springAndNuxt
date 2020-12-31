@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface PendantRepository extends JpaRepository<BasePart,Long> {
-    Optional<BasePart> findByName(String name);
+public interface PendantRepository extends JpaRepository<Pendant,Long> {
+    Optional<Pendant> findByName(String name);
 }
