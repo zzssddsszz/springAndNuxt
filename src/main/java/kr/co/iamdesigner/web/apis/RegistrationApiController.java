@@ -26,7 +26,6 @@ public class RegistrationApiController extends AbstractBaseController{
     private final UserService service;
 
     @PostMapping("/api/registrations")
-    @CrossOrigin("http://localhost:3333")
     public ResponseEntity<ApiResult> register(@Valid @RequestBody RegistrationPayload payload, HttpServletRequest request) {
         try {
             UserRegisterCommand command = payload.toCommand();

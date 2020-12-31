@@ -9,16 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import static kr.co.iamdesigner.web.apis.AbstractBaseController.addTriggeredBy;
-
-@RestController
+@Controller
 @RequiredArgsConstructor
-public class PendantApiController {
+public class PendantApiController extends AbstractBaseController {
     private final PendantService service;
 
     @PostMapping("/api/pendant")

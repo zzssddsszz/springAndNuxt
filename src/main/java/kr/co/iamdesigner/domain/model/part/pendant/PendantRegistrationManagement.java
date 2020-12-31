@@ -1,17 +1,14 @@
 package kr.co.iamdesigner.domain.model.part.pendant;
 
-import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.iamdesigner.domain.application.commands.PendantRegisterCommand;
-import kr.co.iamdesigner.domain.model.part.common.*;
+import kr.co.iamdesigner.domain.model.part.common.PartExistsException;
+import kr.co.iamdesigner.domain.model.part.common.PartRegistrationException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
-
-import static kr.co.iamdesigner.domain.model.part.pendant.QPendant.*;
+import static kr.co.iamdesigner.domain.model.part.pendant.QPendant.pendant;
 
 @Component
 @RequiredArgsConstructor
