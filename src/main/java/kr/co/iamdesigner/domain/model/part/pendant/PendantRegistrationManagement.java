@@ -29,11 +29,11 @@ public class PendantRegistrationManagement {
     }
 
     private boolean existCheck(Pendant cPendant) {
-        Pendant pendant = jpaQueryFactory.selectFrom(QPendant.pendant)
-                .where(QPendant.pendant.name.eq(cPendant.getName()),
-                        QPendant.pendant.color.eq(cPendant.getColor())
+        Pendant result = jpaQueryFactory.selectFrom(pendant)
+                .where(pendant.name.eq(cPendant.getName()),
+                        pendant.color.eq(cPendant.getColor())
                 ).fetchOne();
-        return ObjectUtils.isEmpty(pendant);
+        return ObjectUtils.isEmpty(result);
     }
 
 
