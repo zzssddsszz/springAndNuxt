@@ -10,6 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {"name","color","material","mountingType"}
+                )
+        }
+)
 @NoArgsConstructor
 public class Pendant extends BasePart {
 

@@ -4,7 +4,9 @@ import kr.co.iamdesigner.domain.application.commands.PartRegisterCommand;
 import kr.co.iamdesigner.domain.common.model.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
@@ -12,6 +14,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @NoArgsConstructor
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BasePart extends BaseEntity {
 
     public BasePart(PartRegisterCommand command) {

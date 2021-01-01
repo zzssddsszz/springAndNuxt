@@ -9,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Profile("local")
+@Profile({"local","test"})
 @Component
 public class ConsoleMailer implements Mailer {
     @Override
