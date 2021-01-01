@@ -49,8 +49,6 @@ class AuthenticationApiTest {
         assertEquals(testName.getUsername(), payload.getUsername());
         assertNotNull(testName.getId());
 
-
-
         JSONObject object = new JSONObject().put("username", "testName").put("password", "MyPassword!@");
 
         mvc.perform(post("/api/authentications")
