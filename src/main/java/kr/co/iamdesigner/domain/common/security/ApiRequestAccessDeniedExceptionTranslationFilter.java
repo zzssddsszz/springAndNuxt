@@ -28,7 +28,7 @@ public class ApiRequestAccessDeniedExceptionTranslationFilter extends GenericFil
             throw ex;
         } catch (Exception ex) {
             //요청이 API 요청이 아닌 경우 예외를 다시 발생시킵니다.
-            if (!request.getRequestURI().startsWith("/api/") && !request.getRequestURI().startsWith("/rt/")) {
+            if (!request.getRequestURI().startsWith("/api/") && !request.getRequestURI().startsWith("/admin/api/") && !request.getRequestURI().startsWith("/rt/")) {
                 throw ex;
             }
             //stacktrace 에서 SpringSecurityException 추출하기

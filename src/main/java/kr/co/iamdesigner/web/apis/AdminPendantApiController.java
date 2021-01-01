@@ -9,16 +9,17 @@ import kr.co.iamdesigner.web.results.ApiResult;
 import kr.co.iamdesigner.web.results.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
-public class PendantApiController extends AbstractBaseController {
+@RequestMapping("/admin")
+public class AdminPendantApiController extends AbstractBaseController {
     private final PendantService service;
 
     @PostMapping("/api/pendant")

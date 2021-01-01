@@ -26,12 +26,23 @@ public class User extends BaseEntity {
     @Column(name = "password",nullable = false, length = 255)
     private String password;
 
+    @Column
+    private boolean admin;
+
+    public void setAdmin(boolean to){
+        admin = to;
+    }
 
     public static User create(String username, String emailAddress, String password){
+        return create(username,emailAddress,password,false);
+    }
+
+    public static User create(String username, String emailAddress, String password,boolean admin){
         User user = new User();
         user.username = username;
         user.emailAddress = emailAddress;
         user.password = password;
+        user.admin = admin;
         return user;
     }
 

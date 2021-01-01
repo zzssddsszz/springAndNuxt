@@ -37,7 +37,7 @@ class UserRegistrationManagementTest {
         String emailAddress = "UPPERCASE@TEST.COM";
         String password = "MyPassword!@";
         User newUser = instance.register(username, emailAddress, password);
-        User userToSave = User.create(username,emailAddress,password);
+        User userToSave = User.create(username,emailAddress,password,false);
 //        assertTrue(newUser.canEqual(userToSave));
 //        검증실패함
 //        verify(repositoryMock).save(userToSave);

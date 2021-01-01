@@ -11,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,6 +32,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public static final String[] PUBLIC = new String[]{
             "/error", "/login", "/logout", "/register", "/api/registrations"};
 
+    public static final String[] ADMIN = new String[]{
+            "/admin/**"};
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -38,6 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
+                .antMatchers(ADMIN).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .addFilterAt(authenticationFilter(), UsernamePasswordAuthenticationFilter.class)
