@@ -9,9 +9,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 
-@Getter  @Setter
-@EqualsAndHashCode
-@ToString
+@Data
 @SuperBuilder
 public class PendantRegisterCommand extends PartRegisterCommand{
     private MountingType mountingType;

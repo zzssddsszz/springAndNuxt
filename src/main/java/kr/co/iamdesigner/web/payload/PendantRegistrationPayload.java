@@ -4,13 +4,11 @@ import kr.co.iamdesigner.domain.application.commands.PendantRegisterCommand;
 import kr.co.iamdesigner.domain.model.part.common.Material;
 import kr.co.iamdesigner.domain.model.part.common.PlatingColor;
 import kr.co.iamdesigner.domain.model.part.pendant.MountingType;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.EnumUtils;
 
 @Getter
-@Setter @Builder
+@Setter
 public class PendantRegistrationPayload {
 
     private String name;

@@ -9,10 +9,8 @@ import org.springframework.util.Assert;
 
 import java.util.Objects;
 
-@Getter
-@EqualsAndHashCode
-@AllArgsConstructor
-@ToString
+
+@Data
 @SuperBuilder
 public abstract class UserCommand implements TriggeredBy {
 
