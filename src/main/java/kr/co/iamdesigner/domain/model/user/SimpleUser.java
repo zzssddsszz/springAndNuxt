@@ -1,5 +1,6 @@
 package kr.co.iamdesigner.domain.model.user;
 
+import kr.co.iamdesigner.domain.common.model.Role;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -8,10 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Getter
 @EqualsAndHashCode
@@ -22,13 +20,13 @@ public class SimpleUser implements UserDetails, Serializable {
     private UserId userId;
     private String username;
     private String password;
-    private boolean admin;
+    private Set<Role> roles;
 
     public SimpleUser(User user) {
         this.userId = user.getUserId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        this.admin = user.isAdmin();
+        Set<Role> roles = user.getRoles();
     }
 
     public UserId getUserId() {
@@ -37,12 +35,11 @@ public class SimpleUser implements UserDetails, Serializable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
-        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-        if (this.admin){
-            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        List<GrantedAuthority> rolesList = new ArrayList<GrantedAuthority>();
+        for (Role role : roles) {
+            rolesList.add(new SimpleGrantedAuthority(role.getName()˚
         }
-        return roles;
+        return rolesList;
     }
 
     @Override
