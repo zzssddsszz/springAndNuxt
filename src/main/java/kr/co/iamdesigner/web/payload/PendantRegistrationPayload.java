@@ -12,6 +12,7 @@ import lombok.Setter;
 public class PendantRegistrationPayload {
 
     private String name;
+    private String code;
     private int buyPrice;
     private int stock;
     private String color;
@@ -21,6 +22,7 @@ public class PendantRegistrationPayload {
     public PendantRegisterCommand toCommand() {
         PendantRegisterCommand command = PendantRegisterCommand.builder()
                 .name(name)
+                .code(code)
                 .buyPrice(buyPrice)
                 .stock(stock)
                 .color(PlatingColor.valueOf(color))

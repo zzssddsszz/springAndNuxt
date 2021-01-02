@@ -1,16 +1,14 @@
-package kr.co.iamdesigner.domain.model.part.pendant;
+package kr.co.iamdesigner.domain.model.part.chain;
 
-import kr.co.iamdesigner.domain.model.part.pendant.Pendant;
 import kr.co.iamdesigner.domain.model.product.Product;
 
 import javax.persistence.*;
 
 @Entity
-public class SuppliedPendant {
-
+public class SuppliedChain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SUPPLIED_PENDANT_ID")
+    @Column(name = "SUPPLIED_CHAIN_ID")
     private Long id;
 
     @ManyToOne
@@ -18,8 +16,8 @@ public class SuppliedPendant {
     private Product product;
 
     @ManyToOne
-    @JoinColumn(name = "PENDANT_ID")
-    private Pendant pendant;
+    @JoinColumn(name = "CHAIN_ID")
+    private Chain chain;
 
     private String name;
 

@@ -1,6 +1,7 @@
 package kr.co.iamdesigner.domain.model.product;
 
 import kr.co.iamdesigner.domain.common.model.BaseEntity;
+import kr.co.iamdesigner.domain.model.part.chain.SuppliedChain;
 import kr.co.iamdesigner.domain.model.part.pendant.SuppliedPendant;
 import kr.co.iamdesigner.domain.model.tag.Tag;
 import lombok.EqualsAndHashCode;
@@ -24,7 +25,10 @@ public class Product extends BaseEntity {
     private Long id;
 
     @OneToMany(mappedBy = "product")
-    private List<SuppliedPendant> suppliedPendant = new ArrayList<>();
+    private List<SuppliedPendant> suppliedPendants = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product")
+    private List<SuppliedChain> suppliedChains = new ArrayList<>();
 
     private int price;
 

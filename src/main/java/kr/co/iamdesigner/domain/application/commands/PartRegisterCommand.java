@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class PartRegisterCommand extends UserCommand {
     private String name;
+    private String code;
     private int buyPrice;
     private int stock;
     private PlatingColor color;

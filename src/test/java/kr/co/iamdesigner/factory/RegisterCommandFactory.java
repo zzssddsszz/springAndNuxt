@@ -9,6 +9,7 @@ public final class RegisterCommandFactory {
     public static PendantRegisterCommand getPendantCommand(){
         PendantRegisterCommand command = PendantRegisterCommand.builder()
                 .name("팬던트이름")
+                .code("팬던트코드")
                 .buyPrice(1000)
                 .material(Material.SILVER)
                 .color(PlatingColor.BLACK)

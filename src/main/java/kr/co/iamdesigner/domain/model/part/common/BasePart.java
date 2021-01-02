@@ -20,12 +20,15 @@ public abstract class BasePart extends BaseEntity {
     public BasePart(PartRegisterCommand command) {
         buyPrice = command.getBuyPrice();
         name = command.getName();
+        code = command.getCode();
         stock = command.getStock();
         color = command.getColor();
         material = command.getMaterial();
     }
 
     private String name;
+
+    private String code;
 
     private int buyPrice;
 

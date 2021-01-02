@@ -13,7 +13,7 @@ import java.util.List;
 @Table(
         uniqueConstraints = {
                 @UniqueConstraint(
-                        columnNames = {"name","color","material","mountingType"}
+                        columnNames = {"code","color","material","mountingType"}
                 )
         }
 )
