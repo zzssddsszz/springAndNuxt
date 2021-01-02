@@ -56,7 +56,7 @@ class AdminPendantApiControllerTest {
 
     @Test
     @SneakyThrows
-    @WithUser(value = "test", admin = true)
+    @WithUser("admin")
     void register_blankPayload_shouldFailAndReturn400() {
         mvc.perform(getAdminPendantPost())
                 .andExpect(status().is(400));
@@ -64,7 +64,7 @@ class AdminPendantApiControllerTest {
 
     @Test
     @SneakyThrows
-    @WithUser(value = "test", admin = false)
+    @WithUser(value = "user")
     void register_payloadWithNotAdmin_shouldFailAndReturn403() {
         mvc.perform(getAdminPendantPost())
                 .andExpect(status().is(403));
@@ -72,7 +72,7 @@ class AdminPendantApiControllerTest {
 
     @Test
     @SneakyThrows
-    @WithUser(value = "test", admin = true)
+    @WithUser(value = "admin")
     void register_existedPendantPayload_shouldFailAndReturn400() {
         PendantRegisterCommand command = RegisterCommandFactory.getPendantCommand();
 

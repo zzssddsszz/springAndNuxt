@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PendantRegistrationManagement {
     private final PendantRepository repository;
-    private final JPAQueryFactory jpaQueryFactory;
 
     public Pendant register(PendantRegisterCommand command) throws PartRegistrationException {
         Pendant pendant = new Pendant(command);

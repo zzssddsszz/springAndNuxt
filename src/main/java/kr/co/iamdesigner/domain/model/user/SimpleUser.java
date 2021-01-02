@@ -26,7 +26,7 @@ public class SimpleUser implements UserDetails, Serializable {
         this.userId = user.getUserId();
         this.username = user.getUsername();
         this.password = user.getPassword();
-        Set<Role> roles = user.getRoles();
+        this.roles = user.getRoles();
     }
 
     public UserId getUserId() {
@@ -37,7 +37,7 @@ public class SimpleUser implements UserDetails, Serializable {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> rolesList = new ArrayList<GrantedAuthority>();
         for (Role role : roles) {
-            rolesList.add(new SimpleGrantedAuthority(role.getName()˚
+            rolesList.add(new SimpleGrantedAuthority(role.getName()));
         }
         return rolesList;
     }

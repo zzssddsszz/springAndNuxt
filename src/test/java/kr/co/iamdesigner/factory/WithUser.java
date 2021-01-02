@@ -10,5 +10,4 @@ import java.lang.annotation.RetentionPolicy;
 public @interface WithUser {
 
     String value();
-    boolean admin();
 }

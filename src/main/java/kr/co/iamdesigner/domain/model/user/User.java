@@ -38,12 +38,17 @@ public class User extends BaseEntity {
             )
     private Set<Role> roles = new HashSet<>();
 
+    public void addRoles(Role role) {
+        roles.add(role);
+    }
 
     public static User create(String username, String emailAddress, String password) {
         User user = new User();
         user.username = username;
         user.emailAddress = emailAddress;
         user.password = password;
+        Role role = new Role("ROLE_USER");
+        user.roles.add(role);
         return user;
     }
 
