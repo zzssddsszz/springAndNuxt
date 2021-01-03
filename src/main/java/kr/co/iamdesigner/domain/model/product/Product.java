@@ -1,15 +1,14 @@
 package kr.co.iamdesigner.domain.model.product;
 
+import kr.co.iamdesigner.domain.application.commands.ProductRegisterCommand;
 import kr.co.iamdesigner.domain.common.model.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Product extends BaseEntity {
 
     @Id
@@ -31,4 +30,9 @@ public class Product extends BaseEntity {
 
     @Lob
     private String detailedHtml;
+
+    public Product(ProductRegisterCommand command) {
+        command.getName();
+    }
+
 }

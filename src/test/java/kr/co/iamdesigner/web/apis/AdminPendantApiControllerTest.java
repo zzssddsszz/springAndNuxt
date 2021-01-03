@@ -39,17 +39,13 @@ import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
 @AutoConfigureMockMvc
-@Transactional
+@WebMvcTest(controllers = {AdminPendantApiController.class})
 @Slf4j
 class AdminPendantApiControllerTest {
 
     @Autowired
     private MockMvc mvc;
-
-
-    @Autowired private UserService userService;
 
     @MockBean
     private PendantService service;

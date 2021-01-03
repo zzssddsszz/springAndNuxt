@@ -22,8 +22,9 @@ public class Pendant extends BasePart {
     @Column(name = "PENDANT_ID")
     private Long id;
 
-    @OneToMany(mappedBy = "pendant")
-    private List<SuppliedPendant> suppliedPendant = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "SUPPLIED_PENDANT_ID")
+    private SuppliedPendant suppliedPendant;
 
     @Enumerated(EnumType.STRING)
     private MountingType mountingType;

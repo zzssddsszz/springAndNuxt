@@ -4,6 +4,8 @@ import kr.co.iamdesigner.domain.model.product.ProductSpecie;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,9 +20,8 @@ public class SuppliedPendant {
     @JoinColumn(name = "PRODUCT_SPECIE_ID")
     private ProductSpecie productSpecie;
 
-    @ManyToOne
-    @JoinColumn(name = "PENDANT_ID")
-    private Pendant pendant;
+    @OneToMany(mappedBy = "suppliedPendant")
+    private List<Pendant> pendant = new ArrayList<>();
 
     private int amount;
 }
