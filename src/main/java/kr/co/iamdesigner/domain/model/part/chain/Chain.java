@@ -4,6 +4,7 @@ import kr.co.iamdesigner.domain.application.commands.ChainRegisterCommand;
 import kr.co.iamdesigner.domain.application.commands.PartRegisterCommand;
 import kr.co.iamdesigner.domain.model.part.common.BasePart;
 import kr.co.iamdesigner.domain.model.part.common.PartCodeUtil;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
 @NoArgsConstructor
 public class Chain extends BasePart {
     @Id

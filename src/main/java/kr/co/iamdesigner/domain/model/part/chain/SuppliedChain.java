@@ -1,6 +1,6 @@
 package kr.co.iamdesigner.domain.model.part.chain;
 
-import kr.co.iamdesigner.domain.model.product.Product;
+import kr.co.iamdesigner.domain.model.product.ProductSpecie;
 
 import javax.persistence.*;
 
@@ -12,8 +12,8 @@ public class SuppliedChain {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
+    @JoinColumn(name = "PRODUCT_SPECIE_ID")
+    private ProductSpecie productSpecie;
 
     @ManyToOne
     @JoinColumn(name = "CHAIN_ID")

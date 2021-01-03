@@ -3,6 +3,7 @@ package kr.co.iamdesigner.domain.model.part.pendant;
 import kr.co.iamdesigner.domain.application.commands.PendantRegisterCommand;
 import kr.co.iamdesigner.domain.model.part.common.BasePart;
 import kr.co.iamdesigner.domain.model.part.common.PartCodeUtil;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Data
 @NoArgsConstructor
-@EqualsAndHashCode
 public class Pendant extends BasePart {
 
     @Id

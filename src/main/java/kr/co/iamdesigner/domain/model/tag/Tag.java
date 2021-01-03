@@ -1,11 +1,9 @@
 package kr.co.iamdesigner.domain.model.tag;
 
 import kr.co.iamdesigner.domain.common.model.BaseEntity;
-import kr.co.iamdesigner.domain.model.product.Product;
+import kr.co.iamdesigner.domain.model.product.ProductSpecie;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "TAG")
@@ -18,6 +16,6 @@ public class Tag extends BaseEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
+    @JoinColumn(name = "PRODUCT_SPECIE_ID")
+    private ProductSpecie productSpecie;
 }

@@ -1,11 +1,12 @@
 package kr.co.iamdesigner.domain.model.part.pendant;
 
-import kr.co.iamdesigner.domain.model.part.pendant.Pendant;
-import kr.co.iamdesigner.domain.model.product.Product;
+import kr.co.iamdesigner.domain.model.product.ProductSpecie;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 public class SuppliedPendant {
 
     @Id
@@ -14,14 +15,12 @@ public class SuppliedPendant {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
+    @JoinColumn(name = "PRODUCT_SPECIE_ID")
+    private ProductSpecie productSpecie;
 
     @ManyToOne
     @JoinColumn(name = "PENDANT_ID")
     private Pendant pendant;
-
-    private String name;
 
     private int amount;
 }
