@@ -30,7 +30,7 @@ public class PendantServiceImpl implements PendantService {
 
     @Override
     public void register(PendantRegisterCommand command) throws PartRegistrationException {
-        log.info(command.toString());
+        log.debug(command.toString());
         Pendant part = pendantRegistrationManagement.register(command);
     }
 }

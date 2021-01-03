@@ -1,5 +1,6 @@
 package kr.co.iamdesigner.factory;
 
+import kr.co.iamdesigner.domain.application.commands.ChainRegisterCommand;
 import kr.co.iamdesigner.domain.application.commands.PendantRegisterCommand;
 import kr.co.iamdesigner.domain.model.part.common.Material;
 import kr.co.iamdesigner.domain.model.part.common.PlatingColor;
@@ -17,5 +18,19 @@ public final class RegisterCommandFactory {
                 .stock(20)
                 .build();
         return command;
+    }
+
+    public static ChainRegisterCommand getChainCommand() {
+        ChainRegisterCommand command = ChainRegisterCommand.builder()
+                .name("체인이름")
+                .code("체인코드")
+                .buyPrice(1000)
+                .material(Material.SILVER)
+                .color(PlatingColor.NONE)
+                .stock(200)
+                .build();
+        return command;
+
+
     }
 }

@@ -6,8 +6,10 @@ import kr.co.iamdesigner.domain.model.part.common.PartExistsException;
 import kr.co.iamdesigner.domain.model.part.pendant.PendantRegistrationManagement;
 import kr.co.iamdesigner.domain.model.part.pendant.PendantRepository;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.doThrow;
@@ -35,7 +37,8 @@ class PendantServiceImplTest {
     void register_existName_shouldFail() {
         PendantRegisterCommand command = RegisterCommandFactory.getPendantCommand();
 
-        doThrow(PartExistsException.class).when(pendantRegistrationManagementMock)
+        doThrow(DataIntegrityViolationException.class).when(pendantRegistrationManagementMock)
                 .register(command);
+        Assertions.assertThrows(PartExistsException.class, () -> instance.register(command));
     }
 }
