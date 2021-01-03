@@ -22,7 +22,6 @@ public class PendantRegistrationPayload {
     public PendantRegisterCommand toCommand() {
         PendantRegisterCommand command = PendantRegisterCommand.builder()
                 .name(name)
-                .code(code)
                 .buyPrice(buyPrice)
                 .stock(stock)
                 .color(PlatingColor.valueOf(color))

@@ -9,6 +9,7 @@ import kr.co.iamdesigner.domain.model.part.pendant.PendantRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
 
@@ -30,7 +31,6 @@ public class PendantServiceImpl implements PendantService {
 
     @Override
     public void register(PendantRegisterCommand command) throws PartRegistrationException {
-        log.debug(command.toString());
         Pendant part = pendantRegistrationManagement.register(command);
     }
 }

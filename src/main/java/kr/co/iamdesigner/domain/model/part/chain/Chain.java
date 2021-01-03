@@ -3,6 +3,7 @@ package kr.co.iamdesigner.domain.model.part.chain;
 import kr.co.iamdesigner.domain.application.commands.ChainRegisterCommand;
 import kr.co.iamdesigner.domain.application.commands.PartRegisterCommand;
 import kr.co.iamdesigner.domain.model.part.common.BasePart;
+import kr.co.iamdesigner.domain.model.part.common.PartCodeUtil;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,13 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        columnNames = {"code","color","material"}
-                )
-        }
-)
 @NoArgsConstructor
 public class Chain extends BasePart {
     @Id
@@ -29,5 +23,10 @@ public class Chain extends BasePart {
 
     public Chain(ChainRegisterCommand command) {
         super(command);
+        setAutoCode(this);
+    }
+
+    private void setAutoCode(BasePart basePart){
+        PartCodeUtil.generate(basePart);
     }
 }

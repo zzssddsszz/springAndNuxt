@@ -15,11 +15,12 @@ public class PendantRegistrationManagement {
 
     public Pendant register(PendantRegisterCommand command) throws PartRegistrationException {
         Pendant pendant = new Pendant(command);
-        try {
-            return repository.save(pendant);
-        }catch (DataIntegrityViolationException e){
+        if (repository.existsByCode(pendant.getCode())) {
             throw new PartExistsException();
         }
+
+        return repository.save(pendant);
+
 
     }
 

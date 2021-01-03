@@ -33,7 +33,6 @@ public class ChainServiceImpl implements ChainService {
 
     @Override
     public void register(ChainRegisterCommand command) throws PartRegistrationException {
-        log.info(command.toString());
         Chain chain = chainRegistrationManagement.register(command);
     }
 }

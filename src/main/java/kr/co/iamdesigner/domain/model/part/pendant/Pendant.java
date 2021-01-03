@@ -1,8 +1,10 @@
 package kr.co.iamdesigner.domain.model.part.pendant;
 
-import kr.co.iamdesigner.domain.application.commands.PartRegisterCommand;
 import kr.co.iamdesigner.domain.application.commands.PendantRegisterCommand;
 import kr.co.iamdesigner.domain.model.part.common.BasePart;
+import kr.co.iamdesigner.domain.model.part.common.PartCodeUtil;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -10,14 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        columnNames = {"code","color","material","mountingType"}
-                )
-        }
-)
+@Getter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Pendant extends BasePart {
 
     @Id
@@ -34,5 +31,11 @@ public class Pendant extends BasePart {
     public Pendant(PendantRegisterCommand command) {
         super(command);
         mountingType = command.getMountingType();
+        setAutoCode(this);
     }
+
+    private void setAutoCode(BasePart basePart){
+        PartCodeUtil.generate(basePart);
+    }
+
 }

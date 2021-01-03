@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.EntityListeners;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 @NoArgsConstructor
@@ -20,7 +17,6 @@ public abstract class BasePart extends BaseEntity {
     public BasePart(PartRegisterCommand command) {
         buyPrice = command.getBuyPrice();
         name = command.getName();
-        code = command.getCode();
         stock = command.getStock();
         color = command.getColor();
         material = command.getMaterial();
@@ -28,6 +24,7 @@ public abstract class BasePart extends BaseEntity {
 
     private String name;
 
+    @Column(unique = true)
     private String code;
 
     private int buyPrice;
@@ -43,6 +40,7 @@ public abstract class BasePart extends BaseEntity {
     private Material material;
 
 
-
-
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

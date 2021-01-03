@@ -1,6 +1,7 @@
 package kr.co.iamdesigner.domain.model.part.chain;
 
 import kr.co.iamdesigner.domain.application.commands.ChainRegisterCommand;
+import kr.co.iamdesigner.domain.model.part.common.PartExistsException;
 import kr.co.iamdesigner.domain.model.part.common.PartRegistrationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,10 +14,10 @@ public class ChainRegistrationManagement {
 
     public Chain register(ChainRegisterCommand command) throws PartRegistrationException{
         Chain chain = new Chain(command);
-        try{
-            return repository.save(chain);
-        }catch (DataIntegrityViolationException e){
-            throw new PartRegistrationException();
+        if (repository.existsByCode(chain.getCode())) {
+            throw new PartExistsException();
         }
+
+        return repository.save(chain);
     }
 }
