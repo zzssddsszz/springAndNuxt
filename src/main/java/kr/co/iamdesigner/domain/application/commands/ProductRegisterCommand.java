@@ -16,5 +16,6 @@ import java.util.Map;
 @Data
 public class ProductRegisterCommand {
     private String name;
+    private String chainList;
 
 }

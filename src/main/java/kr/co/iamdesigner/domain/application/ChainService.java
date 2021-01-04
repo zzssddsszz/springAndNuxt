@@ -4,6 +4,8 @@ import kr.co.iamdesigner.domain.application.commands.ChainRegisterCommand;
 import kr.co.iamdesigner.domain.model.part.chain.Chain;
 import kr.co.iamdesigner.domain.model.part.common.PartRegistrationException;
 
+import java.util.Optional;
+
 public interface ChainService {
 
     Chain findById(Long id);
