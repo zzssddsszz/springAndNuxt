@@ -14,10 +14,8 @@
         <!-- Start Products Details Area -->
         <section class="products-details-area ptb-60">
             <div class="container">
+              <CustomMaker :canvas-id="'item-canvas'" />
                 <div class="row">
-                  <CustomMaker />
-
-
                     <ProductImages />
                     <Details
                         :id = "product.id"
@@ -36,7 +34,7 @@
 
 
 <script>
-import CustomMaker from "~/components/products/CustomMaker";
+import CustomMaker from "../../components/products/CustomMaker";
 import ProductImages from '../../components/products/ProductImages';
 import Details from '../../components/products/Details';
 import DetailsInfo from '../../components/products/DetailsInfo';
