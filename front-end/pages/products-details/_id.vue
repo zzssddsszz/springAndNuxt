@@ -14,11 +14,12 @@
         <!-- Start Products Details Area -->
         <section class="products-details-area ptb-60">
             <div class="container">
+              <CustomMaker :canvas-id="'item-canvas'" />
                 <div class="row">
                     <ProductImages />
-                    <Details 
+                    <Details
                         :id = "product.id"
-                        :name = "product.name" 
+                        :name = "product.name"
                         :price = "product.price"
                         :image = "product.image"
                     />
@@ -33,13 +34,14 @@
 
 
 <script>
+import CustomMaker from "../../components/products/CustomMaker";
 import ProductImages from '../../components/products/ProductImages';
 import Details from '../../components/products/Details';
 import DetailsInfo from '../../components/products/DetailsInfo';
 import RelatedProducts from '../../components/products/RelatedProducts';
 export default {
     components: {
-        ProductImages, Details, DetailsInfo, RelatedProducts
+        ProductImages, Details, DetailsInfo, RelatedProducts,CustomMaker
     },
     data(){
         return {
