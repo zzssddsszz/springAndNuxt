@@ -1,5 +1,5 @@
 /*
-package kr.co.iamdesigner.config;
+package com.modoodesigner.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

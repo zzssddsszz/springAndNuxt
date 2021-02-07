@@ -1,4 +1,4 @@
-package kr.co.iamdesigner.domain.application;
+package com.modoodesigner.domain.application;
 
 import org.junit.jupiter.api.Test;
 
