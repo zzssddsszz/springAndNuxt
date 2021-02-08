@@ -5,6 +5,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+
 ### STS ###
 .apt_generated
 .classpath
@@ -39,3 +40,5 @@ node_modules
 
 .nuxt
 /src/main/generated/
+
+application-dev.properties
