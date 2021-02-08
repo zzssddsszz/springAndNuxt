@@ -41,4 +41,4 @@ node_modules
 .nuxt
 /src/main/generated/
 
-application-dev-oauth.properties
+/src/main/resources/application-dev-oauth.properties
