@@ -8,4 +8,5 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = false)
 @SuperBuilder
 public class PendantBulkRegisterCommand extends UserCommand {
+    private String name;
 }

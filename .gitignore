@@ -42,3 +42,6 @@ node_modules
 /src/main/generated/
 
 /src/main/resources/application-dev-oauth.properties
+
+package-lock.json
+yarn.lock

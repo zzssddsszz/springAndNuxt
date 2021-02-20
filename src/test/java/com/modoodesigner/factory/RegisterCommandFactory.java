@@ -1,5 +1,6 @@
 package com.modoodesigner.factory;
 
+import com.modoodesigner.domain.application.commands.PendantBulkRegisterCommand;
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
 import com.modoodesigner.domain.model.part.common.PlatingColor;
 import com.modoodesigner.domain.application.commands.ChainRegisterCommand;
@@ -30,5 +31,12 @@ public final class RegisterCommandFactory {
         return command;
 
 
+    }
+
+    public static PendantBulkRegisterCommand getPendantBulkCommond() {
+        PendantBulkRegisterCommand command = PendantBulkRegisterCommand.builder()
+                .name("펜던트이름")
+                .build();
+        return command;
     }
 }

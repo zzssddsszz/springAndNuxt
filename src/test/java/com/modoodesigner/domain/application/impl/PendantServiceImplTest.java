@@ -1,5 +1,6 @@
 package com.modoodesigner.domain.application.impl;
 
+import com.modoodesigner.domain.application.commands.PendantBulkRegisterCommand;
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
 import com.modoodesigner.domain.model.part.common.PartRegistrationException;
 import com.modoodesigner.domain.model.part.pendant.Pendant;
@@ -34,5 +35,12 @@ class PendantServiceImplTest {
         doThrow(PartExistsException.class).when(pendantRegistrationManagementMock)
                 .register(command);
         Assertions.assertThrows(PartRegistrationException.class, () -> instance.register(command));
+    }
+
+    @SneakyThrows
+    @Test
+    void registerBulk_success() {
+        PendantBulkRegisterCommand command = RegisterCommandFactory.getPendantBulkCommond();
+        instance.registerBulk(command);
     }
 }
