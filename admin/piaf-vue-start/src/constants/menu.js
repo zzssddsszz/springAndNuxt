@@ -1,7 +1,20 @@
 import { adminRoot } from "./config";
 import { UserRole } from "../utils/auth.roles";
 
-const data = [{
+const data = [
+  {
+    id: "part",
+    icon: "simple-icon-list",
+    label: "menu.part",
+    to: `${adminRoot}/part`,
+    subs: [{
+      icon: "simple-icon-paper-plane",
+      label: "menu.pendant",
+      to: `${adminRoot}/part/pendant`,
+    },
+    ]
+  },
+  {
   id: "second-menu",
   icon: "iconsminds-chemical",
   label: "menu.second-menu",

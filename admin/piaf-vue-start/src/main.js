@@ -27,6 +27,21 @@ import VueScrollTo from 'vue-scrollto'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getCurrentLanguage } from './utils'
+import axios from 'axios'
+
+//axios
+axios.defaults.baseURL = '/api'
+axios.defaults.headers.common.Accept = 'application/json'
+/*
+axios.interceptors.response.use(
+  response => response,
+  (error) => {
+    return Promise.reject(error)
+  })
+*/
+
+
+
 
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);

@@ -29,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/error", "/login", "/logout", "/register", "/api/registrations"};
 
     public static final String[] ADMIN = new String[]{
-            "/admin/**"};
+            /*"/admin/**"*/};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

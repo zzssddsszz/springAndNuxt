@@ -21,6 +21,12 @@ module.exports = {
     watchOptions: {
       poll: false,
       ignored: /node_modules/
+    },
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080'
+      }
     }
   },
 

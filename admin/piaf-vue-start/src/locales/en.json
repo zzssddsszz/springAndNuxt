@@ -118,7 +118,9 @@
     "second-menu": "Second Menu",
     "second": "Second",
     "start": "Start",
-    "single": "Single"
+    "single": "Single",
+    "part": "부품등록",
+    "pendant": "펜던트"
   },
   "dashboards": {
     "pending-orders": "Pending Orders",
@@ -236,6 +238,7 @@
       "featurecomparison" : "Feature Comparison",
       "pricecomparison" : "Price Comparison"
     }
+
   },
   "chat": {
     "messages": "Messages",
@@ -627,5 +630,10 @@
     "prev": "Back",
     "registered": "Your registration completed successfully!",
     "async": "Async save for 3 seconds!"
+  },
+
+  "pendant": {
+    "add-title": "펜던트등록",
+    "name": "펜던트이름"
   }
 }

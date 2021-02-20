@@ -36,6 +36,15 @@ const routes = [
         ]
       },
       {
+        path: "part",
+        component: () =>
+          import(/* webpackChunkName: "second-menu" */ "./views/app/part"),
+        redirect: `${adminRoot}/part/pendant`,
+        children: [
+          { path: 'pendant', component: () => import(/* webpackChunkName: "piaf" */ './views/app/part/pendant') }
+        ]
+      },
+      {
         path: "second-menu",
         component: () =>
           import(/* webpackChunkName: "second-menu" */ "./views/app/second-menu"),
