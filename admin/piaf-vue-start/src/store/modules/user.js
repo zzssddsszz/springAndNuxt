@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import { currentUser, isAuthGuardActive } from '../../constants/config'
 import { setCurrentUser, getCurrentUser } from '../../utils'
+import axios from "axios";
 
 export default {
   state: {
@@ -55,7 +56,7 @@ export default {
     }
   },
   actions: {
-    login({ commit }, payload) {
+    /*login({ commit }, payload) {
       commit('clearError')
       commit('setProcessing', true)
       firebase
@@ -75,6 +76,33 @@ export default {
             }, 3000)
           }
         )
+    },
+    export const currentUser = {
+  id: 1,
+  title: 'Sarah Kortney',
+  img: '/assets/img/profiles/l-1.jpg',
+  date: 'Last seen today 15:24',
+  role: UserRole.Admin
+}
+    */
+    login({ commit }, payload) {
+      commit('clearError')
+      commit('setProcessing', true)
+      axios.post("/authentications", payload).then(
+        user => {
+          const item = { uid: '123', title:payload.email, img:'/assets/img/profiles/l-1.jpg', date:'Last seen today 15:24',role: 1 }
+          console.log(user)
+          setCurrentUser(item)
+          commit('setUser', item)
+        },
+        err => {
+          setCurrentUser(null);
+          commit('setError', err.message)
+          setTimeout(() => {
+            commit('clearError')
+          }, 3000)
+        }
+      )
     },
     forgotPassword({ commit }, payload) {
       commit('clearError')

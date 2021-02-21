@@ -2,6 +2,7 @@ package com.modoodesigner.web.apis.authenticate;
 
 import com.modoodesigner.utils.JsonUtils;
 import com.modoodesigner.web.results.ApiResult;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;

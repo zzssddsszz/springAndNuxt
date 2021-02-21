@@ -76,8 +76,8 @@ export default {
     data() {
         return {
             form: {
-                email: "test@coloredstrategies.com",
-                password: "xxxxxx"
+                email: "admin",
+                password: "admin"
             },
         };
     },
@@ -103,8 +103,8 @@ export default {
         ...mapActions(["login"]),
         formSubmit() {
             this.$v.$touch();
-            this.form.email = "piaf-vue@coloredstrategies.com";
-            this.form.password = "piaf123";
+            this.form.email = "admin";
+            this.form.password = "admin";
             this.$v.form.$touch();
            // if (!this.$v.form.$anyError) {
                 this.login({

@@ -37,17 +37,17 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
             throw new InsufficientAuthenticationException("잘못된 인증 요청입니다.");
         }
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.username, loginRequest.password);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.email, loginRequest.password);
         return this.getAuthenticationManager().authenticate(token);
     }
 
     @Getter @Setter
     static class LoginRequest {
-        private String username;
+        private String email;
         private String password;
 
         public boolean isInvalid() {
-            return StringUtils.isBlank(username) || StringUtils.isBlank(password);
+            return StringUtils.isBlank(email) || StringUtils.isBlank(password);
         }
     }
 }
