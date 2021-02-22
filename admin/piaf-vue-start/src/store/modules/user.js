@@ -89,11 +89,17 @@ export default {
       commit('clearError')
       commit('setProcessing', true)
       axios.post("/authentications", payload).then(
-        user => {
-          const item = { uid: '123', title:payload.email, img:'/assets/img/profiles/l-1.jpg', date:'Last seen today 15:24',role: 1 }
-          console.log(user)
-          setCurrentUser(item)
-          commit('setUser', item)
+        result => {
+          axios.get("/me").then(
+            ({data}) => {
+              console.log(data)
+              console.log(data.user)
+              const item = { uid: data.user.uid, title:data.user.name, img:'/assets/img/profiles/l-1.jpg', date:'Last seen today 15:24',role: data.user.roles.map(x => x.name) }
+              setCurrentUser(item)
+              commit('setUser', item)
+            }
+          )
+          console.log(result)
         },
         err => {
           setCurrentUser(null);

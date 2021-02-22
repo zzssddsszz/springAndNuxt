@@ -103,8 +103,8 @@ export default {
         ...mapActions(["login"]),
         formSubmit() {
             this.$v.$touch();
-            this.form.email = "admin";
-            this.form.password = "admin";
+            // this.form.email = "admin";
+            // this.form.password = "admin";
             this.$v.form.$touch();
            // if (!this.$v.form.$anyError) {
                 this.login({
@@ -116,7 +116,7 @@ export default {
     },
     watch: {
         currentUser(val) {
-            if (val && val.uid && val.uid.length > 0) {
+            if (val && val.uid && val.uid > 0) {
                 setTimeout(() => {
                     this.$router.push(adminRoot);
                 }, 200);
