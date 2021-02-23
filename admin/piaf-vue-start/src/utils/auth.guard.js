@@ -6,9 +6,13 @@ export default (to, from, next) => {
       const user = getCurrentUser();
       if (user) {
         const roleArrayHierarchic = to.matched.filter(x => x.meta.roles).map(x => x.meta.roles);
-        if (roleArrayHierarchic.every(x => x.includes(user.role))) {
-          next();
-        } else {
+        let auth = false;
+        for (let v of user.role){
+          if (roleArrayHierarchic[0].indexOf(v) > -1) auth = true
+        }
+        if(auth){
+          next()
+        }else {
           next('/unauthorized')
         }
       } else {

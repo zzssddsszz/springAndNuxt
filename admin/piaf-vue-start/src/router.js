@@ -16,7 +16,7 @@ const routes = [
     path: adminRoot,
     component: () => import(/* webpackChunkName: "app" */ "./views/app"),
     redirect: `${adminRoot}/piaf`,
-    meta: { loginRequired: true,roles:[UserRole.Admin] },
+    meta: { loginRequired: true,roles:[UserRole.Admin,UserRole.User] },
     /*
    define with Authorization :
    meta: { loginRequired: true, roles: [UserRole.Admin, UserRole.Editor] },
