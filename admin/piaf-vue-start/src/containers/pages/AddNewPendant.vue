@@ -63,7 +63,7 @@ export default {
   methods: {
     addNewItem() {
       console.log("adding item : ", this.newItem);
-      axios.post("/pendant",this.newItem);
+      axios.post("/pendants",this.newItem);
     },
     hideModal(refname) {
       this.$refs[refname].hide();

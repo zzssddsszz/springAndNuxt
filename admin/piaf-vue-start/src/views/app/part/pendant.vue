@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       isLoad: false,
-      apiBase: "/pen",
+      apiBase: "/pendants",
       displayMode: "list",
       sort: {
         column: "title",
@@ -76,6 +76,7 @@ export default {
       axios
         .get(this.apiUrl)
         .then(response => {
+          console.log(response)
           return response.data;
         })
         .then(res => {
