@@ -1,10 +1,8 @@
 package com.modoodesigner.web.apis;
 
 import com.modoodesigner.domain.application.PendantService;
-import com.modoodesigner.domain.application.commands.PendantBulkRegisterCommand;
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
 import com.modoodesigner.domain.model.part.common.PartRegistrationException;
-import com.modoodesigner.web.payload.PendantBulkInsertPayload;
 import com.modoodesigner.web.results.ApiResult;
 import com.modoodesigner.web.results.Result;
 import com.modoodesigner.domain.model.part.common.PartExistsException;
@@ -18,15 +16,15 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-public class AdminPendantApiController extends AbstractBaseController {
+public class PendantApiController extends AbstractBaseController {
     private final PendantService service;
 
-    @PostMapping("/api/pendant/bulkInsert")
-    public ResponseEntity<ApiResult> register(@Valid @RequestBody PendantBulkInsertPayload payload, HttpServletRequest request) {
+    @PostMapping("/api/pendant")
+    public ResponseEntity<ApiResult> register(@Valid @RequestBody PendantRegistrationPayload payload, HttpServletRequest request) {
         try {
-            PendantBulkRegisterCommand command = payload.toCommand();
+            PendantRegisterCommand command = payload.toCommand();
             addTriggeredBy(command,request);
-            service.registerBulk(command);
+            service.register(command);
             return Result.created();
         }catch (PartRegistrationException e) {
             String errorMessage = "등록실패하였습니다.";

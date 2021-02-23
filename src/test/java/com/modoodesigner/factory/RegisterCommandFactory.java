@@ -1,6 +1,5 @@
 package com.modoodesigner.factory;
 
-import com.modoodesigner.domain.application.commands.PendantBulkRegisterCommand;
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
 import com.modoodesigner.domain.model.part.common.PlatingColor;
 import com.modoodesigner.domain.application.commands.ChainRegisterCommand;

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ProductRegistrationApiController {
     private final ProductService service;
 
-    @PostMapping("/admin/api/product")
+    @PostMapping("/api/product")
     public ResponseEntity<ApiResult> register(@RequestBody ProductRegistrationPayload payload, HttpServletRequest request){
         try {
             ProductRegisterCommand command = payload.toCommand();

@@ -1,7 +1,6 @@
 package com.modoodesigner.domain.application.impl;
 
 import com.modoodesigner.domain.application.PendantService;
-import com.modoodesigner.domain.application.commands.PendantBulkRegisterCommand;
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
 import com.modoodesigner.domain.model.part.pendant.PendantRegistrationManagement;
 import com.modoodesigner.domain.model.part.pendant.PendantRepository;
@@ -34,8 +33,4 @@ public class PendantServiceImpl implements PendantService {
         Pendant part = pendantRegistrationManagement.register(command);
     }
 
-    @Override
-    public void registerBulk(PendantBulkRegisterCommand command) throws PartRegistrationException {
-
-    }
 }

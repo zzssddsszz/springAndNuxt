@@ -634,6 +634,9 @@
 
   "pendant": {
     "add-title": "펜던트등록",
-    "name": "펜던트이름"
+    "name": "펜던트이름",
+    "mountingType": "장착타입",
+    "color": "펜던트색상",
+    "material": "소재"
   }
 }

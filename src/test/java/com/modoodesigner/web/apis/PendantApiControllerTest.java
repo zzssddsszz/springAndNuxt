@@ -22,9 +22,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
-@WebMvcTest(controllers = {AdminPendantApiController.class})
+@WebMvcTest(controllers = {PendantApiController.class})
 @Slf4j
-class AdminPendantApiControllerTest {
+class PendantApiControllerTest {
 
     @Autowired
     private MockMvc mvc;

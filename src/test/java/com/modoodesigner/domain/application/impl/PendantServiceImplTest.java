@@ -1,6 +1,5 @@
 package com.modoodesigner.domain.application.impl;
 
-import com.modoodesigner.domain.application.commands.PendantBulkRegisterCommand;
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
 import com.modoodesigner.domain.model.part.common.PartRegistrationException;
 import com.modoodesigner.domain.model.part.pendant.Pendant;

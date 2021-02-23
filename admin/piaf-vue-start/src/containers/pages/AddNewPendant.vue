@@ -9,10 +9,17 @@
       <b-form-group :label="$t('pendant.name')">
         <b-form-input v-model="newItem.name" />
       </b-form-group>
-<!--      <b-form-group :label="$t('pages.category')">
-        <v-select :options="categories" v-model="newItem.category" />
+      <b-form-group :label="$t('pendant.mountingType')">
+        <v-select :options="mountingType" v-model="newItem.mountingType" />
       </b-form-group>
-      <b-form-group :label="$t('pages.description')">
+      <b-form-group :label="$t('pendant.color')">
+        <v-select :options="color" v-model="newItem.color" />
+      </b-form-group>
+      <b-form-group :label="$t('pendant.material')">
+        <v-select :options="material" v-model="newItem.material" />
+      </b-form-group>
+
+<!--      <b-form-group :label="$t('pages.description')">
         <b-textarea v-model="newItem.description" :rows="2" :max-rows="2" />
       </b-form-group>
       <b-form-group :label="$t('pages.status')">
@@ -37,18 +44,26 @@ export default {
   components: {
     "v-select": vSelect
   },
-  props: ["categories", "statuses"],
+  props: ["statuses"],
   data() {
     return {
       newItem: {
-        name: ""
-      }
+        name: "",
+        mountingType: "",
+        material: "",
+        color: "",
+        buyPrice: 0,
+        stock: 0
+      },
+      mountingType : ["1고리","2고리","1오링","2오링","통과"],
+      color : ["무도금","핑크골드","화이트골드"],
+      material : ["실버","14K골드","24K골드"]
     };
   },
   methods: {
     addNewItem() {
       console.log("adding item : ", this.newItem);
-      axios.post("/pendant/bulkInsert",this.newItem);
+      axios.post("/pendant",this.newItem);
     },
     hideModal(refname) {
       this.$refs[refname].hide();
