@@ -35,11 +35,4 @@ class PendantServiceImplTest {
                 .register(command);
         Assertions.assertThrows(PartRegistrationException.class, () -> instance.register(command));
     }
-
-    @SneakyThrows
-    @Test
-    void registerBulk_success() {
-        PendantBulkRegisterCommand command = RegisterCommandFactory.getPendantBulkCommond();
-        instance.registerBulk(command);
-    }
 }

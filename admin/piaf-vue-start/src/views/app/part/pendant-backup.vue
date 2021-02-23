@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       isLoad: false,
-      apiBase: "/pen",
+      apiBase: "https://api.coloredstrategies.com/cakes/fordatatable",
       displayMode: "list",
       sort: {
         column: "title",

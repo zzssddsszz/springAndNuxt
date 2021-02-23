@@ -32,10 +32,4 @@ public final class RegisterCommandFactory {
 
     }
 
-    public static PendantBulkRegisterCommand getPendantBulkCommond() {
-        PendantBulkRegisterCommand command = PendantBulkRegisterCommand.builder()
-                .name("펜던트이름")
-                .build();
-        return command;
-    }
 }

@@ -24,9 +24,9 @@ public class PendantRegistrationPayload {
                 .name(name)
                 .buyPrice(buyPrice)
                 .stock(stock)
-                .color(PlatingColor.valueOf(color))
-                .material(Material.valueOf(material))
-                .mountingType(MountingType.valueOf(mountingType))
+                .color(PlatingColor.findByTypeName(color))
+                .material(Material.findByTypeName(material))
+                .mountingType(MountingType.findByTypeName(mountingType))
                 .build();
         return command;
     }
