@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
@@ -36,7 +37,7 @@ class PendantApiControllerTest {
     @SneakyThrows
     @WithUser("admin")
     void register_blankPayload_shouldFailAndReturn400() {
-        mvc.perform(getAdminPendantPost())
+        mvc.perform(getPendantPost())
                 .andExpect(status().is(400));
     }
 
@@ -44,7 +45,10 @@ class PendantApiControllerTest {
     @SneakyThrows
     @WithUser(value = "user")
     void register_payloadWithNotAdmin_shouldFailAndReturn403() {
-        mvc.perform(getAdminPendantPost())
+        PendantRegisterCommand command = RegisterCommandFactory.getPendantCommand();
+        mvc.perform(getPendantPost()
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtils.toJson(command)))
                 .andExpect(status().is(403));
     }
 
@@ -57,15 +61,15 @@ class PendantApiControllerTest {
         doNothing().when(service)
                 .register(command);
 
-        mvc.perform(getAdminPendantPost()
+        mvc.perform(getPendantPost()
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtils.toJson(command)))
                 .andExpect(status().is(201));
     }
 
 
-    private MockHttpServletRequestBuilder getAdminPendantPost() {
-        return post("/admin/api/pendant");
+    private MockHttpServletRequestBuilder getPendantPost() {
+        return post("/api/pendants");
     }
 
 

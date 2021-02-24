@@ -1,17 +1,13 @@
 package com.modoodesigner.domain.model.part.common;
 
-import com.modoodesigner.domain.application.commands.PartRegisterCommand;
 import com.modoodesigner.domain.common.model.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+/*
 
-@MappedSuperclass
-@NoArgsConstructor
-@Getter
-@EntityListeners(AuditingEntityListener.class)
 public abstract class BasePart extends BaseEntity {
 
     public BasePart(PartRegisterCommand command) {
@@ -44,3 +40,4 @@ public abstract class BasePart extends BaseEntity {
         this.code = code;
     }
 }
+*/

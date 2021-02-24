@@ -2,6 +2,7 @@ package com.modoodesigner.web.apis;
 
 import com.modoodesigner.domain.application.PendantService;
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
+import com.modoodesigner.domain.common.model.Role;
 import com.modoodesigner.domain.model.part.common.PartRegistrationException;
 import com.modoodesigner.domain.model.part.pendant.Pendant;
 import com.modoodesigner.web.results.ApiResult;
@@ -14,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +29,7 @@ public class PendantApiController extends AbstractBaseController {
     private final PendantService service;
 
     @PostMapping("/api/pendants")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<ApiResult> register(@Valid @RequestBody PendantRegistrationPayload payload, HttpServletRequest request) {
         try {
             PendantRegisterCommand command = payload.toCommand();
@@ -43,9 +47,7 @@ public class PendantApiController extends AbstractBaseController {
 
     @GetMapping("/api/pendants")
     public ResponseEntity<ApiResult> register(Pageable pageable, HttpServletRequest request) {
-        Page<Pendant> all = service.findByAll(pageable);
-        log.info();
-
+        Page<Pendant> pendantAll = service.findByAll(pageable);
         return PendantResult.build();
     }
 

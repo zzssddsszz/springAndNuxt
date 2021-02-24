@@ -20,9 +20,9 @@
               <form @submit.prevent="submitForm" class="login-form" novalidate>
                 <div class="form-group">
                   <label>이메일 또는 닉네임</label>
-                  <input class="form-control" placeholder="이메일 또는 닉네임을 입력해주세요." v-model="form.username" id="username" name="username">
-                  <div class="field-error" v-if="$v.form.username.$dirty">
-                    <div class="error" v-if="!$v.form.username.required">필수로 입력하셔야 합니다.</div>
+                  <input class="form-control" placeholder="이메일 또는 닉네임을 입력해주세요." v-model="form.email" id="email" name="email">
+                  <div class="field-error" v-if="$v.form.eamil.$dirty">
+                    <div class="error" v-if="!$v.form.email.required">필수로 입력하셔야 합니다.</div>
                   </div>
                 </div>
 
@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       form: {
-        username: '',
+        email: '',
         password: ''
       },
       errorMessage: ''
@@ -75,7 +75,7 @@ export default {
   },
   validations: {
     form: {
-      username: {
+      email: {
         required,
       },
       password: {

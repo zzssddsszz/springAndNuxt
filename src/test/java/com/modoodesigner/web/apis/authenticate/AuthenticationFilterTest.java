@@ -36,7 +36,7 @@ class AuthenticationFilterTest {
     @Test
     void attemptAuthentication_invalidJsonStringRequestBody_shouldFail() throws JsonParseException {
         MockHttpServletRequest request = new MockHttpServletRequest("POST", "/api/authentications");
-        request.setContent("username=testusername&password=TestPassword!@".getBytes(StandardCharsets.UTF_8));
+        request.setContent("email=testusername&password=TestPassword!@".getBytes(StandardCharsets.UTF_8));
         AuthenticationFilter filter = new AuthenticationFilter();
         filter.setAuthenticationManager(authenticationManagerMock);
         assertThrows(InsufficientAuthenticationException.class, () ->
@@ -46,7 +46,7 @@ class AuthenticationFilterTest {
     @Test
     void attemptAuthentication_validJsonStringRequestBody_shouldSucceed() throws IOException {
         MockHttpServletRequest request = new MockHttpServletRequest("POST", "/api/authentications");
-        request.setContent("{\"username\":\"testUsername\",\"password\":\"TestPassword!@\"}".getBytes(StandardCharsets.UTF_8));
+        request.setContent("{\"email\":\"testUsername\",\"password\":\"TestPassword!@\"}".getBytes(StandardCharsets.UTF_8));
         AuthenticationFilter filter = new AuthenticationFilter();
         filter.setAuthenticationManager(authenticationManagerMock);
         filter.attemptAuthentication(request, new MockHttpServletResponse());

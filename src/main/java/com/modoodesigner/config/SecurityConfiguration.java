@@ -7,6 +7,7 @@ import com.modoodesigner.web.apis.authenticate.SimpleAuthenticationFailureHandle
 import com.modoodesigner.web.apis.authenticate.SimpleAuthenticationSuccessHandler;
 import com.modoodesigner.web.apis.authenticate.SimpleLogoutSuccessHandler;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,10 +24,11 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true,prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     public static final String[] PUBLIC = new String[]{
-            "/error", "/login", "/logout", "/register", "/api/registrations";
+            "/error", "/login", "/logout", "/register", "/api/registrations"};
 
     public static final String[] ADMIN = new String[]{
             /*"/admin/**"*/};

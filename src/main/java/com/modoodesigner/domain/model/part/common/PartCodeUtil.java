@@ -1,3 +1,4 @@
+/*
 package com.modoodesigner.domain.model.part.common;
 
 import com.modoodesigner.domain.model.part.chain.Chain;
@@ -33,3 +34,4 @@ public class PartCodeUtil {
 
 
 }
+*/

@@ -7,8 +7,6 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 
-@Data
-@SuperBuilder
 public abstract class UserCommand implements TriggeredBy {
 
     private UserId userId;

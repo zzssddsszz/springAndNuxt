@@ -49,7 +49,7 @@ class AuthenticationApiTest {
 
 
 
-        JSONObject object = new JSONObject().put("username", "testName").put("password", "MyPassword!@");
+        JSONObject object = new JSONObject().put("email", "testName").put("password", "MyPassword!@");
 
         mvc.perform(post("/api/authentications")
                 .contentType(MediaType.APPLICATION_JSON)
