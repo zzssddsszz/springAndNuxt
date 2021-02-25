@@ -27,16 +27,4 @@ class PendantRegistrationManagementTest {
         when(repository.existsByCode(pendant.getCode())).thenReturn(true);
         assertThrows(PartRegistrationException.class, () -> management.register(command));
     }
-
-    @Test
-    void pendantRegistration_uniqueEntity_shouldSuccess() throws PartRegistrationException {
-        PendantRegisterCommand command = RegisterCommandFactory.getPendantCommand();
-        Pendant pendant = new Pendant(command);
-
-        when(repository.save(pendant)).thenReturn(new Pendant(command));
-
-        Pendant registerPendant = management.register(command);
-
-        assertNotNull(registerPendant.getCode());
-    }
 }

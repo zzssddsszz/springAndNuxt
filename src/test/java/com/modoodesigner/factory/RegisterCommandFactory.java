@@ -14,6 +14,7 @@ public final class RegisterCommandFactory {
                 .material(Material.SILVER)
                 .color(PlatingColor.BLACK)
                 .mountingType(MountingType.SINGLE)
+                .code("code")
                 .stock(20)
                 .build();
         return command;

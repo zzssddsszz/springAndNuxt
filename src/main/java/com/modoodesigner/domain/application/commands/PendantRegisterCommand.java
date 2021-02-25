@@ -14,6 +14,7 @@ public class PendantRegisterCommand extends UserCommand {
     private String name;
     private int buyPrice;
     private int stock;
+    private String code;
     private PlatingColor color;
     private Material material;
     private MountingType mountingType;

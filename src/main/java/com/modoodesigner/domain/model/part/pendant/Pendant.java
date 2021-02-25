@@ -49,6 +49,7 @@ public class Pendant {
         name = command.getName();
         stock = command.getStock();
         color = command.getColor();
+        code = command.getCode();
         material = command.getMaterial();
         mountingType = command.getMountingType();
     }
