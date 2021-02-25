@@ -1,9 +1,11 @@
 package com.modoodesigner.domain.model.part.pendant;
 
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
+import com.modoodesigner.domain.common.model.BaseEntity;
 import com.modoodesigner.domain.model.part.common.Material;
 import com.modoodesigner.domain.model.part.common.PlatingColor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -11,9 +13,10 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Pendant {
+public class Pendant extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

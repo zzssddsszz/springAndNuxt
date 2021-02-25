@@ -5,6 +5,7 @@ import com.modoodesigner.domain.common.model.BaseEntity;
 import com.modoodesigner.domain.model.part.common.Material;
 import com.modoodesigner.domain.model.part.common.PlatingColor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Chain extends BaseEntity {
