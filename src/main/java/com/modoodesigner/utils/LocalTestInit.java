@@ -21,7 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 @Component
-@Profile({"local","test"})
+@Profile({"local","test","dev"})
 @RequiredArgsConstructor
 public class LocalTestInit {
     private final InitMemberService initMemberService;

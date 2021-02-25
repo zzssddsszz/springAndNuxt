@@ -41,7 +41,7 @@ node_modules
 .nuxt
 /src/main/generated/
 
-/src/main/resources/application-dev-oauth.properties
+/src/main/resources/application-oauth.properties
 
 package-lock.json
 yarn.lock
