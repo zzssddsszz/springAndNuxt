@@ -28,7 +28,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     public static final String[] PUBLIC = new String[]{
-            "/error", "/login", "/logout", "/register", "/api/registrations"};
+            "/**","/error", "/login", "/logout", "/register", "/api/registrations"};
 
     public static final String[] ADMIN = new String[]{
             /*"/admin/**"*/};
@@ -57,10 +57,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/**", "/js/**", "/css/**", "/images/**", "/favicon.ico");
+        web.ignoring().antMatchers("/static/**");
     }
 
-    @Bean
+   /*
+   @Bean
     public WebMvcConfigurer webMvcConfigurer() {
         return new WebMvcConfigurer() {
             @Override
@@ -70,6 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             }
         };
     }
+    */
 
     @Bean
     public PasswordEncoder passwordEncoder() {

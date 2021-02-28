@@ -46,4 +46,5 @@ node_modules
 package-lock.json
 yarn.lock
 
-/src/main/resources/webapp
+/src/main/resources/static/**
+/src/main/resources/templates/**

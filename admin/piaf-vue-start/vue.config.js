@@ -1,7 +1,8 @@
 const CopyPlugin = require('copy-webpack-plugin')
 const path = require("path")
 module.exports = {
-  outputDir: path.resolve(__dirname,"../../src/main/resources/webapp"),
+  outputDir: path.resolve(__dirname,"../../src/main/resources/static/"),
+  indexPath: "../templates/index.html",
 
   pages: {
     index: {
