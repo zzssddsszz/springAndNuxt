@@ -10,7 +10,6 @@ public class MainController implements ErrorController {
     @GetMapping(value = {"/"})
     public String entry() {return "index.html";}
 
-
     @GetMapping(value = "/error")
     public String redirectRoot() {
         return "index.html";

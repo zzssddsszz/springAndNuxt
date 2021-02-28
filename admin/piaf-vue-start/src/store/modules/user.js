@@ -147,14 +147,13 @@ export default {
     },
 
 
-    signOut({ commit }) {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          setCurrentUser(null);
-          commit('setLogout')
-        }, _error => { })
+    signOut({commit}) {
+      axios.get("/me/logout").then(() => {
+        setCurrentUser(null);
+        commit('setLogout')
+      }, _error => { })
     }
+
+
   }
 }
