@@ -9,9 +9,10 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Builder
-@Getter
+@Getter @Setter
 public class PendantRegisterCommand extends UserCommand {
     private String name;
+    private String img;
     private int buyPrice;
     private int stock;
     private String code;

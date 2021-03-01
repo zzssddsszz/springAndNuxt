@@ -13,13 +13,8 @@ public class PendantRegistrationManagement {
 
     public Pendant register(PendantRegisterCommand command) throws PartRegistrationException {
         Pendant pendant = new Pendant(command);
-        if (repository.existsByCode(pendant.getCode())) {
-            throw new PartExistsException();
-        }
 
         return repository.save(pendant);
-
-
     }
 
 

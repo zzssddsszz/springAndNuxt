@@ -10,8 +10,9 @@ public interface PendantService {
 
     Pendant findById(Long id);
     Pendant findByName(String name);
-    Page<Pendant> findByAll(Pageable pageable);
 
     void register(PendantRegisterCommand command) throws PartRegistrationException;
+
+    Page<Pendant> findByAll(Pageable pageable);
 
 }

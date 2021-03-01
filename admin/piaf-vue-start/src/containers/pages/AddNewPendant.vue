@@ -25,6 +25,7 @@
       <b-form-group :label="$t('pages.status')">
         <b-form-radio-group stacked class="pt-2" :options="statuses" v-model="newItem.status" />
       </b-form-group>-->
+      <div v-show="errorMessage" class="alert alert-danger failed">{{ errorMessage }}</div>
     </b-form>
 
     <template slot="modal-footer">
@@ -40,11 +41,11 @@
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import axios from "axios";
+import { adminRoot } from "@/constants/config";
 export default {
   components: {
     "v-select": vSelect
   },
-  props: ["statuses"],
   data() {
     return {
       newItem: {
@@ -57,13 +58,18 @@ export default {
       },
       mountingType : ["1고리","2고리","1오링","2오링","통과"],
       color : ["무도금","핑크골드","화이트골드"],
-      material : ["실버","14K골드","24K골드"]
+      material : ["실버","14K골드","24K골드"],
+      errorMessage:''
     };
   },
   methods: {
     addNewItem() {
-      console.log("adding item : ", this.newItem);
-      axios.post("/pendants",this.newItem);
+      axios.post("/pendants",this.newItem).then(({data}) => {
+        this.$emit('added')
+        this.hideModal('modalright')
+      }).catch( error => {
+        this.errorMessage = error.message
+      })
     },
     hideModal(refname) {
       this.$refs[refname].hide();

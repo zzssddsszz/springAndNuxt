@@ -66,15 +66,19 @@ public class LocalTestInit {
         public void init(){
             log.debug("------------------------------------------");
             log.debug("펜던트 생성");
-            PendantRegisterCommand command = PendantRegisterCommand.builder()
-                    .name("테스트펜던트")
-                    .buyPrice(1000)
-                    .stock(100)
-                    .color(PlatingColor.PINK)
-                    .material(Material.SILVER)
-                    .mountingType(MountingType.SINGLE)
-                    .build();
-            pendantService.register(command);
+            for (int i = 0; i < 50 ; i++) {
+                PendantRegisterCommand command = PendantRegisterCommand.builder()
+                        .name("테스트펜던트"+i)
+                        .buyPrice(1000)
+                        .stock(100)
+                        .color(PlatingColor.PINK)
+                        .code("TESTCODE1"+i)
+                        .material(Material.SILVER)
+                        .mountingType(MountingType.SINGLE)
+                        .build();
+                pendantService.register(command);
+            }
+
             log.debug("------------------------------------------");
         }
     }

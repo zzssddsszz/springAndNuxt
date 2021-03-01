@@ -8,6 +8,7 @@ plugins {
 group = 'com.modoodesigner'
 version = '0.0.2-SNAPSHOT'
 sourceCompatibility = '11'
+targetCompatibility = '11'
 
 configurations {
     compileOnly {
@@ -64,7 +65,7 @@ dependencies {
 
     compileOnly 'org.projectlombok:lombok'
     testImplementation 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'

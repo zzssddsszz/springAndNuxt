@@ -20,11 +20,11 @@ class PendantRegistrationManagementTest {
     @InjectMocks
     PendantRegistrationManagement management;
 
-    @Test
+    /*@Test
     void pendantRegistration_ExistTest_shouldFail() throws PartRegistrationException {
         PendantRegisterCommand command = RegisterCommandFactory.getPendantCommand();
         Pendant pendant = new Pendant(command);
         when(repository.existsByCode(pendant.getCode())).thenReturn(true);
         assertThrows(PartRegistrationException.class, () -> management.register(command));
-    }
+    }*/
 }

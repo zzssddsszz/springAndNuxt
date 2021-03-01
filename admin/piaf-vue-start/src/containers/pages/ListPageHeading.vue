@@ -34,7 +34,7 @@
           </b-dropdown>
         </b-button-group>
       </div>
-      <add-new-pendant :categories="categories" :statuses="statuses"></add-new-pendant>
+      <add-new-pendant @added="onPendantAdded"></add-new-pendant>
       <piaf-breadcrumb />
       <div class="mb-2 mt-2">
         <b-button
@@ -114,16 +114,14 @@ import {
   ThumbListIcon,
   ImageListIcon
 } from "../../components/Svg";
-import AddNewModal from "./AddNewModal";
 import AddNewPendant from "@/containers/pages/AddNewPendant";
 
 export default {
   components: {
-    AddNewPendant,
+    "add-new-pendant": AddNewPendant,
     "data-list-icon": DataListIcon,
     "thumb-list-icon": ThumbListIcon,
     "image-list-icon": ImageListIcon,
-    "add-new-modal": AddNewModal
   },
   props: [
     "title",
@@ -184,6 +182,11 @@ export default {
       ],
       pageSizes: [4, 8, 12]
     };
+  },
+  methods: {
+    onPendantAdded(){
+      this.$emit('addPendantItem')
+    }
   }
 };
 </script>
