@@ -6,12 +6,14 @@ import com.modoodesigner.domain.model.part.pendant.MountingType;
 import com.modoodesigner.domain.model.part.common.Material;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 @Getter
 @Setter
 public class PendantRegistrationPayload {
 
     private String name;
+    private String img;
     private String code;
     private int buyPrice;
     private int stock;
@@ -22,8 +24,10 @@ public class PendantRegistrationPayload {
     public PendantRegisterCommand toCommand() {
         PendantRegisterCommand command = PendantRegisterCommand.builder()
                 .name(name)
+                .img(img)
                 .buyPrice(buyPrice)
                 .stock(stock)
+                .code(code)
                 .color(PlatingColor.findByTypeName(color))
                 .material(Material.findByTypeName(material))
                 .mountingType(MountingType.findByTypeName(mountingType))

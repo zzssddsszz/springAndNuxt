@@ -7,6 +7,7 @@ import com.modoodesigner.domain.model.part.common.PlatingColor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -24,6 +25,8 @@ public class Pendant extends BaseEntity {
     private Long id;
 
     private String name;
+
+    private String img;
 
     @Column(unique = true)
     private String code;
@@ -50,6 +53,7 @@ public class Pendant extends BaseEntity {
     public Pendant(PendantRegisterCommand command) {
         buyPrice = command.getBuyPrice();
         name = command.getName();
+        img = command.getImg();
         stock = command.getStock();
         color = command.getColor();
         code = command.getCode();

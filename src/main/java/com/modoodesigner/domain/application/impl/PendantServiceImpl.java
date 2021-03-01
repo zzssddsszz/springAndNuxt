@@ -31,11 +31,11 @@ public class PendantServiceImpl implements PendantService {
         return repository.findByName(name).orElseThrow();
     }
 
-    public Page<Pendant> findByAll(Pageable pageable){return repository.findAll(pageable);}
+    public Page<Pendant> findByAll(Pageable pageable) { return repository.findAll(pageable); }
 
     @Override
     public void register(PendantRegisterCommand command) throws PartRegistrationException {
-        Pendant part = pendantRegistrationManagement.register(command);
+        pendantRegistrationManagement.register(command);
     }
 
 }
