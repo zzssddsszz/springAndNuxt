@@ -13,7 +13,6 @@ import org.springframework.test.context.ActiveProfiles;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("dev")
 public class ProfileControllerTest {
 
     @LocalServerPort
@@ -23,12 +22,12 @@ public class ProfileControllerTest {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void getProfile_withAnonymous_thenReturnDevProfile() {
-        String expected = "dev";
+    public void getProfile_withAnonymous_thenReturnRunProfile() {
+        String expected = "test";
 
         ResponseEntity<String> response = restTemplate.getForEntity("/profile", String.class);
         assertEquals(response.getStatusCode(), HttpStatus.OK);
-        assertEquals(response.getBody(),expected);
+        assertEquals(expected,response.getBody());
 
     }
 }
