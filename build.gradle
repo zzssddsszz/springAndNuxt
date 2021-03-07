@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.modoodesigner'
-version = '0.0.2-SNAPSHOT'
+version = '0.0.2-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = '11'
 targetCompatibility = '11'
 
