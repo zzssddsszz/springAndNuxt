@@ -7,7 +7,7 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class PostRegisterCommand {
+public class PostRegisterCommand extends AnonymousCommand {
     private String title;
     private String content;
 }
