@@ -29,6 +29,7 @@ import 'firebase/auth'
 import { getCurrentLanguage } from './utils'
 import axios from 'axios'
 
+
 //axios
 axios.defaults.baseURL = '/api'
 axios.defaults.headers.common.Accept = 'application/json'
