@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.ResponseEntity;
 
-@Getter @Setter
 public class PendantResult {
 
     public static ResponseEntity<ApiResult> created(Pendant pendant) {

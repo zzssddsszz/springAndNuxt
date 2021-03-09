@@ -25,6 +25,8 @@
       <b-form-group :label="$t('pages.status')">
         <b-form-radio-group stacked class="pt-2" :options="statuses" v-model="newItem.status" />
       </b-form-group>-->
+
+      <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
       <div v-show="errorMessage" class="alert alert-danger failed">{{ errorMessage }}</div>
     </b-form>
 
@@ -42,12 +44,20 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import axios from "axios";
 import { adminRoot } from "@/constants/config";
+import CKEditor from '@ckeditor/ckeditor5-vue2';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export default {
   components: {
-    "v-select": vSelect
+    "v-select": vSelect,
+    ckeditor: CKEditor.component
   },
   data() {
     return {
+      editor: ClassicEditor,
+      editorData: '',
+      editorConfig: {
+
+      },
       newItem: {
         name: "",
         mountingType: "",
