@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,5 +19,10 @@ public class PostServiceImpl implements PostService {
     public void register(PostRegisterCommand command) {
         Post post = new Post(command);
         repository.save(post);
+    }
+
+    @Override
+    public List<Post> getAll() {
+        return repository.findAll();
     }
 }
