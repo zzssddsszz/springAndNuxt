@@ -79,6 +79,10 @@ dependencies {
     testImplementation 'javax.validation:validation-api:2.0.1.Final'
     testImplementation 'org.hibernate.validator:hibernate-validator:6.1.7.Final'
 
+    // https://mvnrepository.com/artifact/org.im4java/im4java
+    implementation group: 'org.im4java', name: 'im4java', version: '1.4.0'
+
+
 }
 clean {
     delete file('src/main/generated') // 인텔리제이 Annotation processor 생성물 생성위치
