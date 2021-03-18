@@ -10,6 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
@@ -17,6 +20,7 @@ public class AttachmentManagement {
 
     private final FileStorageResolver fileStorageResolver;
     private final ThumbnailCreator thumbnailCreator;
+    private final AttachmentRepository attachmentRepository;
 
     public Attachment save(UserId userId, MultipartFile file) {
         FileStorage fileStorage = fileStorageResolver.resolve();
@@ -26,13 +30,32 @@ public class AttachmentManagement {
         boolean thumbnailCreated = false;
         if (ImageUtils.isImage(file.getContentType())) {
             filePath = saveImage(fileStorage, folder, file);
+            thumbnailCreated = true;
+        }else {
+            filePath = fileStorage.saveUploaded(folder, file);
         }
+
+        Attachment attachment = Attachment.builder()
+                .userId(userId)
+                .fileName(file.getOriginalFilename())
+                .filePath(filePath)
+                .thumbnailCreated(thumbnailCreated)
+                .build();
+
+        return attachmentRepository.save(attachment);
     }
 
     private String saveImage(FileStorage fileStorage, String folder, MultipartFile file) {
         TempFile tempImageFile = fileStorage.saveAsTempFile(folder, file);
         fileStorage.saveTempFile(tempImageFile);
         thumbnailCreator.create(fileStorage, tempImageFile);
+
+        try {
+            Files.delete(tempImageFile.getFile().toPath());
+        } catch (IOException e) {
+            log.error("임시파일 삭제에 실패했습니다. '" + tempImageFile.getFile().getAbsolutePath() + "'",e);
+        }
+        return tempImageFile.getFileRelativePath();
     }
 
 

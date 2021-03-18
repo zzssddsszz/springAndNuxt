@@ -16,4 +16,6 @@ public class Size implements Serializable {
 
     private final int width;
     private final int height;
+
+
 }
