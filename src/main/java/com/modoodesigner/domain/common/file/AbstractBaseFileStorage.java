@@ -1,7 +1,6 @@
-package com.modoodesigner.domain.model.attachment;
+package com.modoodesigner.domain.common.file;
 
-import com.modoodesigner.domain.common.file.FileStorageException;
-import com.modoodesigner.domain.common.file.TempFile;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,9 +9,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.UUID;
 
+@Slf4j
 public abstract class AbstractBaseFileStorage implements FileStorage {
 
     protected TempFile saveMultipartFileToLocalTempFolder(String rootTempPath, String folder, MultipartFile multipartFile) {
@@ -26,8 +27,13 @@ public abstract class AbstractBaseFileStorage implements FileStorage {
 
         String finalFileName = generateFileName(multipartFile);
         Path targetLocation = storagePath.resolve(finalFileName);
-
-        //TODO 여기
+        try {
+            Files.copy(multipartFile.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            log.debug("Multipart file '{}' 은 '{}'에 저장되었습니다.", multipartFile.getOriginalFilename(), targetLocation);
+        } catch (IOException e) {
+            throw new FileStorageException("Multipart file '" + targetLocation.toString() + "' 에 저장 실패 했습니다.", e);
+        }
+        return TempFile.create(rootTempPath, targetLocation);
     }
 
     protected String generateFileName(MultipartFile multipartFile){

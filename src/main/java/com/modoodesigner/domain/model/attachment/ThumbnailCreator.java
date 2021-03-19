@@ -57,7 +57,8 @@ public class ThumbnailCreator {
             // 썸네일 파일 삭제
             Files.delete(Paths.get(tempThumbnailFilePath));
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("'"+ tempImageFile.getFile().getAbsolutePath() +"'에 있는 파일 썸네일 만들기에 실패했습니다.");
+            throw new ThumbnailCreationException("썸네일 만들기에 실패했습니다.", e);
         }
 
 
