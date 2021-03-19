@@ -12,7 +12,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
 public class PendantListResult {
 
     public static ResponseEntity<ApiResult> created(Page<Pendant> pendantAll) {

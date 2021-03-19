@@ -4,6 +4,8 @@ import com.modoodesigner.domain.application.AttachmentService;
 import com.modoodesigner.domain.application.commands.AttachmentUploadCommand;
 import com.modoodesigner.domain.model.attachment.Attachment;
 import com.modoodesigner.web.results.ApiResult;
+import com.modoodesigner.web.results.AttachmentResult;
+import com.modoodesigner.web.results.Result;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -25,11 +27,11 @@ public class UploadFileController extends AbstractBaseController{
             AttachmentUploadCommand command = new AttachmentUploadCommand(file);
             addTriggeredBy(command, request);
             Attachment upload = attachmentService.upload(command);
+            return AttachmentResult.created(upload);
         } catch (Exception e) {
-            e.printStackTrace();
+            String errorMessage = "파일 업로드에 실패하였습니다.";
+            return Result.failure(errorMessage);
         }
-
-
     }
 
 }

@@ -6,13 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -33,7 +31,8 @@ public class Attachment extends BaseEntity {
 
     private boolean thumbnailCreated;
 
-    private boolean archived;
+
+    private boolean orphan;
 
     @Builder
     public Attachment( UserId userId, String fileName, String filePath, boolean thumbnailCreated) {
@@ -42,6 +41,6 @@ public class Attachment extends BaseEntity {
         this.fileType = FilenameUtils.getExtension(fileName);
         this.filePath = filePath;
         this.thumbnailCreated = thumbnailCreated;
-        this.archived = false;
+        this.orphan = true;
     }
 }

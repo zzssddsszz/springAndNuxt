@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Getter
 public class TempFile {
@@ -14,7 +15,7 @@ public class TempFile {
     public static TempFile create(String rootTempPath, Path fileAbsolutePath) {
         TempFile tempFile = new TempFile();
         tempFile.rootTempPath = rootTempPath;
-        tempFile.fileRelativePath = fileAbsolutePath.toString().replaceFirst(rootTempPath + "/", "");
+        tempFile.fileRelativePath = Paths.get(rootTempPath).toAbsolutePath().relativize(fileAbsolutePath).toString();
         return tempFile;
     }
 
