@@ -7,7 +7,6 @@ import com.modoodesigner.utils.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
-import org.im4java.core.IM4JavaException;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
