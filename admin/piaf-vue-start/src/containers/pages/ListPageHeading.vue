@@ -8,6 +8,7 @@
           variant="primary"
           size="lg"
           class="top-right-button"
+          :to="'newPendant'"
         >{{ $t('pages.add-new') }}</b-button>
         <b-button-group>
           <b-dropdown split right @click="selectAll(true)" class="check-button" variant="primary">
@@ -34,7 +35,6 @@
           </b-dropdown>
         </b-button-group>
       </div>
-      <add-new-pendant @added="onPendantAdded"></add-new-pendant>
       <piaf-breadcrumb />
       <div class="mb-2 mt-2">
         <b-button
@@ -114,11 +114,9 @@ import {
   ThumbListIcon,
   ImageListIcon
 } from "../../components/Svg";
-import AddNewPendant from "@/containers/pages/AddNewPendant";
 
 export default {
   components: {
-    "add-new-pendant": AddNewPendant,
     "data-list-icon": DataListIcon,
     "thumb-list-icon": ThumbListIcon,
     "image-list-icon": ImageListIcon,

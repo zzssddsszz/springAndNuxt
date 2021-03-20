@@ -1,0 +1,154 @@
+<template>
+  <b-row>
+    <b-colxx xxs="12">
+      <b-card class="mb-4" :title="'제품사진'">
+        <b-row>
+          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+        </b-row>
+      </b-card>
+      <b-card class="mb-4" :title="$t('forms.top-labels-over-line')">
+        <b-form @submit.prevent="onTopLabelsOverLineFormSubmit">
+          <b-row>
+            <b-colxx sm="4">
+              <label class="form-group has-float-label">
+                <input type="text" class="form-control" v-model="topLabelsOverLineForm.email"/>
+                <span>이름</span>
+              </label>
+            </b-colxx>
+            <b-colxx sm="4">
+              <label class="form-group has-float-label">
+                <input type="number" class="form-control" v-model="newItem.buyPrice"/>
+                <span>구매가</span>
+              </label>
+            </b-colxx>
+            <b-colxx sm="4">
+              <label class="form-group has-float-label">
+                <input type="" class="form-control" v-model="newItem.stock"/>
+                <span>수량</span>
+              </label>
+            </b-colxx>
+            <b-colxx sm="4">
+              <label class="form-group has-float-label">
+                <v-select
+                  v-model="newItem.color"
+                  :options="color"
+                />
+                <span>색상</span>
+              </label>
+            </b-colxx>
+            <b-colxx sm="4">
+              <div class="form-group has-float-label">
+                <input-tag v-model="newItem.tags"></input-tag>
+                <span>태그</span>
+              </div>
+            </b-colxx>
+            <b-colxx sm="4">
+              <div class="form-group has-float-label">
+                <v-select
+                  v-model="topLabelsOverLineForm.select"
+                  :options="selectData"
+                  :dir="direction"
+                />
+                <span>{{ $t('forms.state') }}</span>
+              </div>
+            </b-colxx>
+          </b-row>
+          <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+          <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
+        </b-form>
+      </b-card>
+    </b-colxx>
+  </b-row>
+</template>
+<script>
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+import Datepicker from "vuejs-datepicker";
+import InputTag from "@/components/Form/InputTag";
+import {getDirection} from "@/utils";
+import CKEditor from '@ckeditor/ckeditor5-vue2';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import axios from "axios";
+import VueDropzone from "vue2-dropzone";
+
+
+export default {
+  components: {
+    "input-tag": InputTag,
+    "v-select": vSelect,
+    datepicker: Datepicker,
+    ckeditor: CKEditor.component,
+    "vue-dropzone": VueDropzone
+  },
+  data() {
+    return {
+      editor: ClassicEditor,
+      editorData: '',
+      editorConfig: {
+
+      },
+      newItem: {
+        name: "",
+        mountingType: "",
+        material: "",
+        color: "",
+        buyPrice: 0,
+        stock: 0,
+        tags: [],
+      },
+      color : ["무도금","핑크골드","화이트골드"],
+      errorMessage:'',
+
+      topLabelsOverLineForm: {
+
+        date: null,
+        select: "",
+        checked: false
+      },
+      dropzoneOptions: {
+        url: "https://httpbin.org/post",
+        thumbnailHeight: 160,
+        maxFilesize: 2,
+        previewTemplate: this.dropzoneTemplate(),
+        headers: {
+          "My-Awesome-Header": "header value"
+        }
+      }
+    };
+  },
+  methods: {
+    onTopLabelsOverLineFormSubmit() {
+      console.log(JSON.stringify(this.topLabelsOverLineForm));
+    },
+    addNewItem() {
+      axios.post("/pendants",this.newItem).then(({data}) => {
+        this.$emit('added')
+        this.hideModal('modalright')
+      }).catch( error => {
+        this.errorMessage = error.message
+      })
+    },
+
+    dropzoneTemplate() {
+      return `<div class="dz-preview dz-file-preview mb-3">
+                  <div class="d-flex flex-row "> <div class="p-0 w-30 position-relative">
+                      <div class="dz-error-mark"><span><i></i>  </span></div>
+                      <div class="dz-success-mark"><span><i></i></span></div>
+                      <div class="preview-container">
+                        <img data-dz-thumbnail class="img-thumbnail border-0" />
+                        <i class="simple-icon-doc preview-icon"></i>
+                      </div>
+                  </div>
+                  <div class="pl-3 pt-2 pr-2 pb-1 w-70 dz-details position-relative">
+                    <div> <span data-dz-name /> </div>
+                    <div class="text-primary text-extra-small" data-dz-size /> </div>
+                    <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+                    <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                  </div>
+                  <a href="#" class="remove" data-dz-remove> <i class="glyph-icon simple-icon-trash"></i> </a>
+                </div>
+        `;
+    }
+  }
+};
+</script>
