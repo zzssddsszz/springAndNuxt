@@ -1,4 +1,4 @@
-package com.modoodesigner.infrastructure.file;
+package com.modoodesigner.infrastructure.file.s3;
 
 import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
