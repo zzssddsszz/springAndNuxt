@@ -3,7 +3,9 @@ package com.modoodesigner.domain.model.attachment;
 import com.modoodesigner.domain.common.file.FileStorage;
 import com.modoodesigner.domain.common.file.FileStorageResolver;
 import com.modoodesigner.domain.common.file.TempFile;
+import com.modoodesigner.domain.model.user.User;
 import com.modoodesigner.domain.model.user.UserId;
+import com.modoodesigner.domain.model.user.UserRepository;
 import com.modoodesigner.utils.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +23,9 @@ public class AttachmentManagement {
     private final FileStorageResolver fileStorageResolver;
     private final ThumbnailCreator thumbnailCreator;
     private final AttachmentRepository attachmentRepository;
+    private final UserRepository userRepository;
 
-    public Attachment save(UserId userId, MultipartFile file) {
+    public Attachment save(Long userId, MultipartFile file) {
         FileStorage fileStorage = fileStorageResolver.resolve();
 
         String filePath;
@@ -36,7 +39,7 @@ public class AttachmentManagement {
         }
 
         Attachment attachment = Attachment.builder()
-                .userId(userId)
+                .user(userRepository.findById(userId).orElseThrow())
                 .fileName(file.getOriginalFilename())
                 .filePath(filePath)
                 .thumbnailCreated(thumbnailCreated)

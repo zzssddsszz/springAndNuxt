@@ -28,6 +28,6 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     public Attachment upload(AttachmentUploadCommand command) {
-        return attachmentManagement.save(command.getUserId(), command.getFile());
+        return attachmentManagement.save(command.getUserId().value(), command.getFile());
     }
 }
