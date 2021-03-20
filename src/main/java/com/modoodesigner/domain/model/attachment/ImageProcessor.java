@@ -68,7 +68,6 @@ public class ImageProcessor {
      * @return
      */
     public static Map<String, String> getImageInfo(String imagePath) {
-        long startTime = System.currentTimeMillis();
         Map<String, String> imageInfo = new HashMap<>();
         try {
             IMOperation op = new IMOperation();
@@ -89,11 +88,8 @@ public class ImageProcessor {
                 imageInfo.put(IMAGE_SUFFIX, result[5]);
             }
         } catch (Exception e) {
-            // e.printStackTrace();
             log.error("Image tool to get basic image information exception" + e.getMessage(), e);
         }
-        long endTime = System.currentTimeMillis();
-        // logger.info("take time: " + (endTime - startTime));
         return imageInfo;
     }
 
@@ -128,14 +124,6 @@ public class ImageProcessor {
     public void resize(String sourceFilePath, String targetFilePath, Size resizeTo) {
         Assert.isTrue(resizeTo.getHeight() > 0, "이미지 높이가 0보다 커야합니다.");
         Assert.isTrue(resizeTo.getWidth() > 0, "이미지 너비가 0보다 커야합니다.");
-/*
-        ConvertCmd cmd = new ConvertCmd(true);
-        IMOperation op = new IMOperation();
-        op.addImage(sourceFilePath);
-        op.quality(70d);
-        op.resize(resizeTo.getWidth(), resizeTo.getHeight());
-        op.addImage(targetFilePath);
-        cmd.run(op);*/
 
         try {
             IMOperation op = new IMOperation();
