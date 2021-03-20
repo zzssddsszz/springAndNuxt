@@ -33,7 +33,6 @@ deploy:
     region: ap-northeast-2
     skip_cleanup: true
     acl: private
-    upload_dir: jar
     local_dir: deploy
     wait-until-deployed: true
 
@@ -44,7 +43,6 @@ deploy:
     bucket: modoodesigner-springboot-build
     key: modoodesigner-springboot-webservice.zip
 
-    local_dir: jar
     bundle_type: zip
     application: modoodesigner-springboot-webservice
     deployment_group: modoodesigner-webservice-group
