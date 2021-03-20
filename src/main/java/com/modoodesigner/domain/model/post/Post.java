@@ -2,6 +2,7 @@ package com.modoodesigner.domain.model.post;
 
 import com.modoodesigner.domain.application.commands.PostRegisterCommand;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
 
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post {
     @Id

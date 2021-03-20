@@ -6,7 +6,6 @@ import com.modoodesigner.utils.IpAddress;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-
 public abstract class UserCommand implements TriggeredBy {
 
     private UserId userId;
@@ -15,5 +14,15 @@ public abstract class UserCommand implements TriggeredBy {
     public void triggeredBy(UserId userId, IpAddress ipAddress) {
         this.userId = userId;
         this.ipAddress = ipAddress;
+    }
+
+    @Override
+    public UserId getUserId() {
+        return userId;
+    }
+
+    @Override
+    public IpAddress getIpAddress() {
+        return ipAddress;
     }
 }
