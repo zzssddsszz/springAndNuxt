@@ -56,7 +56,7 @@ public class S3FileStorage extends AbstractBaseFileStorage {
         try {
             log.debug("Saving file '{}' to s3", tempFile.getFile().getName());
             PutObjectRequest putRequest = new PutObjectRequest(bucketName, fileKey, tempFile.getFile());
-            putRequest.withCannedAcl(CannedAccessControlList.PublicRead);
+            putRequest.withCannedAcl(CannedAccessControlList.BucketOwnerFullControl);
             s3.putObject(putRequest);
             log.debug("파일 '{}' 가 s3 '{}' 에 저장되었습니다.", tempFile.getFile().getName(), fileKey);
         } catch (Exception e) {
@@ -100,7 +100,7 @@ public class S3FileStorage extends AbstractBaseFileStorage {
         Assert.hasText(s3Region, "`프로퍼티 `app.file-storage.s3-region` 가 없습니다.");
 
         List<String> profiles = Arrays.asList(environment.getActiveProfiles());
-        List<String> localProfiles = Arrays.asList("local");
+        List<String> localProfiles = Arrays.asList("local","devtest");
         if (!profiles.stream().filter(localProfiles::contains).findAny().isEmpty()) {
             log.debug("액세스 키 및 비밀 키로 dev S3 클라이언트 초기화");
 
