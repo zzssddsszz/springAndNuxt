@@ -6,6 +6,7 @@ import com.modoodesigner.web.apis.authenticate.AuthenticationFilter;
 import com.modoodesigner.web.apis.authenticate.SimpleAuthenticationFailureHandler;
 import com.modoodesigner.web.apis.authenticate.SimpleAuthenticationSuccessHandler;
 import com.modoodesigner.web.apis.authenticate.SimpleLogoutSuccessHandler;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -40,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
+                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 .antMatchers(ADMIN).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
