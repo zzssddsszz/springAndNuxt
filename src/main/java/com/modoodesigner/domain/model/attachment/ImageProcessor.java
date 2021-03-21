@@ -47,7 +47,7 @@ public class ImageProcessor {
     /**
      *  gm Command path
      */
-    private static final String GRAPHICS_MAGICK_PATH = "/usr/local/bin";
+    private static final String GRAPHICS_MAGICK_PATH = "/usr/bin";
 
     private enum CommandType {
         convert("Conversion processing"), identify("Image information"), compositecmd("Image composition");
