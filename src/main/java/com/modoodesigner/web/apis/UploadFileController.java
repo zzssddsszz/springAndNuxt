@@ -17,17 +17,21 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
-public class UploadFileController extends AbstractBaseController{
+public class UploadFileController extends AbstractBaseController {
     private final AttachmentService attachmentService;
 
     @PostMapping("/api/image")
-    public ResponseEntity<ApiResult> uploadImage(@RequestParam("file")MultipartFile file,
-                                                 HttpServletRequest request){
+    public ResponseEntity<ApiResult> uploadImage(@RequestParam("file") MultipartFile file,
+                                                 HttpServletRequest request) {
         try {
             AttachmentUploadCommand command = new AttachmentUploadCommand(file);
             addTriggeredBy(command, request);
-            Attachment upload = attachmentService.upload(command);
+            Attachment upload = attachmentService.imageUpload(command);
+
             return AttachmentResult.created(upload);
+        } catch (IllegalAccessException e) {
+            String errorMessage = "이미지 파일이 아닙니다.";
+            return Result.failure(errorMessage);
         } catch (Exception e) {
             String errorMessage = "파일 업로드에 실패하였습니다.";
             return Result.failure(errorMessage);

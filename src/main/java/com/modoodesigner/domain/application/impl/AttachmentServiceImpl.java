@@ -5,9 +5,11 @@ import com.modoodesigner.domain.application.commands.AttachmentUploadCommand;
 import com.modoodesigner.domain.model.attachment.Attachment;
 import com.modoodesigner.domain.model.attachment.AttachmentManagement;
 import com.modoodesigner.domain.model.attachment.AttachmentRepository;
+import com.modoodesigner.utils.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.transaction.Transactional;
 
@@ -28,6 +30,14 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     @Override
     public Attachment upload(AttachmentUploadCommand command) {
+        return attachmentManagement.save(command.getUserId().value(), command.getFile());
+    }
+
+    public Attachment imageUpload(AttachmentUploadCommand command) throws IllegalAccessException {
+
+        if (ImageUtils.isImage(command.getFile().getContentType())){
+            throw new IllegalAccessException("이미지 파일이 아닙니다.");
+        }
         return attachmentManagement.save(command.getUserId().value(), command.getFile());
     }
 }

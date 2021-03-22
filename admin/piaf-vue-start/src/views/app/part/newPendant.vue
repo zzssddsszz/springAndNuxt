@@ -106,9 +106,9 @@ export default {
         checked: false
       },
       dropzoneOptions: {
-        url: "https://httpbin.org/post",
+        url: "/api/image",
         thumbnailHeight: 160,
-        maxFilesize: 2,
+        maxFilesize: 30,
         previewTemplate: this.dropzoneTemplate(),
         headers: {
           "My-Awesome-Header": "header value"
