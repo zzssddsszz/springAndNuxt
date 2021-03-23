@@ -32,16 +32,16 @@ public class UploadFileController extends AbstractBaseController {
             return AttachmentResult.created(upload);
         } catch (ThumbnailCreationException e) {
             String errorMessage = "썸네일 만들기에 실패했습니다.";
-            return Result.failure(errorMessage);
+            return AttachmentResult.failure(errorMessage);
         }catch (IllegalArgumentException e) {
             String errorMessage = "잘못된 접근입니다.";
-            return Result.failure(errorMessage);
+            return AttachmentResult.failure(errorMessage);
         }catch (IllegalAccessException e) {
             String errorMessage = "이미지 파일이 아닙니다.";
-            return Result.failure(errorMessage);
+            return AttachmentResult.failure(errorMessage);
         } catch (Exception e) {
             String errorMessage = "파일 업로드에 실패하였습니다.";
-            return Result.failure(errorMessage);
+            return AttachmentResult.failure(errorMessage);
         }
     }
 

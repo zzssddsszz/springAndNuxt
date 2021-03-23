@@ -6,10 +6,12 @@
           <vue-dropzone ref="myVueDropzone" id="dropzone"
                         @vdropzone-success="vsuccess"
                         @vdropzone-error="verror"
-                        :options="dropzoneOptions"></vue-dropzone>
+                        :options="dropzoneOptions"
+                        :duplicateCheck="true"
+          ></vue-dropzone>
         </b-row>
       </b-card>
-      <b-card class="mb-4" :title="$t('forms.top-labels-over-line')">
+      <b-card class="mb-4" :title="'데이터'">
         <b-form @submit.prevent="onTopLabelsOverLineFormSubmit">
           <b-row>
             <b-colxx sm="4">
@@ -26,7 +28,7 @@
             </b-colxx>
             <b-colxx sm="4">
               <label class="form-group has-float-label">
-                <input type="" class="form-control" v-model="newItem.stock"/>
+                <input type="number" class="form-control" v-model="newItem.stock"/>
                 <span>수량</span>
               </label>
             </b-colxx>
@@ -68,7 +70,6 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import Datepicker from "vuejs-datepicker";
 import InputTag from "@/components/Form/InputTag";
-// import {getDirection} from "@/utils";
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
@@ -93,9 +94,10 @@ export default {
         mountingType: "",
         material: "",
         color: "",
-        buyPrice: 0,
-        stock: 0,
+        buyPrice: "",
+        stock: "",
         tags: [],
+        mainImages: []
       },
       color: ["무도금", "핑크골드", "화이트골드"],
       errorMessage: '',
@@ -113,7 +115,7 @@ export default {
         previewTemplate: this.dropzoneTemplate(),
         headers: {
           "My-Awesome-Header": "header value"
-        }
+        },
       }
     };
   },
@@ -132,24 +134,16 @@ export default {
 
     vsuccess(file, response) {
       this.success = true
-      console.log("제품사진 업로드 응답 : " + response)
-      // window.toastr.success('', 'Event : vdropzone-success')
+      this.newItem.mainImages.push(response.data.id)
     },
     verror(file, error, xhr) {
-      // console.log(errorMessage);
-
-
       const elements = document.querySelectorAll(".dz-preview");
-      // console.log(elements)
       for (const element of elements) {
         const filename = element.querySelectorAll("span[data-dz-name]")[0].textContent;
-        // console.log(filename)
         const errorMessage = element.querySelectorAll("span[data-dz-errormessage]")[0];
-        // console.log(errorMessage.message)
         if (filename === file.name) {
-          // console.log(errorMessage)
-          errorMessage.textContent = error.message;
-          // console.log(error.message)
+          console.log(error)
+          errorMessage.textContent = error.error.message;
         }
       }
       // $('.dz-error-message span').text(parse.message);
