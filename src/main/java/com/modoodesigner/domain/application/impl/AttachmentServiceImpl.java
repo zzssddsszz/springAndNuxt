@@ -35,7 +35,7 @@ public class AttachmentServiceImpl implements AttachmentService {
 
     public Attachment imageUpload(AttachmentUploadCommand command) throws IllegalAccessException {
 
-        if (ImageUtils.isImage(command.getFile().getContentType())){
+        if (!ImageUtils.isImage(command.getFile().getContentType())){
             throw new IllegalAccessException("이미지 파일이 아닙니다.");
         }
         return attachmentManagement.save(command.getUserId().value(), command.getFile());
