@@ -9,9 +9,8 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^26.0.0",
-    "@ckeditor/ckeditor5-vue2": "^1.0.5",
     "@glidejs/glide": "^3.4.1",
+    "@tinymce/tinymce-vue": "^3.2.8",
     "axios": "^0.21.1",
     "bootstrap-vue": "^2.21.2",
     "chart.js": "2.9.4",

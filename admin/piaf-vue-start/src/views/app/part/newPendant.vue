@@ -58,7 +58,20 @@
                           </div>
                         </b-colxx>-->
           </b-row>
-          <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+          <tiny-editor
+            api-key="mr2p11bzs55lpw4msitqpn6xfdb7x4v5ch4oz21dprny8iy7"
+            cloud-channel="5"
+            :disabled=false
+            id="uuid"
+            :init= "{  }"
+            initial-value=""
+            :inline=true
+            model-events= ""
+            plugins=""
+            tag-name="div"
+            toolbar=""
+            value=""
+          ></tiny-editor>
           <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
         </b-form>
       </b-card>
@@ -70,25 +83,22 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import Datepicker from "vuejs-datepicker";
 import InputTag from "@/components/Form/InputTag";
-import CKEditor from '@ckeditor/ckeditor5-vue2';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
 import VueDropzone from "vue2-dropzone";
+import Editor from '@tinymce/tinymce-vue';
+
 
 
 export default {
   components: {
     "input-tag": InputTag,
     "v-select": vSelect,
-    datepicker: Datepicker,
-    ckeditor: CKEditor.component,
-    "vue-dropzone": VueDropzone
+    "datepicker": Datepicker,
+    "vue-dropzone": VueDropzone,
+    "tiny-editor": Editor
   },
   data() {
     return {
-      editor: ClassicEditor,
-      editorData: '',
-      editorConfig: {},
       newItem: {
         name: "",
         mountingType: "",
