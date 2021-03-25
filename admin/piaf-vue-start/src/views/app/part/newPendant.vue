@@ -59,13 +59,29 @@
                         </b-colxx>-->
           </b-row>
           <tiny-editor
+            v-model="newItem.content"
             api-key="mr2p11bzs55lpw4msitqpn6xfdb7x4v5ch4oz21dprny8iy7"
             cloud-channel="5"
-            :disabled=false
             id="uuid"
-            :init= "{  }"
+            :disabled=false
+            :init="{
+              height: 500,
+              language: 'ko_KR',
+              images_upload_url: '/api/image',
+              plugins: [
+               // 'lists link image paste help wordcount'
+               'advlist autolink link image lists charmap print preview hr anchor pagebreak',
+      'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+      'table emoticons template paste help'
+              ],
+              toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+      'bullist numlist outdent indent | link image | print preview media fullpage | ' +
+      'forecolor backcolor emoticons | help',
+
+    menubar: 'file edit view insert format tools table help',
+            }"
             initial-value=""
-            :inline=true
+            :inline=false
             model-events= ""
             plugins=""
             tag-name="div"
@@ -107,7 +123,8 @@ export default {
         buyPrice: "",
         stock: "",
         tags: [],
-        mainImages: []
+        mainImages: [],
+        content: ""
       },
       color: ["무도금", "핑크골드", "화이트골드"],
       errorMessage: '',
