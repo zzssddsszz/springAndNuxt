@@ -3,10 +3,15 @@
     <b-colxx xxs="12">
       <b-card class="mb-4" :title="'제품사진'">
         <b-row>
-          <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+          <vue-dropzone ref="myVueDropzone" id="dropzone"
+                        @vdropzone-success="vsuccess"
+                        @vdropzone-error="verror"
+                        :options="dropzoneOptions"
+                        :duplicateCheck="true"
+          ></vue-dropzone>
         </b-row>
       </b-card>
-      <b-card class="mb-4" :title="$t('forms.top-labels-over-line')">
+      <b-card class="mb-4" :title="'데이터'">
         <b-form @submit.prevent="onTopLabelsOverLineFormSubmit">
           <b-row>
             <b-colxx sm="4">
@@ -23,7 +28,7 @@
             </b-colxx>
             <b-colxx sm="4">
               <label class="form-group has-float-label">
-                <input type="" class="form-control" v-model="newItem.stock"/>
+                <input type="number" class="form-control" v-model="newItem.stock"/>
                 <span>수량</span>
               </label>
             </b-colxx>
@@ -42,18 +47,20 @@
                 <span>태그</span>
               </div>
             </b-colxx>
-            <b-colxx sm="4">
-              <div class="form-group has-float-label">
-                <v-select
-                  v-model="topLabelsOverLineForm.select"
-                  :options="selectData"
-                  :dir="direction"
-                />
-                <span>{{ $t('forms.state') }}</span>
-              </div>
-            </b-colxx>
+            <!--            <b-colxx sm="4">
+                          <div class="form-group has-float-label">
+                            <v-select
+                              v-model="topLabelsOverLineForm.select"
+                              :options="selectData"
+                              :dir="direction"
+                            />
+                            <span>{{ $t('forms.state') }}</span>
+                          </div>
+                        </b-colxx>-->
           </b-row>
-          <ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+          <tiny-editor
+            v-on:changeContent="changeContent"
+          ></tiny-editor>
           <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
         </b-form>
       </b-card>
@@ -65,39 +72,36 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import Datepicker from "vuejs-datepicker";
 import InputTag from "@/components/Form/InputTag";
-import {getDirection} from "@/utils";
-import CKEditor from '@ckeditor/ckeditor5-vue2';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import axios from "axios";
 import VueDropzone from "vue2-dropzone";
+import TinyEditor from "@/components/Editor/TinyEditor";
+
+
 
 
 export default {
   components: {
     "input-tag": InputTag,
     "v-select": vSelect,
-    datepicker: Datepicker,
-    ckeditor: CKEditor.component,
-    "vue-dropzone": VueDropzone
+    "datepicker": Datepicker,
+    "vue-dropzone": VueDropzone,
+    "tiny-editor": TinyEditor
   },
   data() {
     return {
-      editor: ClassicEditor,
-      editorData: '',
-      editorConfig: {
-
-      },
       newItem: {
         name: "",
         mountingType: "",
         material: "",
         color: "",
-        buyPrice: 0,
-        stock: 0,
+        buyPrice: "",
+        stock: "",
         tags: [],
+        mainImages: [],
+        content: ""
       },
-      color : ["무도금","핑크골드","화이트골드"],
-      errorMessage:'',
+      color: ["무도금", "핑크골드", "화이트골드"],
+      errorMessage: '',
 
       topLabelsOverLineForm: {
 
@@ -106,29 +110,51 @@ export default {
         checked: false
       },
       dropzoneOptions: {
-        url: "https://httpbin.org/post",
+        url: "/api/image",
         thumbnailHeight: 160,
-        maxFilesize: 2,
+        maxFilesize: 30,
         previewTemplate: this.dropzoneTemplate(),
         headers: {
           "My-Awesome-Header": "header value"
-        }
+        },
       }
     };
   },
   methods: {
+    changeContent(content){
+      console.log(content)
+      this.newItem.content=content;
+    },
     onTopLabelsOverLineFormSubmit() {
       console.log(JSON.stringify(this.topLabelsOverLineForm));
     },
     addNewItem() {
-      axios.post("/pendants",this.newItem).then(({data}) => {
+      axios.post("/pendants", this.newItem).then(({data}) => {
         this.$emit('added')
         this.hideModal('modalright')
-      }).catch( error => {
+      }).catch(error => {
         this.errorMessage = error.message
       })
     },
 
+    vsuccess(file, response) {
+      this.success = true
+      this.newItem.mainImages.push(response.data.id)
+    },
+    verror(file, error, xhr) {
+      const elements = document.querySelectorAll(".dz-preview");
+      for (const element of elements) {
+        const filename = element.querySelectorAll("span[data-dz-name]")[0].textContent;
+        const errorMessage = element.querySelectorAll("span[data-dz-errormessage]")[0];
+        if (filename === file.name) {
+          console.log(error)
+          errorMessage.textContent = error.error.message;
+        }
+      }
+      // $('.dz-error-message span').text(parse.message);
+      // console.log(xhr);
+      // window.toastr.error(file.upload.filename, 'Event : vdropzone-error - ' + file.status)
+    },
     dropzoneTemplate() {
       return `<div class="dz-preview dz-file-preview mb-3">
                   <div class="d-flex flex-row "> <div class="p-0 w-30 position-relative">

@@ -50,6 +50,7 @@ public class LocalTestInit {
             userService.register(command);
             User admin = userService.findByUsername("admin");
             admin.addRoles(new Role("ROLE_ADMIN"));
+            admin.addRoles(new Role("ACTUATOR_ADMIN"));
             log.debug("유저생성완료");
             log.debug("------------------------------------------");
         }

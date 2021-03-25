@@ -1,1 +1,1 @@
-vim /opt/codedeploy-agent/deployment-root/deployment-logs +
+vim /opt/codedeploy-agent/deployment-root/deployment-logs/codedeploy-agent-deployments.log +
