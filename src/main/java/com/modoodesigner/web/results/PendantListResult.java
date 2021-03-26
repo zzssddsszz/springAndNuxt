@@ -17,18 +17,39 @@ public class PendantListResult {
     public static ResponseEntity<ApiResult> created(Page<Pendant> pendantAll) {
 
         List<Pendant> pendantList = pendantAll.getContent();
-        List<PendantData> pendantDataList = new ArrayList<>();
+        List<PendantListData> pendantDataList = new ArrayList<>();
         pendantList.stream().forEach(pendant->{
-            pendantDataList.add(new PendantData(pendant));
+            pendantDataList.add(new PendantListData(pendant));
         });
 
-        ApiResult apiResult = ApiResult.blank()
-                .add("total",pendantAll.getTotalElements())
-                .add("from",pendantAll.getPageable().getOffset())
-                .add("to",pendantAll.getPageable().getOffset()+pendantAll.getNumberOfElements()-1)
-                .add("data", pendantDataList)
-                .add("per_page",pendantAll.getPageable().getPageSize())
-                .add("last_page",pendantAll.getTotalPages());
-        return Result.ok(apiResult);
+        return Result.ok(ApiResult.list(pendantAll,pendantDataList));
     }
+
+    @Getter
+    @Setter
+    static class PendantListData {
+        private Long id;
+        private String name;
+        private String img;
+        private String color;
+        private String material;
+        private String mountingType;
+        private String createdDate;
+        private String modifiedDate;
+        private int stock;
+
+        public PendantListData(Pendant pendant) {
+            id = pendant.getId();
+            name = pendant.getName();
+            img = pendant.getImg();
+            color = pendant.getColor().getTypeName();
+            stock = pendant.getStock();
+            material = pendant.getMaterial().getTypeName();
+            mountingType = pendant.getMountingType().getTypeName();
+            createdDate = pendant.getCreatedDate().format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"));
+            modifiedDate = pendant.getModifiedDate().format(DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss"));
+        }
+
+    }
+
 }

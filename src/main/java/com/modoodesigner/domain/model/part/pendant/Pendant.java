@@ -53,10 +53,8 @@ public class Pendant extends BaseEntity {
     public Pendant(PendantRegisterCommand command) {
         buyPrice = command.getBuyPrice();
         name = command.getName();
-        img = command.getImg();
         stock = command.getStock();
         color = command.getColor();
-        code = command.getCode();
         material = command.getMaterial();
         mountingType = command.getMountingType();
     }

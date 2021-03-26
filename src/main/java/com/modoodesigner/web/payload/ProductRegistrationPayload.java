@@ -10,12 +10,18 @@ import java.util.List;
 @Getter
 @Setter
 public class ProductRegistrationPayload {
-    private List<String> chain = new ArrayList<>();
-    private List<String> pendant = new ArrayList<>();
+    private String name;
+    private List<Long> mainImages;
+    private List<Long> contentImages;
+    private String content;
 
     public ProductRegisterCommand toCommand() {
-        ProductRegisterCommand command = new ProductRegisterCommand();
+        ProductRegisterCommand command = ProductRegisterCommand.builder()
+                .name(name)
+                .mainImages(mainImages)
+                .contentImages(contentImages)
+                .content(content)
+                .build();
         return command;
     }
-//    private List<String> option = new ArrayList<>();
 }

@@ -17,6 +17,8 @@
         :to="to"
         :total="total"
         :perPage="perPage"
+        :add-new="'newPendant'"
+        @addPendantItem="addItem"
       ></list-page-heading>
       <template v-if="isLoad">
         <list-page-listing
@@ -52,14 +54,15 @@ export default {
   data() {
     return {
       isLoad: false,
-      apiBase: "https://api.coloredstrategies.com/cakes/fordatatable",
+      apiBase: "/pendants",
       displayMode: "list",
       sort: {
-        column: "title",
+        column: "id",
+        orderBy: "desc",
         label: "Product Name"
       },
       page: 1,
-      perPage: 4,
+      perPage: 12,
       search: "",
       from: 0,
       to: 0,
@@ -72,27 +75,29 @@ export default {
   methods: {
     loadItems() {
       this.isLoad = false;
-
       axios
         .get(this.apiUrl)
         .then(response => {
           return response.data;
-        })
-        .then(res => {
-          this.total = res.total;
-          this.from = res.from;
-          this.to = res.to;
-          this.items = res.data.map(x => {
-            return {
-              ...x,
-              img: x.img.replace("/img/", "/img/products/")
-            };
-          });
-          this.perPage = res.per_page;
-          this.selectedItems = [];
-          this.lastPage = res.last_page;
-          this.isLoad = true;
+        }).then(res => {
+        this.total = res.total;
+        this.from = res.from+1;
+        this.to = res.to+1;
+        this.items = res.data.map(x => {
+          return {
+            ...x,
+            status: x.stock < 10 ? "재고부족" : "재고충분",
+            statusColor: x.stock < 10 ? "danger" : "success"
+          }
         });
+        this.perPage = res.per_page;
+        this.selectedItems = [];
+        this.lastPage = res.last_page;
+        this.isLoad = true;
+      });
+    },
+    addItem() {
+      this.loadItems()
     },
 
     changeDisplayMode(displayType) {
@@ -185,7 +190,7 @@ export default {
       );
     },
     apiUrl() {
-      return `${this.apiBase}?sort=${this.sort.column}&page=${this.page}&per_page=${this.perPage}&search=${this.search}`;
+      return `${this.apiBase}?sort=${this.sort.column},${this.sort.orderBy}&page=${this.page-1}&size=${this.perPage}&search=${this.search}`;
     }
   },
   watch: {

@@ -8,7 +8,7 @@
           variant="primary"
           size="lg"
           class="top-right-button"
-          :to="'newPendant'"
+          :to="addNew"
         >{{ $t('pages.add-new') }}</b-button>
         <b-button-group>
           <b-dropdown split right @click="selectAll(true)" class="check-button" variant="primary">
@@ -136,7 +136,8 @@ export default {
     "from",
     "to",
     "total",
-    "perPage"
+    "perPage",
+    "addNew"
   ],
   data() {
     return {

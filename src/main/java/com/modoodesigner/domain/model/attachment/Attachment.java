@@ -5,6 +5,7 @@ import com.modoodesigner.domain.model.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class Attachment extends BaseEntity {
 
     @Id
@@ -25,20 +27,33 @@ public class Attachment extends BaseEntity {
 
     private String filePath;
 
-    private String fileType;
-
     private boolean thumbnailCreated;
 
+    private boolean publicFtp;
+
+    private String fileType;
 
     private boolean orphan;
 
+    private int index;
+
     @Builder
-    public Attachment( User user, String fileName, String filePath, boolean thumbnailCreated) {
+    public Attachment( User user, String fileName, String filePath, boolean thumbnailCreated, boolean publicFtp) {
         this.user = user;
         this.fileName = fileName;
         this.fileType = FilenameUtils.getExtension(fileName);
         this.filePath = filePath;
         this.thumbnailCreated = thumbnailCreated;
+        this.publicFtp = publicFtp;
         this.orphan = true;
+    }
+
+    public void activation() {
+        orphan = false;
+    }
+
+
+    public void setIndex(int num) {
+        index = num;
     }
 }

@@ -2,21 +2,29 @@
   <b-row>
     <b-colxx xxs="12">
       <b-card class="mb-4" :title="'제품사진'">
-        <b-row>
+        <image-sortable
+          :images="mainImages"
+          @changeIndex="changeIndex"
+          @deleteMainImage="deleteMainImage"
+        ></image-sortable>
+        <b-button v-b-modal.modalbasic variant="outline-primary">{{ '사진 추가' }}</b-button>
+        <b-modal id="modalbasic" ref="modalbasic" :title="'사진 업로드'">
           <vue-dropzone ref="myVueDropzone" id="dropzone"
                         @vdropzone-success="vsuccess"
                         @vdropzone-error="verror"
                         :options="dropzoneOptions"
                         :duplicateCheck="true"
           ></vue-dropzone>
-        </b-row>
+        </b-modal>
       </b-card>
+
+
       <b-card class="mb-4" :title="'데이터'">
-        <b-form @submit.prevent="onTopLabelsOverLineFormSubmit">
+        <b-form @submit.prevent="formSubmit">
           <b-row>
             <b-colxx sm="4">
               <label class="form-group has-float-label">
-                <input type="text" class="form-control" v-model="topLabelsOverLineForm.email"/>
+                <input type="text" class="form-control" v-model="newItem.name"/>
                 <span>이름</span>
               </label>
             </b-colxx>
@@ -59,7 +67,8 @@
                         </b-colxx>-->
           </b-row>
           <tiny-editor
-            v-on:changeContent="changeContent"
+            @changeContent="changeContent"
+            @addImage="contentAddImage"
           ></tiny-editor>
           <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
         </b-form>
@@ -74,10 +83,8 @@ import Datepicker from "vuejs-datepicker";
 import InputTag from "@/components/Form/InputTag";
 import axios from "axios";
 import VueDropzone from "vue2-dropzone";
+import ImageSortable from "@/components/Form/ImageSortable";
 import TinyEditor from "@/components/Editor/TinyEditor";
-
-
-
 
 export default {
   components: {
@@ -85,10 +92,12 @@ export default {
     "v-select": vSelect,
     "datepicker": Datepicker,
     "vue-dropzone": VueDropzone,
-    "tiny-editor": TinyEditor
+    "tiny-editor": TinyEditor,
+    "image-sortable": ImageSortable
   },
   data() {
     return {
+      mainImages: [],
       newItem: {
         name: "",
         mountingType: "",
@@ -97,7 +106,8 @@ export default {
         buyPrice: "",
         stock: "",
         tags: [],
-        mainImages: [],
+        mainImageIndex: [],
+        contentImage:[],
         content: ""
       },
       color: ["무도금", "핑크골드", "화이트골드"],
@@ -120,13 +130,31 @@ export default {
       }
     };
   },
+  watch: {
+    mainImages: function () {
+      this.newItem.mainImageIndex.splice(0, this.newItem.mainImageIndex.length)
+      this.mainImages.map((element,index) => this.newItem.mainImageIndex.push(element.id))
+    }
+  },
   methods: {
     changeContent(content){
-      console.log(content)
       this.newItem.content=content;
     },
-    onTopLabelsOverLineFormSubmit() {
-      console.log(JSON.stringify(this.topLabelsOverLineForm));
+    contentAddImage(id){
+      this.newItem.contentImage.push(id);
+    },
+    deleteMainImage(id){
+      let index = this.mainImages.findIndex(element => (element.id===id));
+      this.mainImages.splice(index,1);
+    },
+    formSubmit() {
+      console.log(console.log(JSON.stringify(this.newItem)));
+      axios.post("/pendants", this.newItem).then(({data}) => {
+        this.$emit('added')
+        this.hideModal('modalright')
+      }).catch(error => {
+        this.errorMessage = error.message
+      })
     },
     addNewItem() {
       axios.post("/pendants", this.newItem).then(({data}) => {
@@ -136,10 +164,15 @@ export default {
         this.errorMessage = error.message
       })
     },
+    changeIndex(oldIndex, newIndex) {
+      let temp = this.mainImages[oldIndex];
+      this.mainImages[oldIndex] = this.mainImages[newIndex];
+      this.mainImages[newIndex] = temp;
+    },
 
     vsuccess(file, response) {
       this.success = true
-      this.newItem.mainImages.push(response.data.id)
+      this.mainImages.push(response.data)
     },
     verror(file, error, xhr) {
       const elements = document.querySelectorAll(".dz-preview");

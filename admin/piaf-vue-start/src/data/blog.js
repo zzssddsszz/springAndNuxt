@@ -22,7 +22,7 @@ export const blogData = [
     },
     {
         title: "Podcasting Operational Change Management Inside of Workflows",
-        description: "Quickly deploy strategic networks with compelling e-business. Credibly pontificate highly efficient manufactured products and enabled data.",
+        description: "Quickly deploy strategic networks with compelling e-business. Credibly pontificate highly efficient manufactured product and enabled data.",
         thumb: "/assets/img/details/small-7.jpg",
         badge: "TRENDING",
         type: "image"

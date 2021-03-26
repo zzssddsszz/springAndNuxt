@@ -73,58 +73,57 @@ export const items = [
       ]
     }
   ];
-  
+
   export const detailImages = [
     {
       id: "large1",
-      img: "/assets/img/products/parkin.jpg"
+      img: "/assets/img/product/parkin.jpg"
     },
     {
       id: "large2",
-      img: "/assets/img/products/napoleonshat.jpg"
+      img: "/assets/img/product/napoleonshat.jpg"
     },
     {
       id: "large3",
-      img: "/assets/img/products/marble-cake.jpg"
+      img: "/assets/img/product/marble-cake.jpg"
     },
     {
       id: "large4",
-      img: "/assets/img/products/fruitcake.jpg"
+      img: "/assets/img/product/fruitcake.jpg"
     },
     {
       id: "large5",
-      img: "/assets/img/products/magdalena.jpg"
+      img: "/assets/img/product/magdalena.jpg"
     },
     {
       id: "large6",
-      img: "/assets/img/products/tea-loaf.jpg"
+      img: "/assets/img/product/tea-loaf.jpg"
     }
   ]
-  
+
   export const detailThumbs = [
     {
       id: "thumb1",
-      img: "/assets/img/products/parkin-thumb.jpg"
+      img: "/assets/img/product/parkin-thumb.jpg"
     },
     {
       id: "thumb2",
-      img: "/assets/img/products/napoleonshat-thumb.jpg"
+      img: "/assets/img/product/napoleonshat-thumb.jpg"
     },
     {
       id: "thumb3",
-      img: "/assets/img/products/marble-cake-thumb.jpg"
+      img: "/assets/img/product/marble-cake-thumb.jpg"
     },
     {
       id: "thumb4",
-      img: "/assets/img/products/fruitcake-thumb.jpg"
+      img: "/assets/img/product/fruitcake-thumb.jpg"
     },
     {
       id: "thumb5",
-      img: "/assets/img/products/magdalena-thumb.jpg"
+      img: "/assets/img/product/magdalena-thumb.jpg"
     },
     {
       id: "thumb6",
-      img: "/assets/img/products/tea-loaf-thumb.jpg"
+      img: "/assets/img/product/tea-loaf-thumb.jpg"
     }
   ]
-  

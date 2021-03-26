@@ -17,7 +17,7 @@
         :to="to"
         :total="total"
         :perPage="perPage"
-        @addPendantItem="addItem"
+        :add-new="'newProduct'"
       ></list-page-heading>
       <template v-if="isLoad">
         <list-page-listing
@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       isLoad: false,
-      apiBase: "/pendants",
+      apiBase: "/products",
       displayMode: "list",
       sort: {
         column: "id",

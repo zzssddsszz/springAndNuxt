@@ -3,6 +3,7 @@ package com.modoodesigner.web.apis;
 import com.modoodesigner.domain.application.AttachmentService;
 import com.modoodesigner.domain.application.commands.AttachmentUploadCommand;
 import com.modoodesigner.domain.model.attachment.Attachment;
+import com.modoodesigner.domain.model.attachment.FTPUploadFailException;
 import com.modoodesigner.domain.model.attachment.ThumbnailCreationException;
 import com.modoodesigner.web.results.ApiResult;
 import com.modoodesigner.web.results.AttachmentResult;
@@ -33,7 +34,10 @@ public class UploadFileController extends AbstractBaseController {
         } catch (ThumbnailCreationException e) {
             String errorMessage = "썸네일 만들기에 실패했습니다.";
             return AttachmentResult.failure(errorMessage);
-        }catch (IllegalArgumentException e) {
+        } catch (FTPUploadFailException e) {
+            String errorMessage = "ftp 업로드에 실패했습니다.";
+            return AttachmentResult.failure(errorMessage);
+        } catch (IllegalArgumentException e) {
             String errorMessage = "잘못된 접근입니다.";
             return AttachmentResult.failure(errorMessage);
         }catch (IllegalAccessException e) {

@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import AuthGuard from "./utils/auth.guard";
-import { adminRoot } from "./constants/config";
-import { UserRole } from "./utils/auth.roles";
+import {adminRoot} from "./constants/config";
+import {UserRole} from "./utils/auth.roles";
 
 Vue.use(VueRouter);
 
@@ -16,7 +16,7 @@ const routes = [
     path: adminRoot,
     component: () => import(/* wvvebpackChunkName: "app" */ "./views/app"),
     redirect: `${adminRoot}/piaf`,
-    meta: { loginRequired: true,roles:[UserRole.Admin,UserRole.User] },
+    meta: {loginRequired: true, roles: [UserRole.Admin, UserRole.User]},
     /*
    define with Authorization :
    meta: { loginRequired: true, roles: [UserRole.Admin, UserRole.Editor] },
@@ -41,17 +41,39 @@ const routes = [
           import(/* webpackChunkName: "second-menu" */ "./views/app/part"),
         redirect: `${adminRoot}/part/pendant`,
         children: [
-          { path: 'pendant', component: () => import('./views/app/part/pendant') },
-          { path: 'newPendant', component: () => import('./views/app/part/newPendant') }
+          {
+            path: 'pendant',
+            component: () => import('./views/app/part/pendant'),
+            redirect: `${adminRoot}/part/pendant/list`,
+            children: [
+              {path: 'list', component: () => import('./views/app/part/pendant/pendantList')},
+              {path: 'newPendant', component: () => import('./views/app/part/pendant/newPendant')},
+              {path: 'edit/:id', component: () => import('./views/app/part/pendant/newPendant')}
+
+            ]
+          },
+          {
+            path: 'product',
+            component: () => import('./views/app/part/product'),
+            redirect: `${adminRoot}/part/product/list`,
+            children: [
+              {path: 'list', component: () => import('./views/app/part/product/productList')},
+              {path: 'newProduct', component: () => import('./views/app/part/product/newProduct')},
+              {path: 'edit/:id', component: () => import('./views/app/part/product/newProduct')}
+
+            ]
+          },
         ]
       },
+
+
       {
         path: "second-menu",
         component: () =>
           import(/* webpackChunkName: "second-menu" */ "./views/app/second-menu"),
         redirect: `${adminRoot}/second-menu/second`,
         children: [
-          { path: 'second', component: () => import(/* webpackChunkName: "piaf" */ './views/app/second-menu/Second') }
+          {path: 'second', component: () => import(/* webpackChunkName: "piaf" */ './views/app/second-menu/Second')}
         ]
       },
 

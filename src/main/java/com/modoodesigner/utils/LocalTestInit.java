@@ -1,8 +1,10 @@
 package com.modoodesigner.utils;
 
 import com.modoodesigner.domain.application.PendantService;
+import com.modoodesigner.domain.application.ProductService;
 import com.modoodesigner.domain.application.UserService;
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
+import com.modoodesigner.domain.application.commands.ProductRegisterCommand;
 import com.modoodesigner.domain.application.commands.UserRegisterCommand;
 import com.modoodesigner.domain.common.model.Role;
 import com.modoodesigner.domain.model.part.common.Material;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 
 @Component
 @Profile({"local","test"})
@@ -26,10 +29,12 @@ import javax.transaction.Transactional;
 public class LocalTestInit {
     private final InitMemberService initMemberService;
     private final InitPendantService initPendantService;
+    private final InitProductService initProductService;
     @PostConstruct
     public void init(){
         initMemberService.init();
         initPendantService.init();
+        initProductService.init();
     }
 
     @Component
@@ -73,11 +78,36 @@ public class LocalTestInit {
                         .buyPrice(1000)
                         .stock(100)
                         .color(PlatingColor.PINK)
-                        .code("TESTCODE1"+i)
                         .material(Material.SILVER)
                         .mountingType(MountingType.SINGLE)
                         .build();
                 pendantService.register(command);
+            }
+
+            log.debug("------------------------------------------");
+        }
+    }
+
+
+    @Component
+    @Slf4j
+    static class InitProductService{
+        @Autowired
+        ProductService productService;
+
+        @SneakyThrows
+        @Transactional
+        public void init(){
+            log.debug("------------------------------------------");
+            log.debug("펜던트 생성");
+            for (int i = 0; i < 50 ; i++) {
+                ProductRegisterCommand command = ProductRegisterCommand.builder()
+                        .name("테스트 상품"+i)
+                        .content("테스트 컨텐츠"+i)
+                        .mainImages(new ArrayList<>())
+                        .contentImages(new ArrayList<>())
+                        .build();
+                productService.register(command);
             }
 
             log.debug("------------------------------------------");

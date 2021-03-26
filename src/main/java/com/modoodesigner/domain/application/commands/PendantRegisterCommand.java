@@ -8,25 +8,20 @@ import com.modoodesigner.utils.IpAddress;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @Builder
 @Getter @Setter
 public class PendantRegisterCommand extends UserCommand {
     private String name;
-    private String img;
+    private MountingType mountingType;
+    private Material material;
+    private PlatingColor color;
     private int buyPrice;
     private int stock;
-    private String code;
-    private PlatingColor color;
-    private Material material;
-    private MountingType mountingType;
+    private List<String> tags;
+    private List<Long> mainImages;
+    private List<Long> contentImages;
+    private String content;
 
-    @Override
-    public UserId getUserId() {
-        return null;
-    }
-
-    @Override
-    public IpAddress getIpAddress() {
-        return null;
-    }
 }

@@ -1572,6 +1572,11 @@ button {
     top: 40px;
     right: -7px;
   }
+
+  &.badge-bottom-right {
+    bottom: 5px;
+    right: 10px;
+  }
 }
 
 .badge-light {

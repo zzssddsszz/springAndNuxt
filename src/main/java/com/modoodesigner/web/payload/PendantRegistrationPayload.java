@@ -1,37 +1,61 @@
 package com.modoodesigner.web.payload;
 
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
+import com.modoodesigner.domain.model.part.common.Material;
 import com.modoodesigner.domain.model.part.common.PlatingColor;
 import com.modoodesigner.domain.model.part.pendant.MountingType;
-import com.modoodesigner.domain.model.part.common.Material;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 @Getter
 @Setter
 public class PendantRegistrationPayload {
 
     private String name;
-    private String img;
-    private String code;
+    private String mountingType;
+    private String material;
+    private String color;
     private int buyPrice;
     private int stock;
-    private String color;
-    private String material;
-    private String mountingType;
+    private List<String> tags;
+    private List<Long> mainImages;
+    private List<Long> contentImages;
+    private String content;
 
     public PendantRegisterCommand toCommand() {
         PendantRegisterCommand command = PendantRegisterCommand.builder()
                 .name(name)
-                .img(img)
+                .mountingType(MountingType.findByTypeName(mountingType))
+                .material(Material.findByTypeName(material))
+                .color(PlatingColor.findByTypeName(color))
                 .buyPrice(buyPrice)
                 .stock(stock)
-                .code(code)
-                .color(PlatingColor.findByTypeName(color))
-                .material(Material.findByTypeName(material))
-                .mountingType(MountingType.findByTypeName(mountingType))
+                .tags(tags)
+                .mainImages(mainImages)
+                .contentImages(contentImages)
                 .build();
         return command;
     }
+
+    /*{
+    "name": "이름",
+    "mountingType": "",
+    "material": "",
+    "color": "무도금",
+    "buyPrice": "54365346",
+    "stock": "567564",
+    "tags": [],
+    "mainImageIndex": [
+        118,
+        117,
+        119
+    ],
+    "contentImage": [
+        122
+    ],
+    "content": "<p><img src=\"https://modoodesigner.speedgabia.com/test/app/image/public//1616917757641.714f1e34-6258-4963-ade2-808ad88bd72e.jpg\" alt=\"\" width=\"1332\" height=\"1055\" /></p>"
+}*/
+
 }
