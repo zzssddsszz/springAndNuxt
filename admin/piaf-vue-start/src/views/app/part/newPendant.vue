@@ -2,15 +2,19 @@
   <b-row>
     <b-colxx xxs="12">
       <b-card class="mb-4" :title="'제품사진'">
-          <image-sortable :data="data"></image-sortable>
-
-<!--          <vue-dropzone ref="myVueDropzone" id="dropzone"
+        <image-sortable :images="newItem.mainImages"></image-sortable>
+        <b-button v-b-modal.modalbasic variant="outline-primary">{{ '사진 추가' }}</b-button>
+        <b-modal id="modalbasic" ref="modalbasic" :title="'사진 업로드'">
+          <vue-dropzone ref="myVueDropzone" id="dropzone"
                         @vdropzone-success="vsuccess"
                         @vdropzone-error="verror"
                         :options="dropzoneOptions"
                         :duplicateCheck="true"
-          ></vue-dropzone>-->
+          ></vue-dropzone>
+        </b-modal>
       </b-card>
+
+
       <b-card class="mb-4" :title="'데이터'">
         <b-form @submit.prevent="onTopLabelsOverLineFormSubmit">
           <b-row>
@@ -88,11 +92,7 @@ export default {
   },
   data() {
     return {
-      data:{
-        img:"https://blogfiles.pstatic.net/20120901_79/yyjung2_1346458465600FISyP_JPEG/2-5d6a2e7cd6d55ec20a068c8ad14b762b-d59olyz1.jpg",
-        alt:"테스트",
-        title:"타이틀"
-      },
+      mainImages: [],
       newItem: {
         name: "",
         mountingType: "",
@@ -101,7 +101,14 @@ export default {
         buyPrice: "",
         stock: "",
         tags: [],
-        mainImages: [],
+        mainImages: [
+          /*
+          {"id":14,"filePath":"attachments\\1616822036476.f86f6743-79d9-4fdd-9059-d4caa2d6f018.jpg","location":"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20120611_12%2Flive_1975_1339400378420oSEhg_JPEG%2F%25B0%25A8%25BC%25BA%25BB%25E7%25C1%25F8_400x300.jpg&type=sc960_832","thumbnailCreated":true},
+          {"id":15,"filePath":"attachments\\1616822036476.f86f6743-79d9-4fdd-9059-d4caa2d6f018.jpg","location":"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20120611_12%2Flive_1975_1339400378420oSEhg_JPEG%2F%25B0%25A8%25BC%25BA%25BB%25E7%25C1%25F8_400x300.jpg&type=sc960_832","thumbnailCreated":true},
+          {"id":16,"filePath":"attachments\\1616822036476.f86f6743-79d9-4fdd-9059-d4caa2d6f018.jpg","location":"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20120611_12%2Flive_1975_1339400378420oSEhg_JPEG%2F%25B0%25A8%25BC%25BA%25BB%25E7%25C1%25F8_400x300.jpg&type=sc960_832","thumbnailCreated":true},
+          {"id":17,"filePath":"attachments\\1616822036476.f86f6743-79d9-4fdd-9059-d4caa2d6f018.jpg","location":"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20120611_12%2Flive_1975_1339400378420oSEhg_JPEG%2F%25B0%25A8%25BC%25BA%25BB%25E7%25C1%25F8_400x300.jpg&type=sc960_832","thumbnailCreated":true}
+          */
+        ],
         content: ""
       },
       color: ["무도금", "핑크골드", "화이트골드"],
@@ -143,18 +150,9 @@ export default {
 
     vsuccess(file, response) {
       this.success = true
-      this.newItem.mainImages.push(response.data.id)
+      this.newItem.mainImages.push(response.data)
     },
     verror(file, error, xhr) {
-      const elements = document.querySelectorAll(".dz-preview");
-      for (const element of elements) {
-        const filename = element.querySelectorAll("span[data-dz-name]")[0].textContent;
-        const errorMessage = element.querySelectorAll("span[data-dz-errormessage]")[0];
-        if (filename === file.name) {
-          console.log(error)
-          errorMessage.textContent = error.error.message;
-        }
-      }
       // $('.dz-error-message span').text(parse.message);
       // console.log(xhr);
       // window.toastr.error(file.upload.filename, 'Event : vdropzone-error - ' + file.status)

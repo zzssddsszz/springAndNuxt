@@ -1,20 +1,8 @@
 <template>
   <draggable class="row icon-cards-row mb-2">
-      <b-colxx xxs="6" sm="4" md="3" lg="2">
-        <img :src="data.img" class="card-img responsive" :alt="data.title"/>
-      </b-colxx>
-    <b-colxx xxs="6" sm="4" md="3" lg="2">
-      <img :src="data.img" class="card-img responsive" :alt="data.title"/>
-    </b-colxx>
-    <b-colxx xxs="6" sm="4" md="3" lg="2">
-      <img :src="data.img" class="card-img responsive" :alt="data.title"/>
-    </b-colxx>
-    <b-colxx xxs="6" sm="4" md="3" lg="2">
-      <img :src="data.img" class="card-img responsive" :alt="data.title"/>
-    </b-colxx>
-    <b-colxx xxs="6" sm="4" md="3" lg="2">
-      <img :src="data.img" class="card-img responsive" :alt="data.title"/>
-    </b-colxx>
+    <b-card v-for="i in images" v-bind:key="i.id" class="col-sm-6 col-md-3 col-xl-2 m-1">
+        <img :src="i.location" class="card-img " :alt="i.title" style="width: 100%"/>
+    </b-card>
   </draggable>
 </template>
 
@@ -26,15 +14,9 @@ export default {
   components: {
     'draggable': Draggable
   },
-  props: ['data'],
+  props: ['images'],
 }
 </script>
 
 <style scoped>
-img {
-  max-width: 150px;
-  max-height: 150px;
-  margin: auto;
-}
-
 </style>
