@@ -153,6 +153,15 @@ export default {
       this.newItem.mainImages.push(response.data)
     },
     verror(file, error, xhr) {
+      const elements = document.querySelectorAll(".dz-preview");
+      for (const element of elements) {
+        const filename = element.querySelectorAll("span[data-dz-name]")[0].textContent;
+        const errorMessage = element.querySelectorAll("span[data-dz-errormessage]")[0];
+        if (filename === file.name) {
+          console.log(error)
+          errorMessage.textContent = error.error.message;
+        }
+      }
       // $('.dz-error-message span').text(parse.message);
       // console.log(xhr);
       // window.toastr.error(file.upload.filename, 'Event : vdropzone-error - ' + file.status)

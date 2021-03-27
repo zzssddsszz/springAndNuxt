@@ -1,6 +1,7 @@
 package com.modoodesigner.config;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +21,7 @@ public class FTPConfiguration {
                                                             @Value("${app.ftp.password}") String ftpPassword) {
         DefaultFtpSessionFactory defaultFtpSessionFactory = new DefaultFtpSessionFactory();
         defaultFtpSessionFactory.setClientMode(FTPClient.PASSIVE_LOCAL_DATA_CONNECTION_MODE);
+        defaultFtpSessionFactory.setFileType(FTP.BINARY_FILE_TYPE);
         defaultFtpSessionFactory.setHost(ftpHost);
         defaultFtpSessionFactory.setPort(NumberUtils.toInt(ftpPort));
         defaultFtpSessionFactory.setUsername(ftpId);

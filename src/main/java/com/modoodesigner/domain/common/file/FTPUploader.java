@@ -21,7 +21,6 @@ public class FTPUploader {
     private static String ftpBasePath;
     private SessionFactory sessionFactory;
 
-
     public FTPUploader(@Value("${app.ftp.host}") String ftpHost,
                        @Value("${app.ftp.base-path}") String ftpBasePath,
                        SessionFactory sessionFactory) {
@@ -31,75 +30,23 @@ public class FTPUploader {
     }
 
     public void upload(TempFile tempImageFile) {
-
-
+        Session session = sessionFactory.getSession();;
         try {
-            Session session = sessionFactory.getSession();
             InputStream inputStream = new FileInputStream(tempImageFile.getFile().getAbsolutePath());
-            session.append(inputStream,tempImageFile.getFile().getName());
+
+            if (!session.exists(ftpBasePath)){
+                session.mkdir(ftpBasePath);
+            }
+            session.append(inputStream,ftpBasePath+tempImageFile.getFile().getName());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            if (session.isOpen()){
+                session.close();
+            }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-        client = new FTPClient();
-        try {
-            client.setControlEncoding("UTF-8");
-            client.connect(ftpHost, NumberUtils.toInt(ftpPort));
-//            client.setSoTimeout();
-            client.enterLocalPassiveMode();
-            client.setFileType(FTP.BINARY_FILE_TYPE);
-            int resultCode = client.getReplyCode();
-            if (!FTPReply.isPositiveCompletion(resultCode)) {
-                log.error("FTP 서버 연결 실패했습니다.");
-            } else {
-                if (!client.login(ftpId, ftpPassword)) {
-                    log.error("FTP 로그인 실패했습니다.");
-                }
-            }
-            if (!client.changeWorkingDirectory(ftpBasePath)) {
-                log.error("'" + ftpBasePath + "' 폴더가 없습니다.");
-            }
-            InputStream inputStream = new FileInputStream(tempImageFile.getFile().getAbsolutePath());
-            boolean done = client.storeFile(tempImageFile.getFile().getName(), inputStream);
-            inputStream.close();
-            if (done) {
-                log.debug("ftp에 파일 업로드 성공했습니다.");
-            } else {
-                log.debug("ftp에 파일 업로드 실패했습니다.");
-            }
-
-        } catch (Exception e) {
-            throw new FTPUploadFailException("ftp에 파일 업로드 실패했습니다.", e);
-        } finally {
-            if (client.isConnected()) {
-                try {
-                    client.logout();
-                    client.disconnect();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }*/
-
-
     }
 
     public static String getFtpPath(String filePath) {
