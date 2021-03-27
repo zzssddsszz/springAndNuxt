@@ -48,7 +48,6 @@ export default {
 
     example_image_upload_handler (blobInfo, success, failure, progress) {
       var xhr, formData;
-      console.log("이미지 핸들러 접근")
 
       xhr = new XMLHttpRequest();
       xhr.withCredentials = false;
@@ -60,6 +59,7 @@ export default {
 
       xhr.onload = function() {
         var json;
+        console.log(xhr)
 
         if (xhr.status === 403) {
           failure('HTTP Error: ' + xhr.status, { remove: true });
@@ -71,7 +71,7 @@ export default {
           return;
         }
 
-        json = JSON.parse(xhr.responseText);
+        json = JSON.parse(xhr.responseText).data;
 
         if (!json || typeof json.location != 'string') {
           failure('Invalid JSON: ' + xhr.responseText);

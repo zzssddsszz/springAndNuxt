@@ -31,9 +31,11 @@ public class AttachmentManagement {
         String filePath;
         String folder = "attachments";
         boolean thumbnailCreated = false;
+        boolean publicFtp = false;
         if (ImageUtils.isImage(file.getContentType())) {
             filePath = saveImage(fileStorage, folder, file);
             thumbnailCreated = true;
+            publicFtp = true;
         }else {
             filePath = fileStorage.saveUploaded(folder, file);
         }
@@ -43,7 +45,9 @@ public class AttachmentManagement {
                 .fileName(file.getOriginalFilename())
                 .filePath(filePath)
                 .thumbnailCreated(thumbnailCreated)
+                .publicFtp(publicFtp)
                 .build();
+
 
         return attachmentRepository.save(attachment);
     }

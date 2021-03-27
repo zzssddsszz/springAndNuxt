@@ -25,20 +25,22 @@ public class Attachment extends BaseEntity {
 
     private String filePath;
 
-    private String fileType;
-
     private boolean thumbnailCreated;
 
+    private boolean publicFtp;
+
+    private String fileType;
 
     private boolean orphan;
 
     @Builder
-    public Attachment( User user, String fileName, String filePath, boolean thumbnailCreated) {
+    public Attachment( User user, String fileName, String filePath, boolean thumbnailCreated, boolean publicFtp) {
         this.user = user;
         this.fileName = fileName;
         this.fileType = FilenameUtils.getExtension(fileName);
         this.filePath = filePath;
         this.thumbnailCreated = thumbnailCreated;
+        this.publicFtp = publicFtp;
         this.orphan = true;
     }
 }

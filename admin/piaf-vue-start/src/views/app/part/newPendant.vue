@@ -2,14 +2,14 @@
   <b-row>
     <b-colxx xxs="12">
       <b-card class="mb-4" :title="'제품사진'">
-        <b-row>
-          <vue-dropzone ref="myVueDropzone" id="dropzone"
+          <image-sortable :data="data"></image-sortable>
+
+<!--          <vue-dropzone ref="myVueDropzone" id="dropzone"
                         @vdropzone-success="vsuccess"
                         @vdropzone-error="verror"
                         :options="dropzoneOptions"
                         :duplicateCheck="true"
-          ></vue-dropzone>
-        </b-row>
+          ></vue-dropzone>-->
       </b-card>
       <b-card class="mb-4" :title="'데이터'">
         <b-form @submit.prevent="onTopLabelsOverLineFormSubmit">
@@ -74,10 +74,8 @@ import Datepicker from "vuejs-datepicker";
 import InputTag from "@/components/Form/InputTag";
 import axios from "axios";
 import VueDropzone from "vue2-dropzone";
+import ImageSortable from "@/components/Form/ImageSortable";
 import TinyEditor from "@/components/Editor/TinyEditor";
-
-
-
 
 export default {
   components: {
@@ -85,10 +83,16 @@ export default {
     "v-select": vSelect,
     "datepicker": Datepicker,
     "vue-dropzone": VueDropzone,
-    "tiny-editor": TinyEditor
+    "tiny-editor": TinyEditor,
+    "image-sortable": ImageSortable
   },
   data() {
     return {
+      data:{
+        img:"https://blogfiles.pstatic.net/20120901_79/yyjung2_1346458465600FISyP_JPEG/2-5d6a2e7cd6d55ec20a068c8ad14b762b-d59olyz1.jpg",
+        alt:"테스트",
+        title:"타이틀"
+      },
       newItem: {
         name: "",
         mountingType: "",
