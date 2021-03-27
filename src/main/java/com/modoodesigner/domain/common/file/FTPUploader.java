@@ -1,91 +1,108 @@
 package com.modoodesigner.domain.common.file;
 
-import com.modoodesigner.domain.model.attachment.ImageProcessor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
+import org.springframework.integration.file.remote.session.Session;
+import org.springframework.integration.file.remote.session.SessionFactory;
+import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
+import org.springframework.integration.ftp.session.FtpSession;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.PostConstruct;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.SocketException;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
 
 @Component
 @Slf4j
 public class FTPUploader {
-    private Environment environment;
-    private ImageProcessor imageProcessor;
-    private static String ftpHost;
-    private String ftpPort;
+    private static String host;
     private static String ftpBasePath;
-    private String ftpId;
-    private String ftpPassword;
-    private FTPClient client;
+    private SessionFactory sessionFactory;
 
-    @PostConstruct
-    public void init(){
+
+    public FTPUploader(@Value("${app.ftp.host}") String ftpHost,
+                       @Value("${app.ftp.base-path}") String ftpBasePath,
+                       SessionFactory sessionFactory) {
+        this.host = ftpHost;
+        this.ftpBasePath = ftpBasePath;
+        this.sessionFactory = sessionFactory;
+    }
+
+    public void upload(TempFile tempImageFile) {
+
+
+        try {
+            Session session = sessionFactory.getSession();
+            InputStream inputStream = new FileInputStream(tempImageFile.getFile().getAbsolutePath());
+            session.append(inputStream,tempImageFile.getFile().getName());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
         client = new FTPClient();
         try {
             client.setControlEncoding("UTF-8");
             client.connect(ftpHost, NumberUtils.toInt(ftpPort));
+//            client.setSoTimeout();
+            client.enterLocalPassiveMode();
+            client.setFileType(FTP.BINARY_FILE_TYPE);
             int resultCode = client.getReplyCode();
             if (!FTPReply.isPositiveCompletion(resultCode)) {
                 log.error("FTP 서버 연결 실패했습니다.");
             } else {
                 if (!client.login(ftpId, ftpPassword)) {
                     log.error("FTP 로그인 실패했습니다.");
-                    return;
                 }
             }
-
             if (!client.changeWorkingDirectory(ftpBasePath)) {
                 log.error("'" + ftpBasePath + "' 폴더가 없습니다.");
             }
+            InputStream inputStream = new FileInputStream(tempImageFile.getFile().getAbsolutePath());
+            boolean done = client.storeFile(tempImageFile.getFile().getName(), inputStream);
+            inputStream.close();
+            if (done) {
+                log.debug("ftp에 파일 업로드 성공했습니다.");
+            } else {
+                log.debug("ftp에 파일 업로드 실패했습니다.");
+            }
 
-        } catch (SocketException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {
+            throw new FTPUploadFailException("ftp에 파일 업로드 실패했습니다.", e);
+        } finally {
+            if (client.isConnected()) {
+                try {
+                    client.logout();
+                    client.disconnect();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-    }
-
-
-    public FTPUploader(Environment environment,
-                       ImageProcessor imageProcessor,
-                       @Value("${app.ftp.host}") String ftpHost,
-                       @Value("${app.ftp.port}") String ftpPort,
-                       @Value("${app.ftp.base-path}") String ftpBasePath,
-                       @Value("${app.ftp.id}") String ftpId,
-                       @Value("${app.ftp.password}") String ftpPassword) {
-        this.environment = environment;
-        this.ftpHost = ftpHost;
-        this.ftpPort = ftpPort;
-        this.ftpBasePath = ftpBasePath;
-        this.ftpId = ftpId;
-        this.ftpPassword = ftpPassword;
-    }
-
-    public void upload(TempFile tempImageFile) {
-        try {
-            client.storeFile(tempImageFile.getFile().getName(), Files.newInputStream(tempImageFile.getFile().toPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            }
+        }*/
 
 
     }
 
     public static String getFtpPath(String filePath) {
-        return "https://" + ftpHost + "/" + ftpBasePath + "/" + FilenameUtils.getName(filePath);
+        return "https://" + host + "/" + ftpBasePath + "/" + FilenameUtils.getName(filePath);
     }
 }
