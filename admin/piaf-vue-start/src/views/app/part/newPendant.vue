@@ -2,7 +2,7 @@
   <b-row>
     <b-colxx xxs="12">
       <b-card class="mb-4" :title="'제품사진'">
-        <image-sortable :images="newItem.mainImages"></image-sortable>
+        <image-sortable :images="mainImages"></image-sortable>
         <b-button v-b-modal.modalbasic variant="outline-primary">{{ '사진 추가' }}</b-button>
         <b-modal id="modalbasic" ref="modalbasic" :title="'사진 업로드'">
           <vue-dropzone ref="myVueDropzone" id="dropzone"
@@ -16,11 +16,11 @@
 
 
       <b-card class="mb-4" :title="'데이터'">
-        <b-form @submit.prevent="onTopLabelsOverLineFormSubmit">
+        <b-form @submit.prevent="formSubmit">
           <b-row>
             <b-colxx sm="4">
               <label class="form-group has-float-label">
-                <input type="text" class="form-control" v-model="topLabelsOverLineForm.email"/>
+                <input type="text" class="form-control" v-model="newItem.name"/>
                 <span>이름</span>
               </label>
             </b-colxx>
@@ -92,6 +92,7 @@ export default {
   },
   data() {
     return {
+      mainImages: [],
       newItem: {
         name: "",
         mountingType: "",
@@ -100,14 +101,7 @@ export default {
         buyPrice: "",
         stock: "",
         tags: [],
-        mainImages: [
-          /*
-          {"id":14,"filePath":"attachments\\1616822036476.f86f6743-79d9-4fdd-9059-d4caa2d6f018.jpg","location":"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20120611_12%2Flive_1975_1339400378420oSEhg_JPEG%2F%25B0%25A8%25BC%25BA%25BB%25E7%25C1%25F8_400x300.jpg&type=sc960_832","thumbnailCreated":true},
-          {"id":15,"filePath":"attachments\\1616822036476.f86f6743-79d9-4fdd-9059-d4caa2d6f018.jpg","location":"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20120611_12%2Flive_1975_1339400378420oSEhg_JPEG%2F%25B0%25A8%25BC%25BA%25BB%25E7%25C1%25F8_400x300.jpg&type=sc960_832","thumbnailCreated":true},
-          {"id":16,"filePath":"attachments\\1616822036476.f86f6743-79d9-4fdd-9059-d4caa2d6f018.jpg","location":"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20120611_12%2Flive_1975_1339400378420oSEhg_JPEG%2F%25B0%25A8%25BC%25BA%25BB%25E7%25C1%25F8_400x300.jpg&type=sc960_832","thumbnailCreated":true},
-          {"id":17,"filePath":"attachments\\1616822036476.f86f6743-79d9-4fdd-9059-d4caa2d6f018.jpg","location":"https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2F20120611_12%2Flive_1975_1339400378420oSEhg_JPEG%2F%25B0%25A8%25BC%25BA%25BB%25E7%25C1%25F8_400x300.jpg&type=sc960_832","thumbnailCreated":true}
-          */
-        ],
+        mainImageIndex: [],
         content: ""
       },
       color: ["무도금", "핑크골드", "화이트골드"],
@@ -130,13 +124,23 @@ export default {
       }
     };
   },
+  watch: {
+    mainImages: function () {
+      this.newItem.mainImageIndex.splice(0, this.newItem.mainImageIndex.length)
+      this.mainImages.map((element,index) => this.newItem.mainImageIndex.push({"id":element.id,"position":index}))
+    }
+  },
   methods: {
     changeContent(content){
-      console.log(content)
       this.newItem.content=content;
     },
-    onTopLabelsOverLineFormSubmit() {
-      console.log(JSON.stringify(this.topLabelsOverLineForm));
+    formSubmit() {
+      axios.post("/pendants", this.newItem).then(({data}) => {
+        this.$emit('added')
+        this.hideModal('modalright')
+      }).catch(error => {
+        this.errorMessage = error.message
+      })
     },
     addNewItem() {
       axios.post("/pendants", this.newItem).then(({data}) => {
@@ -154,7 +158,7 @@ export default {
 
     vsuccess(file, response) {
       this.success = true
-      this.newItem.mainImages.push(response.data)
+      this.mainImages.push(response.data)
     },
     verror(file, error, xhr) {
       const elements = document.querySelectorAll(".dz-preview");

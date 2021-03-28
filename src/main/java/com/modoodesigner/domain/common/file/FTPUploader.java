@@ -5,8 +5,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.integration.file.remote.session.Session;
 import org.springframework.integration.file.remote.session.SessionFactory;
-import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
-import org.springframework.integration.ftp.session.FtpSession;
 import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
@@ -30,21 +28,28 @@ public class FTPUploader {
     }
 
     public void upload(TempFile tempImageFile) {
-        Session session = sessionFactory.getSession();;
+        Session session = null;
+        InputStream inputStream = null;
         try {
-            InputStream inputStream = new FileInputStream(tempImageFile.getFile().getAbsolutePath());
+            session = sessionFactory.getSession();
+            inputStream = new FileInputStream(tempImageFile.getFile().getAbsolutePath());
 
-            if (!session.exists(ftpBasePath)){
+            if (!session.exists(ftpBasePath)) {
                 session.mkdir(ftpBasePath);
             }
-            session.append(inputStream,ftpBasePath+tempImageFile.getFile().getName());
+            session.append(inputStream, ftpBasePath + tempImageFile.getFile().getName());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
-            if (session.isOpen()){
+        } finally {
+            if (session.isOpen()) {
                 session.close();
+            }
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
