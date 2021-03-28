@@ -2,7 +2,11 @@
   <b-row>
     <b-colxx xxs="12">
       <b-card class="mb-4" :title="'제품사진'">
-        <image-sortable :images="mainImages"></image-sortable>
+        <image-sortable
+          :images="mainImages"
+          @changeIndex="changeIndex"
+          @deleteMainImage="deleteMainImage"
+        ></image-sortable>
         <b-button v-b-modal.modalbasic variant="outline-primary">{{ '사진 추가' }}</b-button>
         <b-modal id="modalbasic" ref="modalbasic" :title="'사진 업로드'">
           <vue-dropzone ref="myVueDropzone" id="dropzone"
@@ -63,7 +67,8 @@
                         </b-colxx>-->
           </b-row>
           <tiny-editor
-            v-on:changeContent="changeContent"
+            @changeContent="changeContent"
+            @addImage="contentAddImage"
           ></tiny-editor>
           <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
         </b-form>
@@ -80,6 +85,7 @@ import axios from "axios";
 import VueDropzone from "vue2-dropzone";
 import ImageSortable from "@/components/Form/ImageSortable";
 import TinyEditor from "@/components/Editor/TinyEditor";
+import _ from 'lodash';
 
 export default {
   components: {
@@ -102,6 +108,7 @@ export default {
         stock: "",
         tags: [],
         mainImageIndex: [],
+        contentImage:[],
         content: ""
       },
       color: ["무도금", "핑크골드", "화이트골드"],
@@ -127,14 +134,22 @@ export default {
   watch: {
     mainImages: function () {
       this.newItem.mainImageIndex.splice(0, this.newItem.mainImageIndex.length)
-      this.mainImages.map((element,index) => this.newItem.mainImageIndex.push({"id":element.id,"position":index}))
+      this.mainImages.map((element,index) => this.newItem.mainImageIndex.push(element.id))
     }
   },
   methods: {
     changeContent(content){
       this.newItem.content=content;
     },
+    contentAddImage(id){
+      this.newItem.contentImage.push(id);
+    },
+    deleteMainImage(id){
+      let index = _.findIndex(this.mainImages, function (element) {return element.id===id});
+      this.mainImages.splice(index,1);
+    },
     formSubmit() {
+      console.log(console.log(JSON.stringify(this.newItem)));
       axios.post("/pendants", this.newItem).then(({data}) => {
         this.$emit('added')
         this.hideModal('modalright')
@@ -151,9 +166,9 @@ export default {
       })
     },
     changeIndex(oldIndex, newIndex) {
-      let temp = this.newItem.mainImages[oldIndex];
-      this.newItem.mainImages[oldIndex] = this.newItem.mainImages[newIndex];
-      this.newItem.mainImages[newIndex] = temp;
+      let temp = this.mainImages[oldIndex];
+      this.mainImages[oldIndex] = this.mainImages[newIndex];
+      this.mainImages[newIndex] = temp;
     },
 
     vsuccess(file, response) {

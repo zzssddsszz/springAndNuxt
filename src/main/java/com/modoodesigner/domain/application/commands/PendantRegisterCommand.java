@@ -12,21 +12,14 @@ import lombok.experimental.SuperBuilder;
 @Getter @Setter
 public class PendantRegisterCommand extends UserCommand {
     private String name;
-    private String img;
+    private MountingType mountingType;
+    private Material material;
+    private PlatingColor color;
     private int buyPrice;
     private int stock;
-    private String code;
-    private PlatingColor color;
-    private Material material;
-    private MountingType mountingType;
+    private String[] tags;
+    private Long[] mainImageIndex;
+    private Long[] contentImage;
+    private String content;
 
-    @Override
-    public UserId getUserId() {
-        return null;
-    }
-
-    @Override
-    public IpAddress getIpAddress() {
-        return null;
-    }
 }

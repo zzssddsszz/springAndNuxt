@@ -48,9 +48,13 @@ export default {
     change(){
       this.$emit("changeContent",this.content)
     },
+    addImage(id){
+      this.$emit('addImage', id);
+    },
 
     image_upload_handler (blobInfo, success, failure, progress) {
-      var xhr, formData;
+      let xhr, formData;
+      let th = this;
 
       xhr = new XMLHttpRequest();
       xhr.withCredentials = false;
@@ -62,7 +66,7 @@ export default {
 
       xhr.onload = function() {
         var json;
-        console.log(xhr)
+        // console.log(xhr)
 
         if (xhr.status === 403) {
           failure('HTTP Error: ' + xhr.status, { remove: true });
@@ -80,8 +84,8 @@ export default {
           failure('Invalid JSON: ' + xhr.responseText);
           return;
         }
-
         success(json.location);
+        th.addImage(json.id)
       };
 
       xhr.onerror = function () {

@@ -73,7 +73,6 @@ public class LocalTestInit {
                         .buyPrice(1000)
                         .stock(100)
                         .color(PlatingColor.PINK)
-                        .code("TESTCODE1"+i)
                         .material(Material.SILVER)
                         .mountingType(MountingType.SINGLE)
                         .build();
