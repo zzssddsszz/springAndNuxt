@@ -92,7 +92,6 @@ export default {
   },
   data() {
     return {
-      mainImages: [],
       newItem: {
         name: "",
         mountingType: "",
@@ -146,6 +145,11 @@ export default {
       }).catch(error => {
         this.errorMessage = error.message
       })
+    },
+    changeIndex(oldIndex, newIndex) {
+      let temp = this.newItem.mainImages[oldIndex];
+      this.newItem.mainImages[oldIndex] = this.newItem.mainImages[newIndex];
+      this.newItem.mainImages[newIndex] = temp;
     },
 
     vsuccess(file, response) {

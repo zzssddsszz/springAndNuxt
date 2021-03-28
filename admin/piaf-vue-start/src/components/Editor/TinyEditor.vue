@@ -7,8 +7,10 @@
     :disabled=false
     :init="{
       height: 500,
+      width: 'auto',
       language: 'ko_KR',
-      images_upload_handler: example_image_upload_handler,
+      images_upload_handler: image_upload_handler,
+      content_style:'iframe{overflow: hidden;}',
       plugins: [
         'advlist autolink link image lists charmap print preview hr anchor pagebreak',
         'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
@@ -30,6 +32,7 @@
   ></tiny-editor>
 </template>
 <script>
+//https://usang0810.tistory.com/38
 import Editor from '@tinymce/tinymce-vue';
 
 export default {
@@ -46,7 +49,7 @@ export default {
       this.$emit("changeContent",this.content)
     },
 
-    example_image_upload_handler (blobInfo, success, failure, progress) {
+    image_upload_handler (blobInfo, success, failure, progress) {
       var xhr, formData;
 
       xhr = new XMLHttpRequest();
@@ -95,3 +98,8 @@ export default {
 
 
 </script>
+<style>
+iframe{
+  overflow: hidden;
+}
+</style>
