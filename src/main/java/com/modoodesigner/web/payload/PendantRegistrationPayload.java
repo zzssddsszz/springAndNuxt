@@ -21,8 +21,8 @@ public class PendantRegistrationPayload {
     private int buyPrice;
     private int stock;
     private String[] tags;
-    private Long[] mainImageIndex;
-    private Long[] contentImage;
+    private int[] mainImageIndex;
+    private int[] contentImage;
     private String content;
 
     public PendantRegisterCommand toCommand() {

@@ -12,6 +12,11 @@ const data = [
       label: "menu.pendant",
       to: `${adminRoot}/part/pendant`,
     },
+      {
+        icon: "simple-icon-paper-plane",
+        label: "menu.product",
+        to: `${adminRoot}/part/product`,
+      }
     ]
   },
   {

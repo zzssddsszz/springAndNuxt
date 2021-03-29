@@ -120,7 +120,8 @@
     "start": "Start",
     "single": "Single",
     "part": "부품등록",
-    "pendant": "펜던트"
+    "pendant": "펜던트",
+    "product": "제품"
   },
   "dashboards": {
     "pending-orders": "Pending Orders",
