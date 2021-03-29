@@ -33,6 +33,8 @@ public class Attachment extends BaseEntity {
 
     private boolean orphan;
 
+    private int index;
+
     @Builder
     public Attachment( User user, String fileName, String filePath, boolean thumbnailCreated, boolean publicFtp) {
         this.user = user;
@@ -42,5 +44,14 @@ public class Attachment extends BaseEntity {
         this.thumbnailCreated = thumbnailCreated;
         this.publicFtp = publicFtp;
         this.orphan = true;
+    }
+
+    public void activation() {
+        orphan = true;
+    }
+
+
+    public void setIndex(int num) {
+        index = num;
     }
 }

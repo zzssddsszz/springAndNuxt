@@ -4,6 +4,7 @@ import com.modoodesigner.domain.application.commands.ProductRegisterCommand;
 import com.modoodesigner.domain.common.model.BaseEntity;
 import com.modoodesigner.domain.model.attachment.Attachment;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,16 +13,18 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
+@Slf4j
 public class Product extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PRODUCT_ID")
     private Long id;
 
     private Long price;
 
     @OneToMany
+    @JoinColumn(name = "attachment_id")
+    @OrderColumn(name = "attachment_index")
     private List<Attachment> images;
 
     private String name;
@@ -34,4 +37,11 @@ public class Product extends BaseEntity {
         content = command.getContent();
     }
 
+    public void addImage(Attachment image) {
+        images.add(image);
+        if (image.isOrphan()){
+            image.activation();
+            log.debug(image.getId()+" 의 이미지가 활성화 되었습니다.");
+        }
+    }
 }

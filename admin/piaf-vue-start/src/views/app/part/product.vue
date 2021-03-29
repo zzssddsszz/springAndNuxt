@@ -17,7 +17,7 @@
         :to="to"
         :total="total"
         :perPage="perPage"
-        @addPendantItem="addItem"
+        :add-new="'newProduct'"
       ></list-page-heading>
       <template v-if="isLoad">
         <list-page-listing

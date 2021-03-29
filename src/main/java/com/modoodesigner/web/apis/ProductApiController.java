@@ -13,6 +13,7 @@ import com.modoodesigner.web.payload.PendantRegistrationPayload;
 import com.modoodesigner.web.payload.ProductRegistrationPayload;
 import com.modoodesigner.web.results.ApiResult;
 import com.modoodesigner.web.results.PendantListResult;
+import com.modoodesigner.web.results.ProductListResult;
 import com.modoodesigner.web.results.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ import javax.validation.Valid;
 public class ProductApiController extends AbstractBaseController {
     private final ProductService service;
 
-    @PostMapping("/api/product")
+    @PostMapping("/api/products")
     public ResponseEntity<ApiResult> register(@RequestBody ProductRegistrationPayload payload, HttpServletRequest request){
         try {
             ProductRegisterCommand command = payload.toCommand();
@@ -47,10 +48,10 @@ public class ProductApiController extends AbstractBaseController {
     }
 
 
-    @GetMapping("/api/pendants")
-    public ResponseEntity<ApiResult> register( Pageable pageable, HttpServletRequest request) {
+    @GetMapping("/api/products")
+    public ResponseEntity<ApiResult> getProducts( Pageable pageable, HttpServletRequest request) {
         Page<Product> productAll = service.findByAll(pageable);
-        return ProductListResult.created(pendantAll);
+        return ProductListResult.created(productAll);
     }
 
 

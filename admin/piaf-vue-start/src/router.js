@@ -42,7 +42,9 @@ const routes = [
         redirect: `${adminRoot}/part/pendant`,
         children: [
           { path: 'pendant', component: () => import('./views/app/part/pendant') },
-          { path: 'product', component: () => import('./views/app/part/product') }
+          { path: 'newPendant', component: () => import('./views/app/part/newPendant') },
+          { path: 'product', component: () => import('./views/app/part/product') },
+          { path: 'newProduct', component: () => import('./views/app/part/newProduct') }
         ]
       },
       {

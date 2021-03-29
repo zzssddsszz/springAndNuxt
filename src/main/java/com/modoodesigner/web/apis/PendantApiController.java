@@ -48,7 +48,7 @@ public class PendantApiController extends AbstractBaseController {
     }
 
     @GetMapping("/api/pendants")
-    public ResponseEntity<ApiResult> register( Pageable pageable, HttpServletRequest request) {
+    public ResponseEntity<ApiResult> getPendants( Pageable pageable, HttpServletRequest request) {
         Page<Pendant> pendantAll = service.findByAll(pageable);
         return PendantListResult.created(pendantAll);
     }

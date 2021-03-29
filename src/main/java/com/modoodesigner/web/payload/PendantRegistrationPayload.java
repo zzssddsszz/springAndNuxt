@@ -1,14 +1,13 @@
 package com.modoodesigner.web.payload;
 
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
+import com.modoodesigner.domain.model.part.common.Material;
 import com.modoodesigner.domain.model.part.common.PlatingColor;
 import com.modoodesigner.domain.model.part.pendant.MountingType;
-import com.modoodesigner.domain.model.part.common.Material;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 
-import static org.reflections.util.ConfigurationBuilder.build;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,9 +19,9 @@ public class PendantRegistrationPayload {
     private String color;
     private int buyPrice;
     private int stock;
-    private String[] tags;
-    private int[] mainImageIndex;
-    private int[] contentImage;
+    private List<String> tags;
+    private List<Long> mainImages;
+    private List<Long> contentImages;
     private String content;
 
     public PendantRegisterCommand toCommand() {
@@ -34,8 +33,8 @@ public class PendantRegistrationPayload {
                 .buyPrice(buyPrice)
                 .stock(stock)
                 .tags(tags)
-                .mainImageIndex(mainImageIndex)
-                .contentImage(contentImage)
+                .mainImages(mainImages)
+                .contentImages(contentImages)
                 .build();
         return command;
     }

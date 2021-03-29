@@ -4,11 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Builder
 @Getter @Setter
 public class ProductRegisterCommand extends UserCommand{
     private String name;
-    private Long[] mainImageIndex;
-    private Long[] contentImage;
+    private List<Long> mainImages;
+    private List<Long> contentImages;
     private String content;
 }

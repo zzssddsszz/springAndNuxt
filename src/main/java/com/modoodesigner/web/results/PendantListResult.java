@@ -22,13 +22,6 @@ public class PendantListResult {
             pendantDataList.add(new PendantData(pendant));
         });
 
-        ApiResult apiResult = ApiResult.blank()
-                .add("total",pendantAll.getTotalElements())
-                .add("from",pendantAll.getPageable().getOffset())
-                .add("to",pendantAll.getPageable().getOffset()+pendantAll.getNumberOfElements()-1)
-                .add("data", pendantDataList)
-                .add("per_page",pendantAll.getPageable().getPageSize())
-                .add("last_page",pendantAll.getTotalPages());
-        return Result.ok(apiResult);
+        return Result.ok(ApiResult.list(pendantAll,pendantDataList));
     }
 }

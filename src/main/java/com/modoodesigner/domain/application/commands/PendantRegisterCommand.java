@@ -8,6 +8,8 @@ import com.modoodesigner.utils.IpAddress;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @Builder
 @Getter @Setter
 public class PendantRegisterCommand extends UserCommand {
@@ -17,9 +19,9 @@ public class PendantRegisterCommand extends UserCommand {
     private PlatingColor color;
     private int buyPrice;
     private int stock;
-    private String[] tags;
-    private int[] mainImageIndex;
-    private int[] contentImage;
+    private List<String> tags;
+    private List<Long> mainImages;
+    private List<Long> contentImages;
     private String content;
 
 }

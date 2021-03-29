@@ -48,14 +48,12 @@ export default {
     change(){
       this.$emit("changeContent",this.content)
     },
-    addImage(id){
-      this.$emit('addImage', id);
+    addImage(data){
+      this.$emit('addImage', data);
     },
-
     image_upload_handler (blobInfo, success, failure, progress) {
       let xhr, formData;
       let th = this;
-
       xhr = new XMLHttpRequest();
       xhr.withCredentials = false;
       xhr.open('POST', '/api/image');
@@ -84,8 +82,9 @@ export default {
           failure('Invalid JSON: ' + xhr.responseText);
           return;
         }
+
         success(json.location);
-        th.addImage(json.id)
+        th.addImage(json)
       };
 
       xhr.onerror = function () {
