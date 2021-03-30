@@ -5,6 +5,7 @@ import com.modoodesigner.domain.model.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.apache.commons.io.FilenameUtils;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
+@ToString
 public class Attachment extends BaseEntity {
 
     @Id
@@ -47,7 +49,7 @@ public class Attachment extends BaseEntity {
     }
 
     public void activation() {
-        orphan = true;
+        orphan = false;
     }
 
 

@@ -29,6 +29,7 @@
     toolbar=""
     value="initValue"
     @onChange="change"
+    @onInit="init"
   ></tiny-editor>
 </template>
 <script>
@@ -36,9 +37,6 @@
 import Editor from '@tinymce/tinymce-vue';
 
 export default {
-  mounted() {
-    this.content = this.initValue;
-  },
   props:['initValue'],
   components: {
     "tiny-editor": Editor
@@ -49,6 +47,10 @@ export default {
     }
   },
   methods: {
+    init(){
+      console.log("초기값 실행 init :"+this.initValue)
+      this.content = this.initValue;
+    },
     change(){
       this.$emit("changeContent",this.content)
     },

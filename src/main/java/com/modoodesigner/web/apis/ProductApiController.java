@@ -51,9 +51,17 @@ public class ProductApiController extends AbstractBaseController {
     }
 
     @PutMapping("/api/products/{id}")
-    public ResponseEntity<ApiResult> editProduct(@PathVariable Long id, HttpServletRequest request) {
-        Product product = service.findById(id);
-        return Result.ok();
+    public ResponseEntity<ApiResult> editProduct(@RequestBody ProductRegistrationPayload payload,
+                                                 @PathVariable Long id, HttpServletRequest request) {
+        try {
+            ProductRegisterCommand command = payload.toCommand();
+            service.edit(command,id);
+            return Result.ok();
+        } catch (Exception e) {
+            String errorMessage = "상품수정에 실패하였습니다.";
+            return Result.failure(errorMessage);
+        }
+
     }
 
 

@@ -54,21 +54,24 @@ import TinyEditor from "@/components/Editor/TinyEditor";
 import _ from 'lodash';
 
 export default {
-  created() {
-
+  beforeMount() {
     console.log("접속")
-    // axios.get()
     let id = this.$route.params.id;
     if (id) {
       axios.get(`/products/${id}`).then(res => {
         let value = res.data.data;
         console.log(value)
         this.newItem.id = value.id;
-        this.newItem.name = "asdasdf";
+        this.newItem.name = value.name;
         this.newItem.content = value.content;
-
+        for(let img of value.attachmentList){
+          this.addedMainImages.push(img)
+        }
+        this.newItem.mainImages.push()
         this.editMode = true;
       })
+    }else {
+      this.editMode = false;
     }
 
   },
@@ -136,19 +139,19 @@ export default {
 
     },
     formSubmit() {
-      // console.log(console.log(JSON.stringify(this.newItem)));
       if (!this.editMode) {
         this.contentImageActivation();
         axios.post("/products", this.newItem).then(({data}) => {
-          this.$router.push("../")
+          console.log("push")
+          this.$router.push("list")
         }).catch(error => {
-          // this.errorMessage = error.message
           console.log(error)
         })
       }else {
         this.contentImageActivation();
         axios.put(`/products/${this.$route.params.id}`, this.newItem).then(({data}) => {
-          this.$router.push("../")
+          console.log("push")
+          this.$router.push("../list")
         }).catch(error => {
           // this.errorMessage = error.message
           console.log(error)

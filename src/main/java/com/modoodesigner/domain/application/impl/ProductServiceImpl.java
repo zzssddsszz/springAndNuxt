@@ -2,7 +2,6 @@ package com.modoodesigner.domain.application.impl;
 
 import com.modoodesigner.domain.application.ProductService;
 import com.modoodesigner.domain.application.commands.ProductRegisterCommand;
-import com.modoodesigner.domain.model.part.pendant.PendantRegistrationManagement;
 import com.modoodesigner.domain.model.product.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,7 +14,7 @@ import javax.transaction.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private final ProductRegistrationManagement productRegistrationManagement;
+    private final ProductManagement productRegistrationManagement;
     private final ProductRepository repository;
 
     @Override
@@ -36,5 +35,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> findByAll(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public void edit(ProductRegisterCommand command, Long id) {
+        productRegistrationManagement.edit(command,id);
     }
 }

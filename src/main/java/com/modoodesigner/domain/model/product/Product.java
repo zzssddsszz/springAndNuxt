@@ -23,7 +23,7 @@ public class Product extends BaseEntity {
 
     private Long price;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "attachment_id")
     @OrderColumn(name = "attachment_index")
     private List<Attachment> images = new ArrayList<>();

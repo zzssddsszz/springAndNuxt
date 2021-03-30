@@ -10,15 +10,22 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    tinyData:""
   },
   mutations: {
     changeLang(state, payload) {
       app.$i18n.locale = payload
       setCurrentLanguage(payload);
+    },
+    tinyData(state,text){
+      state.tinyData = text;
     }
   },
   actions: {
     setLang({ commit }, payload) {
+      commit('changeLang', payload)
+    },
+    getProduct({ commit }, payload) {
       commit('changeLang', payload)
     }
   },
