@@ -48,3 +48,4 @@ yarn.lock
 /src/main/resources/static/**
 /src/main/resources/templates/**
 /src/main/resources/webapp/**
+spy.log
