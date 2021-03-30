@@ -1,8 +1,7 @@
 package com.modoodesigner.web.results.data;
 
-import com.modoodesigner.domain.common.file.FTPUploader;
+import com.modoodesigner.domain.common.file.FTPSeverUploader;
 import com.modoodesigner.domain.model.attachment.Attachment;
-import com.modoodesigner.domain.model.product.Product;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +18,7 @@ public class AttachmentData {
         filePath = file.getFilePath();
         thumbnailCreated = file.isThumbnailCreated();
         if (file.isPublicFtp()) {
-            location = FTPUploader.getFtpPath(filePath);
+            location = FTPSeverUploader.getFtpPath(filePath);
         }
     }
 }

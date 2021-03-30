@@ -7,6 +7,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.integration.file.remote.session.CachingSessionFactory;
 import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
@@ -15,6 +16,7 @@ import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
 public class FTPConfiguration {
 
     @Bean
+    @Profile({"dev","real"})
     public SessionFactory<FTPFile> defaultFtpSessionFactory(@Value("${app.ftp.host}") String ftpHost,
                                                             @Value("${app.ftp.port}") String ftpPort,
                                                             @Value("${app.ftp.id}") String ftpId,

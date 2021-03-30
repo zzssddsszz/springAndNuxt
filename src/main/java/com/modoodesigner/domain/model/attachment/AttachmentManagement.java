@@ -1,15 +1,10 @@
 package com.modoodesigner.domain.model.attachment;
 
-import com.modoodesigner.domain.common.file.FTPUploader;
-import com.modoodesigner.domain.common.file.FileStorage;
-import com.modoodesigner.domain.common.file.FileStorageResolver;
-import com.modoodesigner.domain.common.file.TempFile;
+import com.modoodesigner.domain.common.file.*;
 import com.modoodesigner.domain.model.user.UserRepository;
 import com.modoodesigner.utils.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
