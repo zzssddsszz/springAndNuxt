@@ -7,7 +7,7 @@ export const pricesData = {
             detail: 'User/Month',
             link: '#',
             features: [
-                'Number of end products 1',
+                'Number of end product 1',
                 'Free updates',
                 'Forum support'
             ]
@@ -20,7 +20,7 @@ export const pricesData = {
             link: '#',
             features: [
                 '24/5 support',
-                'Number of end products 1',
+                'Number of end product 1',
                 'Two factor authentication',
                 'Free updates',
                 'Forum support',
@@ -34,7 +34,7 @@ export const pricesData = {
             link: '#',
             features: [
                 '24/7 support',
-                'Number of end products 1',
+                'Number of end product 1',
                 'Two factor authentication',
                 'Free updates',
                 'Forum support',
@@ -91,7 +91,7 @@ export const pricesData = {
             detail: 'User/Month',
             link: '#',
             features: [
-                'Number of end products 1',
+                'Number of end product 1',
                 'Free updates',
                 'Forum support'
             ]
@@ -104,7 +104,7 @@ export const pricesData = {
             link: '#',
             features: [
                 '24/5 support',
-                'Number of end products 1',
+                'Number of end product 1',
                 'Two factor authentication',
                 'Free updates',
                 'Forum support',
@@ -118,7 +118,7 @@ export const pricesData = {
             link: '#',
             features: [
                 '24/7 support',
-                'Number of end products 1',
+                'Number of end product 1',
                 'Two factor authentication',
                 'Free updates',
                 'Forum support',

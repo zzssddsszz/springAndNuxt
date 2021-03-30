@@ -9,8 +9,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
 
-    ProductSpecie findById(Long id);
-    ProductSpecie findByName(String name);
+     Product findById(Long id);
+     Product findByName(String name);
 
     void register(ProductRegisterCommand command) throws ProductRegistrationException;
 

@@ -21,13 +21,13 @@
       'forecolor backcolor emoticons | help',
       menubar: 'file edit view insert format tools table help',
     }"
-    initial-value=""
+    :initial-value="this.initValue"
     :inline=false
     model-events=""
     plugins=""
     tag-name="div"
     toolbar=""
-    value=""
+    value="initValue"
     @onChange="change"
   ></tiny-editor>
 </template>
@@ -36,12 +36,16 @@
 import Editor from '@tinymce/tinymce-vue';
 
 export default {
+  mounted() {
+    this.content = this.initValue;
+  },
+  props:['initValue'],
   components: {
     "tiny-editor": Editor
   },
   data() {
     return {
-      content: ""
+      content: "",
     }
   },
   methods: {

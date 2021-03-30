@@ -12,7 +12,7 @@ const logs = [
     key: 1
   },
   {
-    label: '14 products added',
+    label: '14 product added',
     time: '12:55',
     color: 'border-danger',
     key: 2

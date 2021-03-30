@@ -2,6 +2,7 @@ package com.modoodesigner.web.results.data;
 
 import com.modoodesigner.domain.common.file.FTPUploader;
 import com.modoodesigner.domain.model.attachment.Attachment;
+import com.modoodesigner.domain.model.product.Product;
 import lombok.Getter;
 import lombok.Setter;
 

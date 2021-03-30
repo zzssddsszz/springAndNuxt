@@ -121,7 +121,8 @@
     "part": "부품등록",
     "pendant": "펜던트",
     "product": "제품",
-    "newProduct": "상품등록"
+    "newProduct": "상품등록",
+    "list": "리스트"
   },
   "dashboards": {
     "pending-orders": "Pending Orders",

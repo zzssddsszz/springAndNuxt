@@ -53,7 +53,7 @@ export default {
   data() {
     return {
       isLoad: false,
-      apiBase: "/pendants",
+      apiBase: "/products",
       displayMode: "list",
       sort: {
         column: "id",

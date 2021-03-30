@@ -34,6 +34,7 @@
           <tiny-editor
             @changeContent="changeContent"
             @addImage="contentAddImage"
+            :initValue="newItem.content"
           ></tiny-editor>
           <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
         </b-form>
@@ -53,6 +54,24 @@ import TinyEditor from "@/components/Editor/TinyEditor";
 import _ from 'lodash';
 
 export default {
+  created() {
+
+    console.log("접속")
+    // axios.get()
+    let id = this.$route.params.id;
+    if (id) {
+      axios.get(`/products/${id}`).then(res => {
+        let value = res.data.data;
+        console.log(value)
+        this.newItem.id = value.id;
+        this.newItem.name = "asdasdf";
+        this.newItem.content = value.content;
+
+        this.editMode = true;
+      })
+    }
+
+  },
   components: {
     "input-tag": InputTag,
     "v-select": vSelect,
@@ -63,9 +82,11 @@ export default {
   },
   data() {
     return {
+      editMode: false,
       addedMainImages: [],
       addedContentImages: [],
       newItem: {
+        id: "",
         name: "",
         mainImages: [],
         contentImages: [],
@@ -99,7 +120,7 @@ export default {
     changeContent(content) {
       this.newItem.content = content;
     },
-    contentAddImage(data){
+    contentAddImage(data) {
       this.addedContentImages.push(data);
     },
     deleteMainImage(id) {
@@ -107,44 +128,33 @@ export default {
       this.addedMainImages.splice(index, 1);
     },
     contentImageActivation() {
-      let doc = new DOMParser().parseFromString(this.newItem.content, "text/html");
-      let imagesDom = doc.body.getElementsByTagName("img");
-      console.log(imagesDom);
-      // imagesDom.map(element => this.newItem.contentImages.push(element.id))
-
-
-      // console.log(imagesDom[0].src)
-
-      for (let imagesDomKey of imagesDom) {
-        // console.log(imagesDomKey)
-        /*let data = this.addedContentImages.find(element =>{
-          element.location.equal(imagesDomKey.src)
-        })*/
-
-        addedContentImages.find(element => {
-          element.location.equals
-        })
-
-        console.log("data")
-        console.log(this.addedContentImages)
-
-        console.log("imagesKey")
-        console.log(imagesDomKey);
+      for (let image of this.addedContentImages) {
+        if (this.newItem.content.search(image.location) > 0) {
+          this.newItem.contentImages.push(image.id);
+        }
       }
 
     },
     formSubmit() {
       // console.log(console.log(JSON.stringify(this.newItem)));
+      if (!this.editMode) {
+        this.contentImageActivation();
+        axios.post("/products", this.newItem).then(({data}) => {
+          this.$router.push("../")
+        }).catch(error => {
+          // this.errorMessage = error.message
+          console.log(error)
+        })
+      }else {
+        this.contentImageActivation();
+        axios.put(`/products/${this.$route.params.id}`, this.newItem).then(({data}) => {
+          this.$router.push("../")
+        }).catch(error => {
+          // this.errorMessage = error.message
+          console.log(error)
+        })
+      }
 
-      this.contentImageActivation();
-
-
-      /*axios.post("/pendants", this.newItem).then(({data}) => {
-        this.$emit('added')
-        this.hideModal('modalright')
-      }).catch(error => {
-        this.errorMessage = error.message
-      })*/
     },
     addNewItem() {
       axios.post("/pendants", this.newItem).then(({data}) => {
@@ -178,6 +188,8 @@ export default {
       // console.log(xhr);
       // window.toastr.error(file.upload.filename, 'Event : vdropzone-error - ' + file.status)
     },
+
+
     dropzoneTemplate() {
       return `<div class="dz-preview dz-file-preview mb-3">
                   <div class="d-flex flex-row "> <div class="p-0 w-30 position-relative">
@@ -197,7 +209,8 @@ export default {
                   <a href="#" class="remove" data-dz-remove> <i class="glyph-icon simple-icon-trash"></i> </a>
                 </div>
         `;
-    }
+    },
+
   }
 };
 </script>

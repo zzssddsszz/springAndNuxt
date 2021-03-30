@@ -21,20 +21,23 @@ public class ProductRegistrationManagement {
         List<Long> mainImages = command.getMainImages();
         List<Long> contentImages = command.getContentImages();
 
-        IntStream.range(0, mainImages.size())
-                .forEach(index -> {
-                    Attachment attachment = attachmentRepository.findById(mainImages.get(index)).orElseThrow();
-                    attachment.setIndex(index);
-                    product.addImage(attachment);
-                });
+        if (!mainImages.isEmpty()) {
+            IntStream.range(0, mainImages.size())
+                    .forEach(index -> {
+                        Attachment attachment = attachmentRepository.findById(mainImages.get(index)).orElseThrow();
+                        attachment.setIndex(index);
+                        product.addImage(attachment);
+                    });
+        }
 
-        contentImages.forEach((id -> {
-            Attachment attachment = attachmentRepository.findById(id).orElseThrow();
-            if (attachment.isOrphan()){
-                attachment.activation();
-            }
-
-        }));
+        if(!contentImages.isEmpty()) {
+            contentImages.forEach((id -> {
+                Attachment attachment = attachmentRepository.findById(id).orElseThrow();
+                if (attachment.isOrphan()) {
+                    attachment.activation();
+                }
+            }));
+        }
 
         return repository.save(product);
     }

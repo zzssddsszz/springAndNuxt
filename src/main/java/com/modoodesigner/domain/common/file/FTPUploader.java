@@ -28,16 +28,14 @@ public class FTPUploader {
     }
 
     public void upload(TempFile tempImageFile) {
-        Session session = null;
-        InputStream inputStream = null;
+        Session session = sessionFactory.getSession();
         try {
-            session = sessionFactory.getSession();
-            inputStream = new FileInputStream(tempImageFile.getFile().getAbsolutePath());
-
+            InputStream inputStream = new FileInputStream(tempImageFile.getFile().getAbsolutePath());
             if (!session.exists(ftpBasePath)) {
                 session.mkdir(ftpBasePath);
             }
             session.append(inputStream, ftpBasePath + tempImageFile.getFile().getName());
+            inputStream.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -45,11 +43,6 @@ public class FTPUploader {
         } finally {
             if (session.isOpen()) {
                 session.close();
-            }
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
         }
     }

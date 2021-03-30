@@ -19,12 +19,12 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
 
     @Override
-    public ProductSpecie findById(Long id) {
-        return null;
+    public Product findById(Long id) {
+        return repository.findById(id).orElseThrow();
     }
 
     @Override
-    public ProductSpecie findByName(String name) {
+    public Product findByName(String name) {
         return null;
     }
 

@@ -4,7 +4,7 @@
     <div class="pl-2 d-flex flex-grow-1 min-width-zero">
       <div
         class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-        <router-link :to="`?p=${data.id}`" class="w-40 w-sm-100">
+        <router-link :to="`./edit/${data.id}`" class="w-40 w-sm-100">
           <p class="list-item-heading mb-0 truncate">{{ data.name }}</p>
         </router-link>
         <p class="mb-0 text-muted text-small w-15 w-sm-100">색상 : {{ data.color }}</p>
