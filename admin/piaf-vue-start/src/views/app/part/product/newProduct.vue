@@ -53,7 +53,7 @@ import TinyEditor from "@/components/Editor/TinyEditor";
 import _ from 'lodash';
 
 export default {
-  beforeMount() {
+  beforeCreate() {
     let id = this.$route.params.id;
     if (id) {
       axios.get(`/products/${id}`).then(res => {
