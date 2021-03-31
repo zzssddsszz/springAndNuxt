@@ -16,7 +16,7 @@ import org.springframework.integration.ftp.session.DefaultFtpSessionFactory;
 public class FTPConfiguration {
 
     @Bean
-    @Profile({"dev","real"})
+    @Profile({"dev1","dev2","real"})
     public SessionFactory<FTPFile> defaultFtpSessionFactory(@Value("${app.ftp.host}") String ftpHost,
                                                             @Value("${app.ftp.port}") String ftpPort,
                                                             @Value("${app.ftp.id}") String ftpId,
