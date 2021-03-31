@@ -10,6 +10,6 @@ import org.springframework.stereotype.Component;
 public class LocalFTPUploaderImpl implements FTPUploader {
     @Override
     public void upload(TempFile tempImageFile) {
-        log.info(tempImageFile.getFile().getName()+"이 FTP 로 업로드 되었습니다.");
+        log.info(tempImageFile.getFile().getName()+"이 로컬 FTP 로 업로드 되었습니다.( 아직 로그만 출력됩니다. )");
     }
 }

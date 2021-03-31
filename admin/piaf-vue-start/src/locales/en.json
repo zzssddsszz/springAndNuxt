@@ -122,7 +122,8 @@
     "pendant": "펜던트",
     "product": "제품",
     "newProduct": "상품등록",
-    "list": "리스트"
+    "list": "리스트",
+    "edit": "수정"
   },
   "dashboards": {
     "pending-orders": "Pending Orders",

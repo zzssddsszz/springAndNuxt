@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-colxx xxs="12">
-      <piaf-breadcrumb :heading="'등록'"/>
+      <piaf-breadcrumb :heading="'제품'"/>
       <div class="separator mb-5"></div>
     </b-colxx>
     <b-colxx xxs="12">
@@ -32,6 +32,7 @@
             </b-colxx>
           </b-row>
           <tiny-editor
+            v-if="loaded"
             @changeContent="changeContent"
             @addImage="contentAddImage"
             :initValue="newItem.content"
@@ -64,14 +65,18 @@ export default {
         this.newItem.id = value.id;
         this.newItem.name = value.name;
         this.newItem.content = value.content;
-        for(let img of value.attachmentList){
-          this.addedMainImages.push(img)
+        if (value.attachmentList) {
+          for (let img of value.attachmentList) {
+            this.addedMainImages.push(img)
+          }
         }
         this.newItem.mainImages.push()
         this.editMode = true;
+        this.loaded = true;
       })
-    }else {
+    } else {
       this.editMode = false;
+      this.loaded = true;
     }
 
   },
@@ -86,6 +91,7 @@ export default {
   data() {
     return {
       editMode: false,
+      loaded: false,
       addedMainImages: [],
       addedContentImages: [],
       newItem: {
@@ -147,7 +153,7 @@ export default {
         }).catch(error => {
           console.log(error)
         })
-      }else {
+      } else {
         this.contentImageActivation();
         axios.put(`/products/${this.$route.params.id}`, this.newItem).then(({data}) => {
           console.log("push")
