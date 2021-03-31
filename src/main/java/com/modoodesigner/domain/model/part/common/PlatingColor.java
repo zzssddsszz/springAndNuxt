@@ -12,8 +12,8 @@ public enum PlatingColor {
     ANTIQUE_BRIGHTLY("ANTIQUE_BRIGHTLY","유화유광"),ANTIQUE_SCRATCH("ANTIQUE_SCRATCH","유화무꽝"),
     EMPTY("NONE","없음");
 
-    String typeCode;
-    String typeName;
+    private final String typeCode;
+    private final String typeName;
 
     PlatingColor(String typeCode, String typeName) {
         this.typeCode = typeCode;

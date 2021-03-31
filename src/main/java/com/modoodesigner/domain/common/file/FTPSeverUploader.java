@@ -15,7 +15,7 @@ import java.io.InputStream;
 
 @Component
 @Slf4j
-@Profile({"dev","real"})
+@Profile({"dev1","dev2","real"})
 public class FTPSeverUploader implements FTPUploader {
     private static String host;
     private static String ftpBasePath;
