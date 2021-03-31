@@ -35,7 +35,7 @@ public class Attachment extends BaseEntity {
 
     private boolean orphan;
 
-    private int index;
+    private int position;
 
     @Builder
     public Attachment( User user, String fileName, String filePath, boolean thumbnailCreated, boolean publicFtp) {
@@ -53,7 +53,7 @@ public class Attachment extends BaseEntity {
     }
 
 
-    public void setIndex(int num) {
-        index = num;
+    public void setPosition(int num) {
+        position = num;
     }
 }

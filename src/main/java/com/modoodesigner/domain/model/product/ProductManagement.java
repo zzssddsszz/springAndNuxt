@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -38,7 +37,7 @@ public class ProductManagement {
             IntStream.range(0, mainImages.size())
                     .forEach(index -> {
                         Attachment attachment = attachmentRepository.findById(mainImages.get(index)).orElseThrow();
-                        attachment.setIndex(index);
+                        attachment.setPosition(index);
                         product.addImage(attachment);
                     });
         }
