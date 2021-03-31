@@ -17,7 +17,6 @@
                         @vdropzone-success="vsuccess"
                         @vdropzone-error="verror"
                         :options="dropzoneOptions"
-                        :duplicateCheck="true"
           ></vue-dropzone>
         </b-modal>
       </b-card>
@@ -34,7 +33,6 @@
           <tiny-editor
             v-if="loaded"
             @changeContent="changeContent"
-            @addImage="contentAddImage"
             :initValue="newItem.content"
           ></tiny-editor>
           <b-button type="submit" variant="primary" class="mt-4">{{ $t('forms.submit') }}</b-button>
@@ -56,12 +54,10 @@ import _ from 'lodash';
 
 export default {
   beforeMount() {
-    console.log("접속")
     let id = this.$route.params.id;
     if (id) {
       axios.get(`/products/${id}`).then(res => {
         let value = res.data.data;
-        console.log(value)
         this.newItem.id = value.id;
         this.newItem.name = value.name;
         this.newItem.content = value.content;
@@ -70,7 +66,6 @@ export default {
             this.addedMainImages.push(img)
           }
         }
-        this.newItem.mainImages.push()
         this.editMode = true;
         this.loaded = true;
       })
@@ -90,15 +85,14 @@ export default {
   },
   data() {
     return {
+      changeImg: true,
       editMode: false,
       loaded: false,
       addedMainImages: [],
-      addedContentImages: [],
       newItem: {
         id: "",
         name: "",
         mainImages: [],
-        contentImages: [],
         content: ""
       },
       errorMessage: '',
@@ -119,34 +113,19 @@ export default {
       }
     };
   },
-  watch: {
-    addedMainImages: function () {
-      this.newItem.mainImages.splice(0, this.newItem.mainImages.length)
-      this.addedMainImages.map((element, index) => this.newItem.mainImages.push(element.id))
-    }
-  },
   methods: {
     changeContent(content) {
       this.newItem.content = content;
-    },
-    contentAddImage(data) {
-      this.addedContentImages.push(data);
     },
     deleteMainImage(id) {
       let index = this.addedMainImages.findIndex(element => (element.id === id));
       this.addedMainImages.splice(index, 1);
     },
-    contentImageActivation() {
-      for (let image of this.addedContentImages) {
-        if (this.newItem.content.search(image.location) > 0) {
-          this.newItem.contentImages.push(image.id);
-        }
-      }
-
-    },
     formSubmit() {
+      this.newItem.mainImages.splice(0, this.newItem.mainImages.length)
+      this.addedMainImages.map((element, index) => this.newItem.mainImages.push(element.id))
+
       if (!this.editMode) {
-        this.contentImageActivation();
         axios.post("/products", this.newItem).then(({data}) => {
           console.log("push")
           this.$router.push("list")
@@ -154,7 +133,6 @@ export default {
           console.log(error)
         })
       } else {
-        this.contentImageActivation();
         axios.put(`/products/${this.$route.params.id}`, this.newItem).then(({data}) => {
           console.log("push")
           this.$router.push("../list")
@@ -165,20 +143,11 @@ export default {
       }
 
     },
-    addNewItem() {
-      axios.post("/pendants", this.newItem).then(({data}) => {
-        this.$emit('added')
-        this.hideModal('modalright')
-      }).catch(error => {
-        this.errorMessage = error.message
-      })
-    },
     changeIndex(oldIndex, newIndex) {
       let temp = this.addedMainImages[oldIndex];
       this.addedMainImages[oldIndex] = this.addedMainImages[newIndex];
       this.addedMainImages[newIndex] = temp;
     },
-
     vsuccess(file, response) {
       this.success = true
       this.addedMainImages.push(response.data)
@@ -193,11 +162,7 @@ export default {
           errorMessage.textContent = error.error.message;
         }
       }
-      // $('.dz-error-message span').text(parse.message);
-      // console.log(xhr);
-      // window.toastr.error(file.upload.filename, 'Event : vdropzone-error - ' + file.status)
     },
-
 
     dropzoneTemplate() {
       return `<div class="dz-preview dz-file-preview mb-3">
