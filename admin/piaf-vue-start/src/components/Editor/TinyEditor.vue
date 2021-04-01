@@ -46,7 +46,8 @@ export default {
   },
   methods: {
     change(){
-      this.$emit("changeContent",this.content)
+      this.$emit("changeContent",this.content);
+      // let result = tinymce.activeEditor.execCommand('mceInsertRawHTML', false, '<p>Hello, World!</p>');
     },
   }
 }
