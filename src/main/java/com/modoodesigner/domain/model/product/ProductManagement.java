@@ -42,15 +42,6 @@ public class ProductManagement {
                     });
         }
 
-        if (!contentImages.isEmpty()) {
-            contentImages.forEach((id -> {
-                Attachment attachment = attachmentRepository.findById(id).orElseThrow();
-                if (attachment.isOrphan()) {
-                    attachment.activation();
-                }
-            }));
-        }
-
         return repository.save(product);
     }
 }

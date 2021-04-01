@@ -3,6 +3,7 @@ package com.modoodesigner.domain.common.file;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.integration.file.remote.session.Session;
 import org.springframework.integration.file.remote.session.SessionFactory;
@@ -15,7 +16,8 @@ import java.io.InputStream;
 
 @Component
 @Slf4j
-@Profile({"dev1","dev2","real"})
+@Profile({"dev1","dev2","real","ftp"})
+@Primary
 public class FTPSeverUploader implements FTPUploader {
     private static String host;
     private static String ftpBasePath;
