@@ -1,12 +1,12 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
-import { currentUser, isAuthGuardActive } from '../../constants/config'
+import {  isAuthGuardActive } from '../../constants/config'
 import { setCurrentUser, getCurrentUser } from '../../utils'
 import axios from "axios";
 
 export default {
   state: {
-    currentUser: isAuthGuardActive ? getCurrentUser() : currentUser,
+    currentUser: getCurrentUser(),
     loginError: null,
     processing: false,
     forgotMailSuccess: null,

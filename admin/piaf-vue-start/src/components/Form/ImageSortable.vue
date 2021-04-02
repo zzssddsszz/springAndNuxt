@@ -8,7 +8,7 @@
       <img :src="i.location" class="card-img" @error="imageError" :alt="i.title" style="width: 100%"/>
       <div>
         <b-badge pill class="position-absolute badge-bottom-left" href="#" variant="secondary"
-                 @click="addToEditor(i.id)">O
+                 @click="addToEditor(i)">O
         </b-badge>
         <b-badge pill class="position-absolute badge-bottom-right" href="#" variant="light"
                  @click="deleteImage(i.id)">X
@@ -37,8 +37,12 @@ export default {
     deleteImage(index) {
       this.$emit('deleteMainImage', index);
     },
-    addToEditor(){
-      console.log("add To Editor")
+    addToEditor(img){
+      console.log(img)
+      let dom = document.createElement("img")
+      dom.src = img.location;
+      dom.style.width = "100%";
+      tinymce.activeEditor.execCommand('mceInsertRawHTML', false, dom.outerHTML)
     },
     imageError(event) {
       let min = Math.ceil(1);
