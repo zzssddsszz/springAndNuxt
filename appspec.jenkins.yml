@@ -1,0 +1,28 @@
+version: 0.0
+
+os: linux
+
+files:
+  - source: /
+    destination: /home/ec2-user/app/step3/zip/
+    overwrite: true
+
+permissions:
+  - object: /
+    pattern: "**"
+    owner: root
+    mode: 777
+
+hooks:
+  AfterInstall:
+    - location: scripts/stop.sh
+      timeout: 60
+      runas: ec2-user
+  ApplicationStart:
+    - location: scripts/start.sh
+      timeout: 60
+      runasL: ec2-user
+  ValidateService:
+    - location: scripts/health.sh
+      timeout: 60
+      runas: ec2-user
