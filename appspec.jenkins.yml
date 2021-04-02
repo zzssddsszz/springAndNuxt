@@ -8,7 +8,7 @@ files:
     overwrite: true
 
 permissions:
-  - object: /
+  - object: /scripts/
     pattern: "**"
     owner: root
     mode: 777
