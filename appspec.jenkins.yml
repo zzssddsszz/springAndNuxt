@@ -8,21 +8,21 @@ files:
     overwrite: true
 
 permissions:
-  - object: /before-deploy
+  - object: /
     pattern: "**"
     owner: root
     mode: 777
 
 hooks:
   AfterInstall:
-    - location: scripts/stop.sh
+    - location: before-deploy/stop.sh
       timeout: 60
-      runas: ec2-user
+      runas: root
   ApplicationStart:
-    - location: scripts/start.sh
+    - location: before-deploy/start.sh
       timeout: 60
-      runasL: ec2-user
+      runasL: root
   ValidateService:
-    - location: scripts/health.sh
+    - location: before-deploy/health.sh
       timeout: 60
-      runas: ec2-user
+      runas: root
