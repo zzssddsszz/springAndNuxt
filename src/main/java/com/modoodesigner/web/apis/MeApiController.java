@@ -21,15 +21,19 @@ public class MeApiController {
 
     @GetMapping("/api/me")
     public ResponseEntity<ApiResult> getMyData(@CurrentUser SimpleUser currentUser){
-        User user = userService.findById(currentUser.getUserId());
+        try{
+            User user = userService.findById(currentUser.getUserId());
 
-        Map<String, Object> userData = new HashMap<>();
-        userData.put("uid",user.getUserId().value());
-        userData.put("name",user.getUsername());
-        userData.put("roles",user.getRoles());
+            Map<String, Object> userData = new HashMap<>();
+            userData.put("uid",user.getUserId().value());
+            userData.put("name",user.getUsername());
+            userData.put("roles",user.getRoles());
 
-        ApiResult apiResult = ApiResult.blank()
-                .add("user", userData);
-        return Result.ok(apiResult);
+            ApiResult apiResult = ApiResult.blank()
+                    .add("user", userData);
+            return Result.ok(apiResult);
+        } catch (Exception e) {
+            return Result.failure("로그인 한 회원이 없습니다.");
+        }
     }
 }
