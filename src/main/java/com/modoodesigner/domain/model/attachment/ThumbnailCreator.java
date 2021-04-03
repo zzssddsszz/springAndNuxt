@@ -33,7 +33,7 @@ public class ThumbnailCreator {
 
     private final ImageProcessor imageProcessor;
 
-    public void create(FileStorage fileStorage, TempFile tempImageFile) {
+    public TempFile create(FileStorage fileStorage, TempFile tempImageFile) {
         Assert.isTrue(tempImageFile.getFile().exists(),"이미지 파일 '"+  tempImageFile.getFile().getAbsolutePath() + "' 를 찾을 수 없습니다.");
 
         String ext = FilenameUtils.getExtension(tempImageFile.getFile().getName());
@@ -52,9 +52,11 @@ public class ThumbnailCreator {
             Size resizeTo = getTargetSize(sourceFilePath);
             imageProcessor.resize(sourceFilePath, tempThumbnailFilePath, resizeTo);
 
-            fileStorage.saveTempFile(TempFile.create(tempImageFile.getRootTempPath(), Paths.get(tempThumbnailFilePath)));
+            TempFile tempFile = TempFile.create(tempImageFile.getRootTempPath(), Paths.get(tempThumbnailFilePath));
+            fileStorage.saveTempFile(tempFile);
             // 썸네일 파일 삭제
-            Files.delete(Paths.get(tempThumbnailFilePath));
+//            Files.delete(Paths.get(tempThumbnailFilePath));
+            return tempFile;
         } catch (Exception e) {
             log.error("'"+ tempImageFile.getFile().getAbsolutePath() +"'에 있는 파일 썸네일 만들기에 실패했습니다.");
             throw new ThumbnailCreationException("썸네일 만들기에 실패했습니다.", e);

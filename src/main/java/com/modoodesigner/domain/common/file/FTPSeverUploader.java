@@ -9,10 +9,7 @@ import org.springframework.integration.file.remote.session.Session;
 import org.springframework.integration.file.remote.session.SessionFactory;
 import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 @Component
 @Slf4j
@@ -36,8 +33,14 @@ public class FTPSeverUploader implements FTPUploader {
         Session session = sessionFactory.getSession();
         try {
             InputStream inputStream = new FileInputStream(tempImageFile.getFile().getAbsolutePath());
+
             if (!session.exists(ftpBasePath)) {
-                session.mkdir(ftpBasePath);
+                String[] path = ftpBasePath.split("/");
+                StringBuffer tempPath = new StringBuffer();
+                for (String s : path) {
+                    tempPath.append(s+"/");
+                    session.mkdir(tempPath.toString());
+                }
             }
             session.append(inputStream, ftpBasePath + tempImageFile.getFile().getName());
             inputStream.close();

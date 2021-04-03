@@ -53,7 +53,7 @@ import TinyEditor from "@/components/Editor/TinyEditor";
 import _ from 'lodash';
 
 export default {
-  beforeCreate() {
+  beforeMount() {
     let id = this.$route.params.id;
     if (id) {
       axios.get(`/products/${id}`).then(res => {
@@ -68,13 +68,17 @@ export default {
         }
         this.editMode = true;
         this.loaded = true;
-      })
-    } else {
-      this.editMode = false;
+      }).catch((error)=>{
+          this.loaded = true;
+          console.log("상품 정보 얻기 실패했습니다.")
+      }
+
+      )
+    }else {
       this.loaded = true;
     }
-
   },
+
   components: {
     "input-tag": InputTag,
     "v-select": vSelect,

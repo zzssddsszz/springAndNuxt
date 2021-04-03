@@ -51,10 +51,11 @@ public class AttachmentManagement {
     private String saveImage(FileStorage fileStorage, String folder, MultipartFile file, boolean publicImage) {
         TempFile tempImageFile = fileStorage.saveAsTempFile(folder, file);
         fileStorage.saveTempFile(tempImageFile);
-        thumbnailCreator.create(fileStorage, tempImageFile);
+        TempFile tempThumbnailFile = thumbnailCreator.create(fileStorage, tempImageFile);
 
         if (publicImage) {
             ftpUploader.upload(tempImageFile);
+            ftpUploader.upload(tempThumbnailFile);
         }
 
         try {
