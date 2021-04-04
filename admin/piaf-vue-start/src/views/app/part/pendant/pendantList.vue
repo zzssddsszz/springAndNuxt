@@ -55,7 +55,7 @@ export default {
     return {
       isLoad: false,
       apiBase: "/pendants",
-      displayMode: "list",
+      displayMode: "thumb",
       sort: {
         column: "id",
         orderBy: "desc",

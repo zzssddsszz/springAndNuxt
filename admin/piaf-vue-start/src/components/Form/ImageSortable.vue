@@ -5,7 +5,7 @@
              @end="dragging = false"
   >
     <b-card v-for="i in images" v-bind:key="i.id" class="col-sm-6 col-md-3 col-xl-2 m-1">
-      <img :src="i.location" class="card-img" @error="imageError" :alt="i.title" style="width: 100%"/>
+      <img :src="toThumbnail(i.location)" class="card-img" @error="imageError" :alt="i.title" style="width: 100%"/>
       <div>
         <b-badge pill class="position-absolute badge-bottom-left" href="#" variant="secondary"
                  @click="addToEditor(i)">O
@@ -28,6 +28,11 @@ export default {
     'draggable': Draggable
   },
   props: ['images'],
+  computed:{
+    toThumbnail(){
+      return (image) => image.replace(".jpg", ".thumbnail.jpg")
+    }
+  },
   data() {
     return {
       dragging: false

@@ -26,7 +26,6 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     @Override
     public Page<Product> findAllWithFirstImage(ProductSearchCommand command) {
 
-
         QueryResults<Product> results = queryFactory
                 .selectFrom(product)
                 .join(product.images,attachment).fetchJoin()

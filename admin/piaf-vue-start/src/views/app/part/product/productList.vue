@@ -54,7 +54,7 @@ export default {
     return {
       isLoad: false,
       apiBase: "/products",
-      displayMode: "list",
+      displayMode: "thumb",
       sort: {
         column: "id",
         orderBy: "desc",

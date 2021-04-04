@@ -23,16 +23,13 @@
 </template>
 
 <script>
+import {toThumbnail} from "@/utils/imageUtile";
+
 export default {
   props: ['data', 'selectedItems'],
   computed: {
     img: function () {
-      let img = this.data.img[0].location;
-      if (this.data.img[0].thumbnailCreated) {
-        return img.replace(".jpg", ".thumbnail.jpg")
-      } else {
-        return img;
-      }
+      return toThumbnail(this.data)
     }
   },
   methods: {

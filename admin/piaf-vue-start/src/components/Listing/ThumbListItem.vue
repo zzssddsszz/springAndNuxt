@@ -7,7 +7,7 @@
     <div class="pl-2 d-flex flex-grow-1 min-width-zero">
       <div
         class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center">
-        <router-link :to="`/p=${data.id}`" class="w-40 w-sm-100">
+        <router-link :to="`./edit/${data.id}`" class="w-40 w-sm-100">
           <p class="list-item-heading mb-0 truncate">{{ data.name }}</p>
         </router-link>
         <p class="mb-0 text-muted text-small w-15 w-sm-100">색상 : {{ data.color }}</p>
@@ -24,16 +24,13 @@
   </b-card>
 </template>
 <script>
+import {toThumbnail} from "@/utils/imageUtile";
+
 export default {
   props: ['data', 'selectedItems'],
   computed: {
     img : function () {
-      let img = this.data.img[0].location;
-      if (this.data.img[0].thumbnailCreated){
-        return img.replace(".jpg",".thumbnail.jpg")
-      }else{
-        return img;
-      }
+      return toThumbnail(this.data)
     }
   },
   methods: {
