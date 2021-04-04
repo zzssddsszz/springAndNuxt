@@ -1,5 +1,6 @@
 package com.modoodesigner.domain.application.commands;
 
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 

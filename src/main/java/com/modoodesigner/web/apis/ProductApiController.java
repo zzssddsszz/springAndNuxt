@@ -2,9 +2,11 @@ package com.modoodesigner.web.apis;
 
 import com.modoodesigner.domain.application.ProductService;
 import com.modoodesigner.domain.application.commands.ProductRegisterCommand;
+import com.modoodesigner.domain.application.commands.ProductSearchCommand;
 import com.modoodesigner.domain.model.product.Product;
 import com.modoodesigner.domain.model.product.ProductRegistrationException;
 import com.modoodesigner.web.payload.ProductRegistrationPayload;
+import com.modoodesigner.web.payload.ProductSearchPayload;
 import com.modoodesigner.web.results.ApiResult;
 import com.modoodesigner.web.results.ProductListResult;
 import com.modoodesigner.web.results.ProductResult;
@@ -17,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,12 +27,12 @@ public class ProductApiController extends AbstractBaseController {
     private final ProductService service;
 
     @PostMapping("/api/products")
-    public ResponseEntity<ApiResult> register(@RequestBody ProductRegistrationPayload payload, HttpServletRequest request){
+    public ResponseEntity<ApiResult> register(@RequestBody ProductRegistrationPayload payload, HttpServletRequest request) {
         try {
             ProductRegisterCommand command = payload.toCommand();
             service.register(command);
             return Result.created();
-        }catch (ProductRegistrationException e){
+        } catch (ProductRegistrationException e) {
             String errorMessage = "상품등록에 실패하였습니다.";
             return Result.failure(errorMessage);
         }
@@ -39,14 +40,24 @@ public class ProductApiController extends AbstractBaseController {
 
 
     @GetMapping("/api/products")
-    public ResponseEntity<ApiResult> getProductAll( Pageable pageable, HttpServletRequest request) {
-        Page<Product> productAll = service.findByAll(pageable);
-        return ProductListResult.getAll(productAll);
+    public ResponseEntity<ApiResult> getProductAll(@RequestParam String search, Pageable pageable, HttpServletRequest request) {
+        try {
+            ProductSearchCommand command = ProductSearchCommand.builder()
+                    .search(search)
+                    .pageable(pageable)
+                    .build();
+            Page<Product> productAll = service.findAllWithFirstImage(command);
+            return ProductListResult.getAll(productAll);
+        } catch (Exception e) {
+            return Result.failure("검색에 실패했습니다.");
+        }
+
     }
 
     @GetMapping("/api/products/{id}")
     public ResponseEntity<ApiResult> getProduct(@PathVariable Long id, HttpServletRequest request) {
-        Product product = service.findById(id);
+//        Product product = service.findById(id);
+        Product product = service.getProductById(id);
         return ProductResult.getOne(product);
     }
 
@@ -55,7 +66,7 @@ public class ProductApiController extends AbstractBaseController {
                                                  @PathVariable Long id, HttpServletRequest request) {
         try {
             ProductRegisterCommand command = payload.toCommand();
-            service.edit(command,id);
+            service.edit(command, id);
             return Result.ok();
         } catch (Exception e) {
             String errorMessage = "상품수정에 실패하였습니다.";

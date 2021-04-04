@@ -2,10 +2,10 @@ package com.modoodesigner.domain.application.impl;
 
 import com.modoodesigner.domain.application.ProductService;
 import com.modoodesigner.domain.application.commands.ProductRegisterCommand;
+import com.modoodesigner.domain.application.commands.ProductSearchCommand;
 import com.modoodesigner.domain.model.product.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,7 +19,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findById(Long id) {
-        return repository.findById(id).orElseThrow();
+        Product product = repository.findById(id).orElseThrow();
+        product.getImages();
+        return product;
     }
 
     @Override
@@ -33,8 +35,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findByAll(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<Product> findAllWithFirstImage(ProductSearchCommand command) {
+        Page<Product> allWithFirstImage = repository.findAllWithFirstImage(command);
+        return allWithFirstImage;
+    }
+
+    @Override
+    public Product getProductById(Long id) {
+        return repository.getProductByIdWithImages(id);
     }
 
     @Override

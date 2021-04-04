@@ -21,7 +21,6 @@ public class PendantRegisterCommand extends UserCommand {
     private int stock;
     private List<String> tags;
     private List<Long> mainImages;
-    private List<Long> contentImages;
     private String content;
 
 }

@@ -21,7 +21,6 @@ public class PendantRegistrationPayload {
     private int stock;
     private List<String> tags;
     private List<Long> mainImages;
-    private List<Long> contentImages;
     private String content;
 
     public PendantRegisterCommand toCommand() {
@@ -34,7 +33,6 @@ public class PendantRegistrationPayload {
                 .stock(stock)
                 .tags(tags)
                 .mainImages(mainImages)
-                .contentImages(contentImages)
                 .build();
         return command;
     }
