@@ -4,11 +4,10 @@ import com.modoodesigner.domain.application.ProductService;
 import com.modoodesigner.domain.application.commands.ProductRegisterCommand;
 import com.modoodesigner.domain.application.commands.ProductSearchCommand;
 import com.modoodesigner.domain.model.product.Product;
+import com.modoodesigner.domain.model.product.ProductDTO;
 import com.modoodesigner.domain.model.product.ProductRegistrationException;
 import com.modoodesigner.web.payload.ProductRegistrationPayload;
-import com.modoodesigner.web.payload.ProductSearchPayload;
 import com.modoodesigner.web.results.ApiResult;
-import com.modoodesigner.web.results.ProductListResult;
 import com.modoodesigner.web.results.ProductResult;
 import com.modoodesigner.web.results.Result;
 import lombok.RequiredArgsConstructor;
@@ -46,8 +45,8 @@ public class ProductApiController extends AbstractBaseController {
                     .search(search)
                     .pageable(pageable)
                     .build();
-            Page<Product> productAll = service.findAllWithFirstImage(command);
-            return ProductListResult.getAll(productAll);
+            Page<ProductDTO> productAll = service.findAllWithFirstImage(command);
+            return ApiResult.list(productAll,productAll.getContent());
         } catch (Exception e) {
             return Result.failure("검색에 실패했습니다.");
         }

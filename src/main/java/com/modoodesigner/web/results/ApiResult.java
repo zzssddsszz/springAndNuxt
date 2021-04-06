@@ -3,6 +3,7 @@ package com.modoodesigner.web.results;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,15 +33,17 @@ public class ApiResult extends HashMap<String, Object> {
         return apiResult;
     }
 
-    public static ApiResult list(Page page, List data){
+    public static ResponseEntity<ApiResult> list(Page page, List data) {
         ApiResult apiResult = new ApiResult();
-        return apiResult.blank()
-                .add("total",page.getTotalElements())
-                .add("from",page.getPageable().getOffset())
-                .add("to",page.getPageable().getOffset()+page.getNumberOfElements()-1)
+        ApiResult result = apiResult.blank()
+                .add("total", page.getTotalElements())
+                .add("from", page.getPageable().getOffset())
+                .add("to", page.getPageable().getOffset() + page.getNumberOfElements() - 1)
                 .add("data", data)
-                .add("per_page",page.getPageable().getPageSize())
-                .add("last_page",page.getTotalPages());
+                .add("per_page", page.getPageable().getPageSize())
+                .add("last_page", page.getTotalPages());
+
+        return Result.ok(result);
     }
 
     public ApiResult add(String key, Object value){

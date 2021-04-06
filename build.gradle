@@ -59,7 +59,8 @@ dependencies {
 
     implementation 'org.springframework.integration:spring-integration-ftp:5.4.4'
 
-
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
     compile("com.querydsl:querydsl-core")
     compile("com.querydsl:querydsl-jpa")

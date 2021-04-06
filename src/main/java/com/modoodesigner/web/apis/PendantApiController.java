@@ -4,19 +4,13 @@ import com.modoodesigner.domain.application.PendantService;
 import com.modoodesigner.domain.application.commands.PendantRegisterCommand;
 import com.modoodesigner.domain.model.part.common.PartExistsException;
 import com.modoodesigner.domain.model.part.common.PartRegistrationException;
-import com.modoodesigner.domain.model.part.pendant.Pendant;
 import com.modoodesigner.web.payload.PendantRegistrationPayload;
 import com.modoodesigner.web.results.ApiResult;
-import com.modoodesigner.web.results.PendantListResult;
-import com.modoodesigner.web.results.PendantResult;
 import com.modoodesigner.web.results.Result;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,11 +41,11 @@ public class PendantApiController extends AbstractBaseController {
         }
     }
 
-    @GetMapping("/api/pendants")
+   /* @GetMapping("/api/pendants")
     public ResponseEntity<ApiResult> getPendants( Pageable pageable, HttpServletRequest request) {
         Page<Pendant> pendantAll = service.findByAll(pageable);
         return PendantListResult.created(pendantAll);
-    }
+    }*/
 
 
 }

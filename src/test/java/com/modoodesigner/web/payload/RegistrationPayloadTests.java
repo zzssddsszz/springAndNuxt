@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RegistrationPayloadTests {
 
-    private static Validator validator;
+    /*private static Validator validator;
 
     @BeforeAll
     static void setup() {
@@ -103,7 +103,7 @@ class RegistrationPayloadTests {
 
         Set<ConstraintViolation<RegistrationPayload>> violations = validator.validate(payload);
         assertEquals(0, violations.size());
-    }
+    }*/
 
 
 

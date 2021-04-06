@@ -20,6 +20,5 @@ public class ProductData {
         content = product.getContent();
         attachmentList = product.getImages().stream()
                 .map(img -> new AttachmentData(img)).collect(Collectors.toList());
-
     }
 }

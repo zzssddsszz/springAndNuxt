@@ -1,3 +1,4 @@
+/*
 package com.modoodesigner.web.results;
 
 import com.modoodesigner.domain.model.part.pendant.Pendant;
@@ -53,3 +54,4 @@ public class PendantListResult {
     }
 
 }
+*/

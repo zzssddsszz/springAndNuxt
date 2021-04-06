@@ -1,3 +1,4 @@
+/*
 package com.modoodesigner.web.results;
 
 import com.modoodesigner.domain.common.file.FTPUploader;
@@ -45,3 +46,4 @@ public class ProductListResult {
         }
     }
 }
+*/

@@ -35,8 +35,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findAllWithFirstImage(ProductSearchCommand command) {
-        Page<Product> allWithFirstImage = repository.findAllWithFirstImage(command);
+    public Page<ProductDTO> findAllWithFirstImage(ProductSearchCommand command) {
+        Page<ProductDTO> allWithFirstImage = repository.findAllWithFirstImage(command);
         return allWithFirstImage;
     }
 

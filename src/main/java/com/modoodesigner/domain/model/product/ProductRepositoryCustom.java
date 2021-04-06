@@ -6,5 +6,5 @@ import org.springframework.data.domain.Page;
 public interface ProductRepositoryCustom {
 
     Product getProductByIdWithImages(Long id);
-    Page<Product> findAllWithFirstImage(ProductSearchCommand command);
+    Page<ProductDTO> findAllWithFirstImage(ProductSearchCommand command);
 }
