@@ -1,4 +1,6 @@
 <template>
+  <div>
+<!--    <b-btn @click="copy">본문 복사</b-btn>-->
   <tiny-editor
     v-model="content"
     api-key="mr2p11bzs55lpw4msitqpn6xfdb7x4v5ch4oz21dprny8iy7"
@@ -10,7 +12,7 @@
       width: 'auto',
       language: 'ko_KR',
       content_style:`@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR&display=swap');
-      body{padding: 0rem 1rem;line-height: 1;}`,
+      body{padding: 0rem 1rem;line-height: 1; font-family: Noto Sans KR; }`,
       font_formats:`Nanum Gothic=Nanum Gothic, sans-serif; Noto Sans KR=Noto Sans KR, sans-serif; `,
       plugins: [
         'advlist autolink link image lists charmap print preview hr anchor pagebreak',
@@ -31,6 +33,8 @@
     value=""
     @onChange="change"
   ></tiny-editor>
+
+  </div>
 </template>
 <script>
 import Editor from '@tinymce/tinymce-vue';
@@ -50,6 +54,10 @@ export default {
       this.$emit("changeContent",this.content);
       // let result = tinymce.activeEditor.execCommand('mceInsertRawHTML', false, '<p>Hello, World!</p>');
     },
+    heightAlignment(){
+
+      // console.log(tinymce.dom.getParent());
+    }
   }
 }
 
