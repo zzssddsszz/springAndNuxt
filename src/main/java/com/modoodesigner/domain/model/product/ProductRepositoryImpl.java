@@ -19,6 +19,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
     @Override
     public Product getProductByIdWithImages(Long id) {
         return queryFactory.selectFrom(product)
+                .where(product.id.eq(id))
                 .join(product.images,attachment).fetchJoin()
                 .fetchFirst();
     }
@@ -30,6 +31,7 @@ public class ProductRepositoryImpl implements ProductRepositoryCustom {
                 .selectFrom(product)
                 .join(product.images,attachment).fetchJoin()
                 .where(nameContains(command.getSearch()),attachment.position.eq(0))
+                .orderBy(product.id.desc())
                 .offset(command.getPageable().getOffset())
                 .limit(command.getPageable().getPageSize())
                 .fetchResults();

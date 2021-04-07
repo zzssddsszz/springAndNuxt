@@ -26,12 +26,12 @@ public class ProductManagement {
         product.setName(command.getName());
         product.setContent(command.getContent());
         product.setImages(new ArrayList<>());
+
         imageActivate(command, product);
     }
 
     private Product imageActivate(ProductRegisterCommand command, Product product) {
         List<Long> mainImages = command.getMainImages();
-        List<Long> contentImages = command.getContentImages();
 
         if (!mainImages.isEmpty()) {
             IntStream.range(0, mainImages.size())

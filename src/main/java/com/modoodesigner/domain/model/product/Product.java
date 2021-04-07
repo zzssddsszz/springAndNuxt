@@ -25,7 +25,6 @@ public class Product extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "attachment_id")
-    @OrderColumn(name = "position")
     private List<Attachment> images = new ArrayList<>();
 
     private String name;

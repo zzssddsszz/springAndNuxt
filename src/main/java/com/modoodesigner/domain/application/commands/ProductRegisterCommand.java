@@ -11,6 +11,5 @@ import java.util.List;
 public class ProductRegisterCommand extends UserCommand{
     private String name;
     private List<Long> mainImages;
-    private List<Long> contentImages;
     private String content;
 }

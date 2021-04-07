@@ -56,6 +56,6 @@ public class FTPSeverUploader implements FTPUploader {
     }
 
     public static String getFtpPath(String filePath) {
-        return "https://" + host + "/" + ftpBasePath + "/" + FilenameUtils.getName(filePath);
+        return "https://" + host + "/" + ftpBasePath + FilenameUtils.getName(filePath);
     }
 }
