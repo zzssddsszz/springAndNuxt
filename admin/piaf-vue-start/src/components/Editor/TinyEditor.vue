@@ -6,12 +6,12 @@
     id="uuid"
     :disabled=false
     :init="{
-      height: 500,
+      height: 1000,
       width: 'auto',
       language: 'ko_KR',
       content_style:`@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Noto+Sans+KR&display=swap');
-      body{padding: 0rem 1rem;line-height: 1;}`,
-      font_formats:`Nanum Gothic=Nanum Gothic, sans-serif; Noto Sans KR=Noto Sans KR, sans-serif; `,
+      body{padding: 0rem 1rem;`,
+      font_formats:`Nanum Gothic=Nanum Gothic, sans-serif; Noto Sans KR=Noto Sans KR, sans-serif;`,
       plugins: [
         'advlist autolink link image lists charmap print preview hr anchor pagebreak',
         'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
