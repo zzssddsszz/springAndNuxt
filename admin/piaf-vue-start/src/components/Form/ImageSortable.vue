@@ -5,14 +5,16 @@
              @end="dragging = false"
   >
     <b-card v-for="i in images" v-bind:key="i.id" class="col-sm-6 col-md-3 col-xl-2 m-1">
-      <img :src="toThumbnail(i.location)" class="card-img" @error="imageError" :alt="i.title" style="width: 100%"/>
+      <img :src="toThumbnail(i.location)" class="card-img" @error="imageError" :alt="i.title" style="max-width: 100%"/>
       <div>
+        <b-card-text v-text="i.fileName" style="height: 1rem"></b-card-text>
         <b-badge pill class="position-absolute badge-bottom-left" href="#" variant="secondary"
                  @click="addToEditor(i)">O
         </b-badge>
         <b-badge pill class="position-absolute badge-bottom-right" href="#" variant="light"
                  @click="deleteImage(i.id)">X
         </b-badge>
+
       </div>
     </b-card>
 
@@ -43,11 +45,7 @@ export default {
       this.$emit('deleteMainImage', index);
     },
     addToEditor(img){
-      console.log(img)
-      let dom = document.createElement("img")
-      dom.src = img.location;
-      dom.style.width = "100%";
-      tinymce.activeEditor.execCommand('mceInsertRawHTML', false, dom.outerHTML)
+      tinyMCE.activeEditor.selection.setNode(tinyMCE.activeEditor.dom.create('img', {src : img.location, title : img.fileName, style:"width:100%"}));
     },
     imageError(event) {
       let min = Math.ceil(1);

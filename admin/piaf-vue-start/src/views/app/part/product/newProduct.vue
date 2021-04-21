@@ -39,6 +39,20 @@
         </b-form>
       </b-card>
     </b-colxx>
+
+    <b-button class="fixed-bottom" v-b-toggle.sidebar>사진토글 버튼</b-button>
+
+    <b-sidebar id="sidebar" title="Sidebar" shadow>
+      <b-card v-for="i in this.addedMainImages" v-bind:key="i.id" class="col-10 m-4">
+        <img :src="toThumbnail(i.location)" class="card-img" :alt="i.title" style="width: 100%"/>
+        <div>
+          <b-card-text v-text="i.fileName" style="height: 1rem"></b-card-text>
+          <b-badge pill class="position-absolute badge-bottom-left" href="#" variant="secondary"
+                   @click="addToEditor(i)">O
+          </b-badge>
+        </div>
+      </b-card>
+    </b-sidebar>
   </b-row>
 </template>
 <script>
@@ -117,7 +131,15 @@ export default {
       }
     };
   },
+  computed:{
+    toThumbnail(){
+      return (image) => image.replace(".jpg", ".thumbnail.jpg")
+    }
+  },
   methods: {
+    addToEditor(img){
+      tinyMCE.activeEditor.selection.setNode(tinyMCE.activeEditor.dom.create('img', {src : img.location, title : img.fileName, style:"width:100%"}));
+    },
     changeContent(content) {
       this.newItem.content = content;
     },

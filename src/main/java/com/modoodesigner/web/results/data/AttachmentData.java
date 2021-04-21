@@ -10,12 +10,14 @@ import lombok.Setter;
 public class AttachmentData {
     private Long id;
     private String filePath;
+    private String fileName;
     private String location;
     private boolean thumbnailCreated;
 
     public AttachmentData(Attachment file) {
         id = file.getId();
         filePath = file.getFilePath();
+        fileName = file.getFileName();
         thumbnailCreated = file.isThumbnailCreated();
         if (file.isPublicFtp()) {
             location = FTPSeverUploader.getFtpPath(filePath);
