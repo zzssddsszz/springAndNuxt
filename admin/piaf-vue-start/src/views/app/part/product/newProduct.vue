@@ -43,12 +43,13 @@
     <b-button class="fixed-bottom" v-b-toggle.sidebar>사진토글 버튼</b-button>
 
     <b-sidebar id="sidebar" title="Sidebar" shadow>
+      <b-btn @click="addToEditor(null,'tableAdd')">테이블 추가</b-btn>
       <b-card v-for="i in this.addedMainImages" v-bind:key="i.id" class="col-10 m-4">
         <img :src="toThumbnail(i.location)" class="card-img" :alt="i.title" style="width: 100%"/>
         <div>
           <b-card-text v-text="i.fileName" style="height: 1rem"></b-card-text>
           <b-badge pill class="position-absolute badge-bottom-left" href="#" variant="secondary"
-                   @click="addToEditor(i)">O
+                   @click="addToEditor(i,'img')">O
           </b-badge>
         </div>
       </b-card>
@@ -82,13 +83,12 @@ export default {
         }
         this.editMode = true;
         this.loaded = true;
-      }).catch((error)=>{
+      }).catch((error) => {
           this.loaded = true;
           console.log("상품 정보 얻기 실패했습니다.")
-      }
-
+        }
       )
-    }else {
+    } else {
       this.loaded = true;
     }
   },
@@ -131,14 +131,41 @@ export default {
       }
     };
   },
-  computed:{
-    toThumbnail(){
+  computed: {
+    toThumbnail() {
       return (image) => image.replace(".jpg", ".thumbnail.jpg")
     }
   },
   methods: {
-    addToEditor(img){
-      tinyMCE.activeEditor.selection.setNode(tinyMCE.activeEditor.dom.create('img', {src : img.location, title : img.fileName, style:"width:100%"}));
+    addToEditor(img, type) {
+      let activeEditor = tinyMCE.activeEditor;
+
+      if (type === 'img') {
+        activeEditor.selection.setNode(activeEditor.dom.create('img', {
+          src: img.location,
+          title: img.fileName,
+          style: "width:100%"
+        }));
+      }
+
+      if (type === 'tableAdd'){
+        let table = activeEditor.dom.create('table', {
+          style: "border-collapse: collapse; width: 100%;",
+          border: "0",
+          cellpadding: "0"
+        })
+        let tbody = table.appendChild(document.createElement("tbody"));
+        let tr = tbody.appendChild(document.createElement("tr"));
+        let td1 = document.createElement("td");
+        let td2 = document.createElement("td");
+        td1.style.width = "50%";
+        td2.style.width = "50%";
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+
+        activeEditor.selection.setNode(table);
+      }
+
     },
     changeContent(content) {
       this.newItem.content = content;
