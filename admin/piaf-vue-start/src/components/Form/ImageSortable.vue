@@ -30,8 +30,8 @@ export default {
     'draggable': Draggable
   },
   props: ['images'],
-  computed:{
-    toThumbnail(){
+  computed: {
+    toThumbnail() {
       return (image) => image.replace(".jpg", ".thumbnail.jpg")
     }
   },
@@ -44,8 +44,8 @@ export default {
     deleteImage(index) {
       this.$emit('deleteMainImage', index);
     },
-    addToEditor(img){
-      tinyMCE.activeEditor.selection.setNode(tinyMCE.activeEditor.dom.create('img', {src : img.location, title : img.fileName, style:"width:100%"}));
+    addToEditor(img) {
+      this.$emit('addToEditor', img, 'img');
     },
     imageError(event) {
       let min = Math.ceil(1);

@@ -10,6 +10,7 @@
           :images="addedMainImages"
           @changeIndex="changeIndex"
           @deleteMainImage="deleteMainImage"
+          @addToEditor="addToEditor"
         ></image-sortable>
         <b-button v-b-modal.modalbasic variant="outline-primary">{{ '사진 추가' }}</b-button>
         <b-modal id="modalbasic" ref="modalbasic" :title="'사진 업로드'">
@@ -146,6 +147,8 @@ export default {
           title: img.fileName,
           style: "width:100%"
         }));
+        activeEditor.selection.setNode(activeEditor.dom.create('p'));
+
       }
 
       if (type === 'tableAdd'){
