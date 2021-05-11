@@ -147,7 +147,6 @@ export default {
           title: img.fileName,
           style: "width:100%"
         }));
-        activeEditor.selection.setNode(activeEditor.dom.create('p'));
 
       }
 
