@@ -7,22 +7,31 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-public class PaperPath extends BaseEntity {
+public class Paper extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column("PAPER_PATH_ID")
+    @Column("PAPER_ID")
     private Long id;
 
-    private String svg;
+
+    @OneToMany(mappedBy = "paperId")
+    private List<PaperText> paperText;
+
+    @OneToMany(mappedBy = "paperId")
+    private List<PaperPendant> paperEngrave;
 
     @Lob
-    private byte[] image;
+    private String image;
+
+    @Lob
+    private String object;
 
     private Long count;
 

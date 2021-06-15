@@ -12,9 +12,21 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-public class PaperRing extends BaseEntity {
+public class PaperPendant extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column("PAPER_RING_ID")
+    @Column("PAPER_PENDANT_ID")
     private Long id;
+
+    @ManyToOne
+    private Paper paperId;
+
+    @Lob
+    private String image;
+
+    @Lob
+    private String object;
+
+    private Long count;
+
 }

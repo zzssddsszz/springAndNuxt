@@ -32,7 +32,8 @@ public class PendantApiController extends AbstractBaseController {
 
     @PostMapping("/api/pendants")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<ApiResult> register(@Valid @RequestBody PendantRegistrationPayload payload, HttpServletRequest request) {
+    public ResponseEntity<ApiResult> register(@Valid @RequestBody PendantRegistrationPayload payload,
+                                              HttpServletRequest request) {
         try {
             PendantRegisterCommand command = payload.toCommand();
             addTriggeredBy(command,request);

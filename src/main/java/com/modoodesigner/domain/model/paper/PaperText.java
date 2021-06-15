@@ -18,4 +18,23 @@ public class PaperText extends BaseEntity {
     @Column("PAPER_TEXT_ID")
     private Long id;
 
+    @ManyToOne
+    private Paper paperId;
+
+    private boolean encrypt;
+
+    @Lob
+    private String image;
+
+    @Lob
+    private String encryptImage;
+
+    @Lob
+    private String object;
+
+    @Lob
+    private String encryptObject;
+
+    private Long count;
+
 }
